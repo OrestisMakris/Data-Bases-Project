@@ -24,11 +24,11 @@ insert into guide values
 \n\t\t2000 - 2010 Travel Guide at "Prima Holidays"');
 
 insert into languages values 
-('AK10311111','Greek, English, French'),
-('AN10520010','Greek, English, German'),
-('AN10520020','Greek, English, German'),
-('AN10520030','Greek, English, French, Italian'),
-('AN10520040','Greek, English, Italian'),
-('AN10520050','Greek, English, German, Italian'),
-('AK10310444','Greek, English'),
-('AN10520060','Greek, English, French, Italian');
+('AK10311111','Greek,English,French'),
+('AN10520010','Greek,English,French,Italian'),
+('AN10520020','Greek,English,German'),
+('AN10520030','Greek,German,French,Italian'),
+('AN10520040','Greek,English,Italian'),
+('AN10520050','Greek,English,German,Italian'),
+('AK10310444','Greek,English'),
+('AN10520060','Greek,English,German,Italian');
