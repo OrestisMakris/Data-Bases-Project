@@ -8,7 +8,7 @@ insert into driver values
 ('AM10410666','D','LOCAL',8),
 ('AM10410777','B','ABROAD',3);
 
-insert into guide values 
+insert insto guide values 
 ('AK10311111', 'Employment History:\n\t\t1997 - 2000 Accountant at Logistiko Grafeio "H Lysi"
 \n\t\t2000 - 2010 Travel Guide at "Joy Tours"'),
 ('AN10520010', 'Employment History:\n\t\t1999 - 2005 Travel Guide at "Pimenidis Travel"'),
