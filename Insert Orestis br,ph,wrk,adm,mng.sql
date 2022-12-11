@@ -42,8 +42,8 @@ INSERT INTO worker VALUES
 ('AK10520020' , 'Greg' , 'Delimpaltadakis','1000',2),
 ('AK10520030' , 'Orestis' , 'Delimpaltadakis','1000',2),
 ('AK10520040' , 'Iason' , 'Makris','1200',3),
-('AK1052050' , 'Orestis' , 'Diasakos','1000',4),
-('AK1052060' , 'Damianos' , 'Delimpaltadakis','1200',5);
+('AK10520050' , 'Orestis' , 'Diasakos','1000',4),
+('AK10520060' , 'Damianos' , 'Delimpaltadakis','1200',5);
 
 INSERT INTO admin VALUES
 ('AK10311111' , 'LOGISTICS' , 'Dimploma: Logistics Athens School of Business'),
