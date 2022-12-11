@@ -29,7 +29,21 @@ INSERT INTO worker VALUES
 ('AK10310222' ,  'Andreas' , 'Georgiou' ,'1000.21',4),
 ('AK10310333' ,  'Giannhs', 'Stathopoulos' , '1900.56',5),
 ('AK10310444' ,  'Sofia' , 'Politi','1400.86',5),
-('AK10310555' , 'Nikos' , 'Vasiliou','1600.96',5);
+('AK10310555' , 'Nikos' , 'Vasiliou','1600.96',5),
+('AM10410000' , 'Antonis' , 'Kokinos','1000',1),
+('AM10410111' , 'Antonis' , 'Eleftheriadis','1100',1),
+('AM10410222' , 'Nora' , 'Raikou','750',2),
+('AM10410333' , 'John' , 'Oikonomou','1150',2),
+('AM10410444' , 'Dimitrios' , 'Gongas','1500',3),
+('AM10410555' , 'Fotios' , 'Patrios','1400',4),
+('AM10410666' , 'Maria' , 'Papadopoulou','1000',5),
+('AM10410777' , 'Andreas' , 'Makris','750',5),
+('AK10520010' , 'Damianos' , 'Diasakos','1200',1),
+('AK10520020' , 'Greg' , 'Delimpaltadakis','1000'2),
+('AK10520030' , 'Orestis' , 'Delimpaltadakis','1000'2),
+('AK10520040' , 'Iason' , 'Makris','1200',3),
+('AK1052050' , 'Orestis' , 'Diasakos','1000',4),
+('AK1052060' , 'Damianos' , 'Delimpaltadakis','1200',5);
 
 INSERT INTO admin VALUES
 ('AK10311111' , 'LOGISTICS' , 'Dimploma: Logistics Athens School of Business'),
