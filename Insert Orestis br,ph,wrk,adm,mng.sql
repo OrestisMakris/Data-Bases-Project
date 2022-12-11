@@ -1,9 +1,9 @@
 INSERT INTO branch VALUES
 (null , 'Kifisias ', 355 , 'Athens'),
 (null , 'Amarisias Artemidos' , 5 , 'Athens'),
-(null , 'Patra', 44 , 'Mezonos'),
-(null , 'Kalamata' , 5 , 'Aristomenous'),
-(null , 'Thesalonikh' , 55 , 'Tsimiskh');
+(null , 'Mezonos', 44 , 'Patra'),
+(null , 'Aristomenous' , 5 , 'Kalamata'),
+(null , 'Tsimiskh' , 55 , 'TsimiskhThesalonikh');
 
 INSERT INTO phones VALUES
 (1 , '2101111111'),
