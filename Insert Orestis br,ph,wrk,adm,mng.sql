@@ -39,8 +39,8 @@ INSERT INTO worker VALUES
 ('AM10410666' , 'Maria' , 'Papadopoulou','1000',5),
 ('AM10410777' , 'Andreas' , 'Makris','750',5),
 ('AK10520010' , 'Damianos' , 'Diasakos','1200',1),
-('AK10520020' , 'Greg' , 'Delimpaltadakis','1000'2),
-('AK10520030' , 'Orestis' , 'Delimpaltadakis','1000'2),
+('AK10520020' , 'Greg' , 'Delimpaltadakis','1000',2),
+('AK10520030' , 'Orestis' , 'Delimpaltadakis','1000',2),
 ('AK10520040' , 'Iason' , 'Makris','1200',3),
 ('AK1052050' , 'Orestis' , 'Diasakos','1000',4),
 ('AK1052060' , 'Damianos' , 'Delimpaltadakis','1200',5);
