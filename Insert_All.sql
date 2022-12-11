@@ -40,12 +40,12 @@ INSERT INTO worker VALUES
 ('AM10410555' , 'Fotios' , 'Patrios','1400',4),
 ('AM10410666' , 'Maria' , 'Papadopoulou','1000',5),
 ('AM10410777' , 'Andreas' , 'Makris','750',5),
-('AK10520010' , 'Damianos' , 'Diasakos','1200',1),
-('AK10520020' , 'Greg' , 'Delimpaltadakis','1000',2),
-('AK10520030' , 'Orestis' , 'Delimpaltadakis','1000',2),
-('AK10520040' , 'Iason' , 'Makris','1200',3),
-('AK1052050' , 'Orestis' , 'Diasakos','1000',4),
-('AK1052060' , 'Damianos' , 'Delimpaltadakis','1200',5);
+('AN10520010' , 'Damianos' , 'Diasakos','1200',1),
+('AN10520020' , 'Greg' , 'Delimpaltadakis','1000',2),
+('AN10520030' , 'Orestis' , 'Delimpaltadakis','1000',2),
+('AN10520040' , 'Iason' , 'Makris','1200',3),
+('AN10520050' , 'Orestis' , 'Diasakos','1000',4),
+('AN10520060' , 'Damianos' , 'Delimpaltadakis','1200',5);
 
 INSERT INTO admin VALUES
 ('AK10311111' , 'LOGISTICS' , 'Dimploma: Logistics Athens School of Business'),
