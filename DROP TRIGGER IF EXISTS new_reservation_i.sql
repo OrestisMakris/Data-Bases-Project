@@ -6,10 +6,9 @@ ON reservation
 FOR EACH ROW
 BEGIN
 DECLARE con INT;
-SET con = 0;
 
-CALL check_reservations_trip(NEW.res_tr_id,@flag);
-SET con = @flag;
+CALL check_reservations_trip(NEW.res_tr_id,flag);
+SET con = flag;
 
 IF (con=0) THEN
  SIGNAL SQLSTATE VALUE '45000'
