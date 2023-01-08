@@ -5,7 +5,7 @@ INSERT INTO branch VALUES
 (null , 'Amarisias Artemidos' , 5 , 'Athens'),
 (null , 'Mezonos', 44 , 'Patra'),
 (null , 'Aristomenous' , 5 , 'Kalamata'),
-(null , 'Tsimiskh' , 55 , 'TsimiskhThesalonikh');
+(null , 'Tsimiskh' , 55 , 'Thesalonikh');
 
 INSERT INTO phones VALUES
 (1 , '2101111111'),
@@ -249,7 +249,7 @@ INSERT INTO reservation VALUES
 (2,24,'Iasonas','Agelopoulos', 'ADULT'),
 (3,55,'Atticus','Makris', 'ADULT'),
 (4,27,'Theo','Papadopoulos', 'ADULT'),
-(5,28,'Gregoey','Diasakos', 'ADULT'),
+(5,28,'Gregory','Diasakos', 'ADULT'),
 (6,29,'Achilles','Tsaltakis', 'ADULT'),
 (7,70,'Daphne','Leonh', 'ADULT'),
 (8,22,'Vasilis','Makris', 'ADULT'),
@@ -335,3 +335,35 @@ INSERT INTO reservation VALUES
 (30, 1, 'Virginia', 'Papaderou', 'ADULT'),
 (30, 2, 'Xara', 'Papaderou', 'ADULT'),
 (30, 3, 'Konstantinos', 'Papaderos', 'MINOR');
+
+
+INSERT INTO worker VALUES
+('AK12000001' , 'Artemis' , 'Padadimitriou','1500',1),
+('AK12000002' , 'Maria' , 'Prodromou','1500',1),
+('AK12000003' , 'John' , 'Stathopoulos','1500',1),
+('AK12000004' , 'Andreas' , 'Vasiladiotis','1500',2),
+('AK12000005' , 'Iason' , 'Raikos','1500',2),
+('AK12000006' , 'Orestis' , 'Makris','1500',3),
+('AK12000007' , 'Grigotis' , 'Delibaltadakis','1500',3),
+('AK12000008' , 'Alexandros' ,  'Alexandrou','1500',4),
+('AK12000009' , 'Nikolas' , 'Karavlidis','1500',5),
+('AK12000010' , 'Viki' , 'Alexiou','1500',5);
+
+
+INSERT INTO it_admin VALUES
+('AK12000001' , '' ,'2015-02-06 14:00:00','0000-00-00 00:00:00'),
+('AK12000002' , '' ,'2012-01-26 14:00:00','0000-00-00 00:00:00'),
+('AK12000003' , 'John' ,'2010-02-06 14:00:00','2015-02-05 14:00:00'),
+('AK12000004' , '' , '2008-02-06 14:00:00','0000-00-00 00:00:00'),
+('AK12000005' , '1234' ,'2007-01-31 14:00:00','2020-03-01 14:00:00'),
+('AK12000006' , '1444' ,'2019-03-06 12:00:00','0000-00-00 00:00:00'),
+('AK12000007' , 'ff' ,'2012-05-06 10:00:00','0000-00-00 00:00:00'),
+('AK12000008' , 'AlexAlex' ,'2010-09-06 10:00:00','0000-00-00 00:00:00'),
+('AK12000009' , 'Nik', '2016-02-04 10:00:00','0000-00-00 00:00:00'),
+('AK12000010' , '', '2017-11-11 10:00:00','0000-00-00 00:00:00');
+
+
+INSERT INTO  offers VALUES
+(null ,'2023-02-06 14:00:00','2023-02-18 22:00:00' ,400,'5'),
+(null ,'2023-04-06 07:00:00','2023-04-18 22:00:00' ,1200,'14'),
+(null ,'2023-08-06 07:00:00','2023-08-18 22:00:00' ,700,'1');
