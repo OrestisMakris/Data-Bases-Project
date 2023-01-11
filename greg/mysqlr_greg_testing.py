@@ -21,14 +21,14 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-for i in range(1,65001,1):
- index = random.randint(0, 9999)
- Name = nam[index][0]
+for i in range(0,10000,1):
+ index = i
+ name = nam[index][0]
  lastname = last[index]
  amount = random.randint(70, 200)
  offer_id = random.randint(1, 3)
  sql = "INSERT INTO reservation_offers (rsv_name, rsv_lastname , deposit_amount , rsv_offer_id) VALUES (%s, %s ,%s, %s)"
- val = (Name,lastname,amount,offer_id)
+ val = (name,lastname,amount,offer_id)
  mycursor.execute(sql, val)
  mydb.commit()
 print(mycursor.rowcount, "record inserted.")
