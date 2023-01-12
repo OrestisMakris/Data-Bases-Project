@@ -22,6 +22,7 @@ with open('C:\\Users\\Orestis\\Downloads\\names.txt', 'r' ,encoding= 'utf-16') a
 
 # mycursor = mydb.cursor()
 
+<<<<<<< HEAD
 with open('C:\\Users\\Orestis\OneDrive - University of Patras\\Documents\\GitHub\\Data-Bases-Project\\Insert_many_reservations.sql', 'w') as f:
  sys.stdout = f 
     
@@ -37,3 +38,16 @@ with open('C:\\Users\\Orestis\OneDrive - University of Patras\\Documents\\GitHub
 #  val = ( Name,lastname ,amount ,id)
 #  mycursor.execute(sql, val)
 #  mydb.commit()
+=======
+for i in range(1,65001,1):
+ index = random.randint(0, 9999)
+ Name = nam[index][0]
+ lastname = last[index]
+ amount = random.randint(70, 200)
+ id = random.randint(1, 3)
+ sql = "INSERT INTO reservation_offers (rsv_name, rsv_lastname , deposit_amount , rsv_offer_id) VALUES (%s, %s ,%s, %s)"
+ val = ( Name,lastname ,amount ,id)
+ mycursor.execute(sql, val)
+ mydb.commit()
+print(mycursor.rowcount, "record inserted.")
+>>>>>>> 266e3206325f8d3f0c85e8e09c3a9a9acd55338b
