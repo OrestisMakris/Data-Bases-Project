@@ -97,24 +97,36 @@ DROP PROCEDURE IF EXISTS search_trip;
 DELIMITER $
 CREATE PROCEDURE search_trip(IN code INT,IN start_date datetime,IN end_date datetime)
 BEGIN
-DECLARE no_of_reservations INT; 
-/*vriskw ton arithmo twn reservations gia to branch kai tis hmeromhnies pou elegxoume*/
-SELECT COUNT(*) INTO no_of_reservations FROM reservation 
-INNER JOIN trip ON res_tr_id=tr_id
-WHERE tr_departure >= start_date 
-AND tr_departure <= end_date
-AND tr_br_code = code;
-
-SELECT trip.tr_cost,trip.tr_maxseats,
-(SELECT reservations_number) reservations,
-(SELECT trip.tr_maxseats-reservations_number FROM trip) 
-empty_seats,drv.lname AS driver_lname,drv.name AS driver_name,gui.lname 
-AS guide_lname,gui.name AS guide_name,trip.tr_departure,trip.tr_return 
-FROM trip 
-INNER JOIN worker AS drv ON tr_br_code=drv.wrk_br_code 
-INNER JOIN worker AS gui ON tr_br_code=gui.wrk_br_code 
-WHERE code=tr_br_code AND start_date <= tr_departure 
-AND end_date >= tr_departure;
+    DECLARE no_of_reservations INT; 
+    /*vriskw ton arithmo twn reservations gia to branch kai tis hmeromhnies pou elegxoume*/
+    SELECT COUNT(*) INTO no_of_reservations FROM reservation 
+    INNER JOIN trip ON res_tr_id=tr_id
+    WHERE tr_departure >= start_date 
+    AND tr_departure <= end_date
+    AND tr_br_code = code;
+    -- cursor ston trips
+    DECLARE trip_id INT;
+    DECLARE dep INT;
+    DECLARE ret INT;
+    DECLARE maxseats INT;
+    DECLARE cost INT;
+    DECLARE br_code INT;
+    DECLARE guide_AT INT;
+    DECLARE driver_AT INT;
+    DECLARE tripCurs CURSOR FOR
+    SELECT * FROM trip
+    WHERE tr_departure>=start_date 
+    AND tr_departure<=end_date
+    AND tr_br_code = code;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET finishedFlag=1;
+    OPEN tripCurs;
+    SET finishedFlag=0;
+    FETCH trip INTO trip_id, dep, ret, maxseats, cost,
+    br_code, guide_AT, driver_AT;
+    SET flag = 0;
+    WHILE(finishedFlag=0) DO
+        
+    END WHILE;
 
 END$
 DELIMITER ;
@@ -162,7 +174,29 @@ WHERE tr_id = trip_id
 SELECT wrk_name, wrk_lname
 FROM trip 
 INNER JOIN worker
-ON tr_gui_AT = wrk_AT
+ON tr_dgui_AT = wrk_AT
 WHERE tr_id = trip_id
 
 --setup cursor
+    DECLARE trip_id INT;
+    DECLARE dep INT;
+    DECLARE ret INT;
+    DECLARE maxseats INT;
+    DECLARE cost INT;
+    DECLARE br_code INT;
+    DECLARE guide_AT INT;
+    DECLARE driver_AT INT;
+    DECLARE tripCurs CURSOR FOR
+    SELECT * FROM trip
+    WHERE tr_departure>=start_date 
+    AND tr_departure<=end_date
+    AND tr_br_code = code;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET finishedFlag=1;
+    OPEN tripCurs;
+    SET finishedFlag=0;
+    FETCH trip INTO trip_id, dep, ret, maxseats, cost,
+    br_code, guide_AT, driver_AT;
+    SET flag = 0;
+    WHILE(finishedFlag=0) DO
+
+    END WHILE;
