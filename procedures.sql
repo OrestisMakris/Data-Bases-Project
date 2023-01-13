@@ -58,10 +58,10 @@ BEGIN
         /*get the number of reservations*/
         SELECT COUNT(*) INTO no_of_reservations 
         FROM reservation 
-        INNER JOIN trip ON res_tr_id=tr_id
+        INNER JOIN trip ON res_tr_id=trip_id
         WHERE tr_departure >= start_date 
         AND tr_departure <= end_date
-        AND tr_br_code = code;
+        AND tr_br_code = code AND res_tr_id = tr_id;
         /*get the driver of the trip*/
         SELECT wrk_name, wrk_lname INTO driver_name, driver_lname
         FROM trip 
