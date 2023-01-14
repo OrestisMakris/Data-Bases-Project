@@ -2,7 +2,7 @@ import java.sql.*;
 public class DBConnection {
     private static final String DB_URL = "jdbc:mariadb://localhost:3306/erecruit";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "0r35t1s21802Makr1s!";
+    private static final String PASSWORD = "";
     private static Connection con;
     public static void main(String[] args) {
         try {
