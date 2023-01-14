@@ -93,8 +93,8 @@ public class Home_Page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Insert_bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Insert_bActionPerformed
-         Insert_In_Tables in_table= new Insert_In_Tables();
-         in_table.show();
+         Insert_In_Tables in= new Insert_In_Tables();
+         in.show();
     }//GEN-LAST:event_Insert_bActionPerformed
 
     /**

@@ -140,7 +140,7 @@ public class log_in extends javax.swing.JFrame {
         Connection connection;
         String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?useSSL = false";
         String USERNAME = "root";
-        String PASSWORD = "0r35t1s21802Makr1s!";
+        String PASSWORD = "123456789987654321";
         
         try{
             connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
