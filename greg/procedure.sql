@@ -91,6 +91,23 @@ CALL search_trip(4,'2022-06-05 00:00:00','2022-08-15 23:59:59');
 
 SELECT * FROM trip WHERE '2022-06-05 00:00:00'<=tr_departure AND '2022-08-15 23:59:59'>=tr_departure;
 
+/*procedure 3.1.3.3*/
+DROP PROCEDURE IF EXISTS delete_worker;
+DELIMITER $
+CREATE PROCEDURE delete_worker(IN name varchar(20),IN lname varchar(20))
+BEGIN
+IF exists(SELECT * FROM worker INNER JOIN admin ON wrk_AT=adm_AT WHERE wrk_lname=lname AND wrk_name=name)
+THEN
+SELECT "This person is an admin in a branch therefore the deletion is restricted!" AS Error;
+ELSEIF exists(SELECT * FROM worker WHERE wrk_lname=lname AND wrk_name=name) 
+THEN 
+DELETE FROM worker WHERE wrk_lname=lname AND wrk_name=name;
+ELSE 
+SELECT "This person isn't a worker in any branch!" AS Error;
+END IF;
+END$
+DELIMITER ;
+
 --index 
 DROP INDEX res_ind ON reservation_offers;
 CREATE INDEX res_ind ON reservation_offers(rsv_lastname,deposit_amount);

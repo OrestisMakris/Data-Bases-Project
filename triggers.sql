@@ -22,12 +22,7 @@ BEGIN
 END$
 DELIMITER ;
 
---test
-INSERT INTO worker 
-VALUES('AT29292929', 'Andrew', 'Tate', 100, 1);
-INSERT INTO it_admin 
-VALUES('AT29292929', 'password', '2022-03-08 12:30:00', null);
-CALL create_user('Tate', 'password');
+/*triggers 3.1.4.1*/
 
 /*triggers gia ton log_trip*/
 DROP TRIGGER IF EXISTS log_trip_insert;
@@ -62,10 +57,6 @@ BEGIN
     OLD.tr_maxseats,OLD.tr_cost,OLD.tr_br_code,OLD.tr_gui_AT,OLD.tr_drv_AT);
 END$
 DELIMITER ;
---test
-INSERT INTO trip VALUES
-(null, '2022-03-05 15:30:01', 
-'2022-03-08 12:30:01', 30, 300, 1, 'AK10311111', 'AM10410000');
 
 UPDATE trip SET tr_departure = '2069-03-05 15:30:06'
 WHERE tr_id = 33;
@@ -174,14 +165,62 @@ BEGIN
 END$
 DELIMITER ;
 
-/*triggers gia ton log_travel_to*/
-DROP TRIGGER IF EXISTS log_trip_insert;
+/*triggers gia ton log_destination*/
+DROP TRIGGER IF EXISTS log_destination_insert;
 DELIMITER $
-CREATE TRIGGER log_trip_insert AFTER INSERT ON trip
+CREATE TRIGGER log_destination_insert AFTER INSERT ON destination
 FOR EACH ROW
 BEGIN
-    INSERT INTO log_trip VALUES
-    ('INSERT',CURRENT_USER(),NOW(),NEW.tr_id,NEW.tr_departure,NEW.tr_return,
-    NEW.tr_maxseats,NEW.tr_cost,NEW.tr_br_code,NEW.tr_gui_AT,NEW.tr_drv_AT);
+    INSERT INTO log_destination VALUES
+    ('INSERT',CURRENT_USER(),NOW(),NEW.dst_id,NEW.dst_name,NEW.dst_dscr,
+    NEW.dst_rtype,NEW.dst_language,NEW.dst_location);
+END$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS log_destination_update;
+DELIMITER $
+CREATE TRIGGER log_destination_update AFTER UPDATE ON destination
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_destination VALUES
+    ('UPDATE',CURRENT_USER(),NOW(),NEW.dst_id,NEW.dst_name,NEW.dst_dscr,
+    NEW.dst_rtype,NEW.dst_language,NEW.dst_location);
+END$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS log_destination_delete;
+DELIMITER $
+CREATE TRIGGER log_destination_delete AFTER DELETE ON destination
+FOR EACH ROW
+BEGIN
+    INSERT INTO log_destination VALUES
+    ('DELETE',CURRENT_USER(),NOW(),OLD.dst_id,OLD.dst_name,OLD.dst_dscr,
+    OLD.dst_rtype,OLD.dst_language,OLD.dst_location);
+END$
+DELIMITER ;
+
+/*trigger 3.1.4.2*/
+DROP TRIGGER IF EXISTS check_reservations;
+DELIMITER $
+CREATE TRIGGER check_reservations BEFORE UPDATE ON trip
+FOR EACH ROW
+BEGIN
+IF exists(SELECT * FROM reservation WHERE res_tr_id=OLD.tr_id)
+THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This trip already has reservations therefore updates are restricted!';
+END IF;
+END$
+DELIMITER ;
+
+/*trigger 3.1.4.3*/
+DROP TRIGGER IF EXISTS check_salary;
+DELIMITER $
+CREATE TRIGGER check_salary BEFORE UPDATE ON worker
+FOR EACH ROW
+BEGIN
+IF OLD.wrk_salary>=NEW.wrk_salary
+THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The new salary must be greater than the older!';
+END IF;
 END$
 DELIMITER ;
