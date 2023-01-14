@@ -19,10 +19,6 @@ INSERT INTO driver VALUES (AT,license,route,experience);
 END$
 DELIMITER ;
 
-CALL insert_driver('AX10322102','Takis','Kapakis','1500.32','C','LOCAL',4);
-
-SELECT * FROM driver;
-
 -- procedure 3.1.3.2
 DROP PROCEDURE IF EXISTS search_trip;
 DELIMITER $
@@ -87,11 +83,7 @@ BEGIN
 END$
 DELIMITER ;
 
-CALL search_trip(4,'2022-06-05 00:00:00','2022-08-15 23:59:59');
-
-SELECT * FROM trip WHERE '2022-06-05 00:00:00'<=tr_departure AND '2022-08-15 23:59:59'>=tr_departure;
-
---index 
+/*index */
 DROP INDEX res_ind ON reservation_offers;
 CREATE INDEX res_ind ON reservation_offers(rsv_lastname,deposit_amount);
 
@@ -107,7 +99,6 @@ END$
 DELIMITER ;
 
 -- procedure 3.1.3.4 b)
---me cursor
 DROP PROCEDURE IF EXISTS res_names;
 DELIMITER $
 CREATE PROCEDURE res_names(IN lname VARCHAR(20))
@@ -158,6 +149,3 @@ BEGIN
     END WHILE;
 END$
 DELIMITER ;
-CALL res_names('deli');
-
-
