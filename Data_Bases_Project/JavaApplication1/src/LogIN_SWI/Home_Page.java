@@ -39,12 +39,12 @@ public class Home_Page extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel1.setBackground(java.awt.SystemColor.control);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel1.setText("Home Page");
 
-        Insert_b.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Grey"));
+        Insert_b.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         Insert_b.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         Insert_b.setText("Insert to Tables");
         Insert_b.addActionListener(new java.awt.event.ActionListener() {
