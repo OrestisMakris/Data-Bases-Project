@@ -28,6 +28,24 @@ public class Insert_In_Tables extends javax.swing.JFrame {
           System.out.println(e.getMessage());
         }
     }
+    
+    public void table_load() {
+      Statement st = con.createStatement();
+      String table_sql = "SELECT * FROM worker";
+      ResultSet rs = st.executeQuery(table_sql);
+      
+      while(rs.next()){
+          
+          String 
+      
+     
+      }
+        }catch (SQLException e){
+          System.out.println(e.getMessage());
+        }
+    }
+    
+    
 
 
     @SuppressWarnings("unchecked")
@@ -220,13 +238,27 @@ public class Insert_In_Tables extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Worker AT", "Name", "Last Name", "Salary", "Branch Code"
             }
         ));
         jScrollPane5.setViewportView(jTable2);
