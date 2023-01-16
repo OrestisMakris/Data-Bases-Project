@@ -469,9 +469,9 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
       DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
       int selectedRowIndex = jTable2.getSelectedRow(); 
-      NameField.setText(model.getValueAt(selectedRowIndex ,0 ).toString()); 
-      LastNameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-      IdField.setText(model.getValueAt(selectedRowIndex ,2 ).toString()); 
+      IdField.setText(model.getValueAt(selectedRowIndex ,0 ).toString()); 
+      NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+      LastNameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString()); 
       SalaryField.setText(model.getValueAt(selectedRowIndex ,3 ).toString()); 
       BranchField.setText(model.getValueAt(selectedRowIndex ,4 ).toString()); 
     }//GEN-LAST:event_jTable2MouseClicked
