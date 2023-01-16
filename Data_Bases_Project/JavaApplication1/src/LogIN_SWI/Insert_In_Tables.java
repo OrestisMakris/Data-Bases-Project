@@ -18,6 +18,9 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     
     Connection con;
     PreparedStatement pst;
+    PreparedStatement pst1;
+    PreparedStatement pst2;
+    PreparedStatement pst3;
 
 
     public void Connect() throws SQLException {
@@ -92,9 +95,9 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         IdField = new javax.swing.JTextField();
         BranchField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        RoleField = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        RoleField1 = new javax.swing.JTextField();
+        RoleBox = new javax.swing.JComboBox<>();
+        DiplomaField = new javax.swing.JTextField();
         SaveButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         ClearButton = new javax.swing.JButton();
@@ -184,20 +187,21 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel9.setText("Role");
+        jLabel9.setText("Diploma");
 
-        RoleField.addActionListener(new java.awt.event.ActionListener() {
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel11.setText("Role");
+
+        RoleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LOGISTICS", "ADMINISTRATIVE", "ACCOUNTING" }));
+        RoleBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RoleFieldActionPerformed(evt);
+                RoleBoxActionPerformed(evt);
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel11.setText("Diploma");
-
-        RoleField1.addActionListener(new java.awt.event.ActionListener() {
+        DiplomaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RoleField1ActionPerformed(evt);
+                DiplomaFieldActionPerformed(evt);
             }
         });
 
@@ -227,8 +231,8 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                             .addComponent(IdField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(SalaryField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BranchField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RoleField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RoleField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(RoleBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DiplomaField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -257,15 +261,15 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(RoleField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addComponent(DiplomaField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(RoleField1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(RoleBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
         SaveButton.setText("Save");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,8 +317,8 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,16 +399,14 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(UpdateButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
@@ -419,7 +421,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                         .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(89, 89, 89))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,16 +430,16 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(13, 13, 13)))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -467,31 +469,17 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BranchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BranchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BranchFieldActionPerformed
-
-    private void IdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IdFieldActionPerformed
-
-    private void SalaryFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SalaryFieldActionPerformed
-
-    private void LastNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LastNameFieldActionPerformed
-
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
         
-        String name , lname , id , salary , brcode ;
+        String name , lname , id , salary , brcode ,diploma , role ;
         
         name = NameField.getText();
         lname =LastNameField.getText();
         id = IdField.getText();
         salary = SalaryField.getText();
         brcode = BranchField.getText();
+        diploma = DiplomaField.getText();
+        role = RoleBox.getSelectedItem().toString();
         
         try{
           
@@ -501,6 +489,15 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             pst.setString(3,lname);
             pst.setString(4,salary);
             pst.setString(5,brcode);
+            pst.executeUpdate();
+            pst= con.prepareStatement("insert into admin (adm_AT,adm_type,adm_diploma)values(?,?,?)");
+            pst.setString(1,id);
+            pst.setString(2,role);
+            pst.setString(3,diploma);
+            pst.executeUpdate();
+            pst= con.prepareStatement("insert into manages (mng_adm_AT,mng_br_code)values(?,?)");
+            pst.setString(1,id);
+            pst.setString(2,brcode);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
             jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
@@ -579,10 +576,6 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
-    private void RoleFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RoleFieldActionPerformed
-
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
       DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
       int selectedRowIndex = jTable4.getSelectedRow(); 
@@ -626,10 +619,6 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
-    private void RoleField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RoleField1ActionPerformed
-
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         String srid;
        
@@ -653,6 +642,30 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void RoleBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RoleBoxActionPerformed
+
+    private void BranchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BranchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BranchFieldActionPerformed
+
+    private void IdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IdFieldActionPerformed
+
+    private void SalaryFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaryFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SalaryFieldActionPerformed
+
+    private void LastNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LastNameFieldActionPerformed
+
+    private void DiplomaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiplomaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DiplomaFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -693,12 +706,12 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     private javax.swing.JTextField BranchField;
     private javax.swing.JButton ClearButton;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JTextField DiplomaField;
     private javax.swing.JButton ExitButton;
     private javax.swing.JTextField IdField;
     private javax.swing.JTextField LastNameField;
     private javax.swing.JTextField NameField;
-    private javax.swing.JTextField RoleField;
-    private javax.swing.JTextField RoleField1;
+    private javax.swing.JComboBox<String> RoleBox;
     private javax.swing.JTextField SalaryField;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
