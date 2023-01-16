@@ -328,6 +328,11 @@ public class Insert_In_Tables extends javax.swing.JFrame {
 
         DeleteButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
 
         UpdateButton2.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         UpdateButton2.setText("Update");
@@ -517,7 +522,12 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-        // TODO add your handling code here:
+            table_load();
+            NameField.setText("");
+            LastNameField.setText("");
+            IdField.setText("");
+            SalaryField.setText("");
+            BranchField.setText(""); 
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
@@ -536,7 +546,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
         
-        String name , lname , id , salary , brcode ;
+        String name , lname , id , salary , brcode ,srid;
         
         name = NameField.getText();
         lname =LastNameField.getText();
@@ -547,14 +557,15 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         
         try{
           
-            pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=?");
+            pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=? WHERE wrk_AT =?");
             pst.setString(1,id);
             pst.setString(2,name);
             pst.setString(3,lname);
             pst.setString(4,salary);
             pst.setString(5,brcode);
+            pst.setString(6,srid);
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Addedd!!");
+            JOptionPane.showMessageDialog(null , "Record Update!!");
             jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
             table_load();
             NameField.setText("");
@@ -618,6 +629,30 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     private void RoleField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RoleField1ActionPerformed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        String srid;
+       
+        srid = SearchField.getText();
+        
+        try{
+          
+            pst= con.prepareStatement("delete from worker WHERE wrk_AT =?");
+            pst.setString(1,srid);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null , "Record Deleted!!");
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
+            table_load();
+            NameField.setText("");
+            LastNameField.setText("");
+            IdField.setText("");
+            SalaryField.setText("");
+            BranchField.setText(""); 
+            NameField.requestFocus();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
