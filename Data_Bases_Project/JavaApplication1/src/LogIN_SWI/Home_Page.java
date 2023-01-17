@@ -36,6 +36,7 @@ public class Home_Page extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         INSERT = new javax.swing.JToggleButton();
+        INSERT1 = new javax.swing.JToggleButton();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -48,10 +49,19 @@ public class Home_Page extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel1.setText("Home Page");
 
-        INSERT.setText("jToggleButton1");
+        INSERT.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        INSERT.setText("Branches");
         INSERT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 INSERTActionPerformed(evt);
+            }
+        });
+
+        INSERT1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        INSERT1.setText("Workers ");
+        INSERT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                INSERT1ActionPerformed(evt);
             }
         });
 
@@ -60,22 +70,32 @@ public class Home_Page extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(454, Short.MAX_VALUE)
+                .addContainerGap(453, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(446, 446, 446))
+                .addGap(447, 447, 447))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(INSERT, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(INSERT, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(64, 64, 64)
+                    .addComponent(INSERT1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(848, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(INSERT, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addGap(186, 186, 186)
+                .addComponent(INSERT, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(408, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(135, 135, 135)
+                    .addComponent(INSERT1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(532, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -95,13 +115,15 @@ public class Home_Page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void INSERTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERTActionPerformed
-        try {
-            Insert_In_Tables Insert= new Insert_In_Tables();
-            Insert.show();
-        } catch (SQLException ex) {
-            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_INSERTActionPerformed
+
+    private void INSERT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT1ActionPerformed
+        
+            Workers wor= new Workers();
+            wor.show();
+        
+    }//GEN-LAST:event_INSERT1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,6 +162,7 @@ public class Home_Page extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton INSERT;
+    private javax.swing.JToggleButton INSERT1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
