@@ -18,10 +18,6 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     
     Connection con;
     PreparedStatement pst;
-    PreparedStatement pst1;
-    PreparedStatement pst2;
-    PreparedStatement pst3;
-
 
     public void Connect() throws SQLException {
 
@@ -38,7 +34,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     
     public void table_load() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT * FROM worker";
+      String table_sql = "SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,adm_type,adm_diploma FROM worker INNER JOIN manages ON  mng_adm_AT = wrk_AT INNER JOIN admin ON adm_AT =  wrk_AT";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
@@ -48,8 +44,10 @@ public class Insert_In_Tables extends javax.swing.JFrame {
           String laname = rs.getString("wrk_lname");
           String salary = String.valueOf(rs.getFloat("wrk_salary"));
           String br_code = String.valueOf(rs.getInt("wrk_br_code"));
+          String type = rs.getString("adm_type");
+          String diploma = rs.getString("adm_diploma");
           
-          String tbData[] = {at , name, laname , salary , br_code};
+          String tbData[] = {at , name, laname , salary , br_code , diploma , type };
           DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
           tblModel.addRow(tbData); 
       }
@@ -193,6 +191,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         jLabel11.setText("Role");
 
         RoleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LOGISTICS", "ADMINISTRATIVE", "ACCOUNTING" }));
+        RoleBox.setSelectedItem(jTable2);
         RoleBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RoleBoxActionPerformed(evt);
@@ -224,7 +223,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LastNameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,11 +313,11 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,12 +350,19 @@ public class Insert_In_Tables extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Worker AT", "Name", "Last Name", "Salary", "Branch Code"
+                "Worker AT", "Name", "Last Name", "Salary", "Branch Code", "Diploma", "Admin Type"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -392,36 +398,33 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(jTable4);
-        jTable4.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(UpdateButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(89, 89, 89))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(103, 103, 103))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,14 +445,17 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
         );
 
@@ -457,9 +463,10 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,13 +507,14 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             pst.setString(2,brcode);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
-            BranchField.setText(""); 
+            BranchField.setText("");
+            DiplomaField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -525,6 +533,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText(""); 
+            DiplomaField.setText("");
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
@@ -532,6 +541,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
       DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
       int selectedRowIndex = jTable2.getSelectedRow(); 
       IdField.setText(model.getValueAt(selectedRowIndex ,0 ).toString()); 
@@ -539,11 +549,19 @@ public class Insert_In_Tables extends javax.swing.JFrame {
       LastNameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString()); 
       SalaryField.setText(model.getValueAt(selectedRowIndex ,3 ).toString()); 
       BranchField.setText(model.getValueAt(selectedRowIndex ,4 ).toString()); 
+      DiplomaField.setText(model.getValueAt(selectedRowIndex ,5).toString()); 
+      String combosub = model.getValueAt(selectedRowIndex ,6).toString(); 
+      for (int i = 0 ; i < RoleBox.getItemCount(); i++){
+         if(RoleBox.getItemAt(i).toString().equalsIgnoreCase(combosub)){
+         RoleBox.setSelectedIndex(i); 
+          }
+      }
+      SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
         
-        String name , lname , id , salary , brcode ,srid;
+        String name , lname , id , salary , brcode ,srid ,diploma ,role;
         
         name = NameField.getText();
         lname =LastNameField.getText();
@@ -551,6 +569,8 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         salary = SalaryField.getText();
         brcode = BranchField.getText();
         srid = SearchField.getText();
+        diploma = DiplomaField.getText();
+        role = RoleBox.getSelectedItem().toString();
         
         try{
           
@@ -562,14 +582,24 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             pst.setString(5,brcode);
             pst.setString(6,srid);
             pst.executeUpdate();
+            pst= con.prepareStatement("update admin set adm_AT = ? , adm_type =? ,adm_diploma = ?");
+            pst.setString(1,id);
+            pst.setString(2,role);
+            pst.setString(3,diploma);
+            pst.executeUpdate();
+            pst= con.prepareStatement("update manages set mng_adm_AT = ?  ,mng_br_code = ? ");
+            pst.setString(1,id);
+            pst.setString(2,brcode);
+            //pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Update!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText(""); 
+            DiplomaField.setText(""); 
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -588,7 +618,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         
              String wrk_AT = SearchField.getText();
              
-             pst = con.prepareStatement("select wrk_AT ,wrk_name,wrk_lname,wrk_salary,wrk_br_code from worker where wrk_AT  = ?");
+             pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,adm_type,adm_diploma FROM worker INNER JOIN manages ON  mng_adm_AT = wrk_AT INNER JOIN admin ON adm_AT =  wrk_AT WHERE wrk_AT = ?");
              pst.setString(1 , wrk_AT);
              ResultSet rs = pst.executeQuery();
              
@@ -599,21 +629,31 @@ public class Insert_In_Tables extends javax.swing.JFrame {
                 String lname = rs.getString(3);
                 String salary = rs.getString(4);
                 String code = rs.getString(5);
+                String type = rs.getString(6);
+                String diploma = rs.getString(7);
                 
                 NameField.setText(name);
                 LastNameField.setText(lname);
                 IdField.setText(AT);
                 SalaryField.setText(salary);
                 BranchField.setText(code);
-             }else{
+                DiplomaField.setText(diploma); 
+                for (int i = 0 ; i < RoleBox.getItemCount(); i++){
+                   if(RoleBox.getItemAt(i).toString().equalsIgnoreCase(type)){
+                    RoleBox.setSelectedIndex(i); 
+                   }
+                 }  
+                }else{
              
                 NameField.setText("");
                 LastNameField.setText("");
                 IdField.setText("");
                 SalaryField.setText("");
                 BranchField.setText("");
-             
-             }
+                DiplomaField.setText(""); 
+           
+              }
+    
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -630,13 +670,15 @@ public class Insert_In_Tables extends javax.swing.JFrame {
             pst.setString(1,srid);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText(""); 
+            DiplomaField.setText(""); 
+            SearchField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
