@@ -1,17 +1,11 @@
 -- procedure 3.1.3.1
 DROP PROCEDURE IF EXISTS insert_driver;
 DELIMITER $
-CREATE PROCEDURE insert_driver(IN AT char(10),IN name varchar(20),
-IN lname varchar(20),IN salary float(7,2),IN license ENUM('A','B','C','D'),
-IN route ENUM('LOCAL','ABROAD'),IN experience tinyint(4))
-
+CREATE PROCEDURE insert_driver(IN AT char(10),IN name varchar(20),IN lname varchar(20),IN salary float(7,2),IN license ENUM('A','B','C','D'),IN route ENUM('LOCAL','ABROAD'),IN experience tinyint(4))
 BEGIN
 DECLARE code INT;
 
-SELECT branch.br_code INTO code FROM branch 
-INNER JOIN worker ON br_code=wrk_br_code 
-INNER JOIN driver ON wrk_AT=drv_AT 
-GROUP BY br_code ORDER BY count(*) ASC LIMIT 1;
+SELECT br_code INTO code FROM (SELECT branch.br_code,IFNULL(count(wrk_AT),0) AS 'Number of Drivers' FROM driver INNER JOIN worker ON drv_AT=wrk_AT RIGHT JOIN branch ON br_code=wrk_br_code GROUP BY br_code ORDER BY IFNULL(count(wrk_AT),0) ASC LIMIT 1) AS minimum_drivers;
 
 INSERT INTO worker VALUES (AT,name,lname,salary,code);
 
