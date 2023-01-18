@@ -521,7 +521,7 @@ public class Insert_In_Tables extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed

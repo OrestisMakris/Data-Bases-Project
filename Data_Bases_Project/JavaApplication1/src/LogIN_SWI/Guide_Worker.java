@@ -670,7 +670,7 @@ public class Guide_Worker extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-        table_load();
+
          NameField.setText("");
          LastNameField.setText("");
          IdField.setText("");
@@ -693,7 +693,6 @@ public class Guide_Worker extends javax.swing.JFrame {
         id = IdField.getText();
         salary = SalaryField.getText();
         brcode = BranchField.getText();
-        srid = SearchField.getText();
         language = LanguageField.getText();
         cv = GuideCVField.getText();
 
@@ -706,7 +705,7 @@ public class Guide_Worker extends javax.swing.JFrame {
             pst.setString(4,salary);
             pst.setString(5,brcode);
             pst.executeUpdate();
-            pst= con.prepareStatement("insert into guide (gui_AT,adm_type,gui_cv)values(?,?)");
+            pst= con.prepareStatement("insert into guide (gui_AT,gui_cv)values(?,?)");
             pst.setString(1,id);
             pst.setString(2,cv);
             pst.executeUpdate();
