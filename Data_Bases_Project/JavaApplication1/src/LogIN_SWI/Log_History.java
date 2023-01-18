@@ -4,6 +4,10 @@
  */
 package LogIN_SWI;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Orestis
@@ -137,28 +141,49 @@ public class Log_History extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        Log_Destination ld = new Log_Destination();
-        ld.show();
+         try {
+            Log_Destination ld = new Log_Destination();
+            ld.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
-        Log_Travel_To ld = new Log_Travel_To();
-        ld.show();
+          try {
+            Log_Travel_To lt = new Log_Travel_To();
+             lt.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton5ActionPerformed
 
     private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
-        Log_Event ld = new Log_Event();
-        ld.show();
+       try {
+            Log_Event le = new Log_Event();
+           le.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                                                
     }//GEN-LAST:event_jToggleButton7ActionPerformed
 
     private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
-        Log_Trip ld = new Log_Trip();
-        ld.show();
+      try {
+            Log_Trip lt = new Log_Trip();
+            lt.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }//GEN-LAST:event_jToggleButton8ActionPerformed
 
     private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
-        Log_Reservation ld = new Log_Reservation();
-        ld.show();
+        try {
+            Log_Reservation lr = new Log_Reservation();
+            lr.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jToggleButton6ActionPerformed
 
     /**

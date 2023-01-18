@@ -1,20 +1,63 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package LogIN_SWI;
 
-/**
- *
- * @author Orestis
- */
+import java.awt.EventQueue;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Log_Trip extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Log_Trip
-     */
-    public Log_Trip() {
+Connection con;
+PreparedStatement pst;
+
+public void Connect() throws SQLException {
+
+ String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?useSSL = false";
+ String USERNAME = "root";
+ String PASSWORD = "123456789987654321";
+  try{
+      con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+    }catch (SQLException e){
+      System.out.println(e.getMessage());
+     }
+    
+ }
+
+public void table_load() throws SQLException {
+      Statement st = con.createStatement();
+      String table_sql = "SELECT log_type , log_it_lname , log_timestamp  , log_tr_id ,log_tr_departure,log_tr_return,log_tr_maxseats,log_tr_cost,"
+              + "log_tr_br_code, log_tr_gui_AT ,log_tr_drv_AT FROM log_trip ";
+      ResultSet rs = st.executeQuery(table_sql);
+      
+      while(rs.next()){
+          
+          String log_type = rs.getString("log_type");
+          String log_it_lname = rs.getString("log_it_lname");
+          String log_timestamp = String.valueOf("log_timestamp ");
+          String log_tr_id = String.valueOf(rs.getInt("log_tr_id"));
+          String log_tr_departure = String.valueOf(rs.getInt("log_tr_departure"));
+          String log_tr_return  = rs.getString("log_tr_return");
+          String log_tr_maxseats =String.valueOf(rs.getInt("log_tr_maxseats"));
+          String log_tr_br_code = String.valueOf(rs.getInt("log_tr_br_code"));
+          String log_tr_gui_AT = String.valueOf("log_tr_gui_AT ");
+          String log_tr_drv_AT = String.valueOf("log_tr_drv_AT ");
+         
+       
+          String tbData[] = {log_type,log_it_lname,log_timestamp ,log_tr_id,log_tr_departure , log_tr_return,log_tr_maxseats,log_tr_br_code,log_tr_gui_AT,log_tr_drv_AT};
+          
+          DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+          tblModel.addRow(tbData); 
+      }
+    }
+
+    public Log_Trip() throws SQLException {
         initComponents();
+        Connect();
+        table_load();
     }
 
     /**
@@ -26,17 +69,54 @@ public class Log_Trip extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setText("History of Trip Table");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Action Type", "Admin Last Name", "Timestamp", "Trip ID", "Trip Departure", "Trip Return", "Max Seats", "Cost", "Branch Code", "Guide AT", "Driver AT"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(437, 437, 437)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(440, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -78,5 +158,8 @@ public class Log_Trip extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
