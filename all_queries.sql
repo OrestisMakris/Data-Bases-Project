@@ -620,16 +620,18 @@ INSERT INTO worker VALUES
 ('AK12000010' , 'Viki' , 'Alexiou','1500',5);
 
 INSERT INTO it_admin VALUES
-('AK12000001' , '' ,'2015-02-06 14:00:00','0000-00-00 00:00:00'),
-('AK12000002' , '' ,'2012-01-26 14:00:00','0000-00-00 00:00:00'),
 ('AK12000003' , 'John' ,'2010-02-06 14:00:00','2015-02-05 14:00:00'),
-('AK12000004' , '' , '2008-02-06 14:00:00','0000-00-00 00:00:00'),
 ('AK12000005' , '1234' ,'2007-01-31 14:00:00','2020-03-01 14:00:00'),
 ('AK12000006' , '1444' ,'2019-03-06 12:00:00','0000-00-00 00:00:00'),
 ('AK12000007' , 'ff' ,'2012-05-06 10:00:00','0000-00-00 00:00:00'),
 ('AK12000008' , 'AlexAlex' ,'2010-09-06 10:00:00','0000-00-00 00:00:00'),
-('AK12000009' , 'Nik', '2016-02-04 10:00:00','0000-00-00 00:00:00'),
-('AK12000010' , '', '2017-11-11 10:00:00','0000-00-00 00:00:00');
+('AK12000009' , 'Nik', '2016-02-04 10:00:00','0000-00-00 00:00:00');
+
+INSERT INTO it_admin (it_at,it_start_date)VALUES
+('AK12000001'  ,'2015-02-06 14:00:00'),
+('AK12000002'  ,'2012-01-26 14:00:00'),
+('AK12000004'  , '2008-02-06 14:00:00'),
+('AK12000010' , '2017-11-11 10:00:00');
 
 INSERT INTO  offers VALUES
 (null ,'2023-02-06 14:00:00','2023-02-18 22:00:00' ,400,'5'),
@@ -641,17 +643,11 @@ INSERT INTO  offers VALUES
 -- procedure 3.1.3.1
 DROP PROCEDURE IF EXISTS insert_driver;
 DELIMITER $
-CREATE PROCEDURE insert_driver(IN AT char(10),IN name varchar(20),
-IN lname varchar(20),IN salary float(7,2),IN license ENUM('A','B','C','D'),
-IN route ENUM('LOCAL','ABROAD'),IN experience tinyint(4))
-
+CREATE PROCEDURE insert_driver(IN AT char(10),IN name varchar(20),IN lname varchar(20),IN salary float(7,2),IN license ENUM('A','B','C','D'),IN route ENUM('LOCAL','ABROAD'),IN experience tinyint(4))
 BEGIN
 DECLARE code INT;
 
-SELECT branch.br_code INTO code FROM branch 
-INNER JOIN worker ON br_code=wrk_br_code 
-INNER JOIN driver ON wrk_AT=drv_AT 
-GROUP BY br_code ORDER BY count(*) ASC LIMIT 1;
+SELECT br_code INTO code FROM (SELECT branch.br_code,IFNULL(count(wrk_AT),0) AS 'Number of Drivers' FROM driver INNER JOIN worker ON drv_AT=wrk_AT RIGHT JOIN branch ON br_code=wrk_br_code GROUP BY br_code ORDER BY IFNULL(count(wrk_AT),0) ASC LIMIT 1) AS minimum_drivers;
 
 INSERT INTO worker VALUES (AT,name,lname,salary,code);
 
@@ -1035,3 +1031,4 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The new salary must be greater than th
 END IF;
 END$
 DELIMITER ;
+
