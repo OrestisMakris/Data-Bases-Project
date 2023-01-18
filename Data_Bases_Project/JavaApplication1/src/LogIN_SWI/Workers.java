@@ -100,11 +100,16 @@ public class Workers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void INSERT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT1ActionPerformed
-      
+        
     }//GEN-LAST:event_INSERT1ActionPerformed
 
     private void INSERT2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            Guide_Worker gui = new Guide_Worker();
+            gui.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_INSERT2ActionPerformed
 
     private void INSERT3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT3ActionPerformed
