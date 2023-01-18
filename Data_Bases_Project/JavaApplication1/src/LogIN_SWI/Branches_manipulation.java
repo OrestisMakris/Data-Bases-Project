@@ -6,10 +6,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class Guide_Worker extends javax.swing.JFrame {
+public class Branches_manipulation extends javax.swing.JFrame {
 
 
-    public Guide_Worker() throws SQLException {
+    public Branches_manipulation() throws SQLException {
         initComponents();
         Connect();
         table_load();
@@ -34,7 +34,7 @@ public class Guide_Worker extends javax.swing.JFrame {
     
     public void table_load() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,gui_cv, lng_language FROM worker INNER JOIN guide ON gui_AT = wrk_AT INNER JOIN languages ON lng_gui_AT =  wrk_AT";
+      String table_sql = "SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,adm_type,adm_diploma FROM worker INNER JOIN manages ON  mng_adm_AT = wrk_AT INNER JOIN admin ON adm_AT =  wrk_AT";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
@@ -44,10 +44,10 @@ public class Guide_Worker extends javax.swing.JFrame {
           String laname = rs.getString("wrk_lname");
           String salary = String.valueOf(rs.getFloat("wrk_salary"));
           String br_code = String.valueOf(rs.getInt("wrk_br_code"));
-          String language = rs.getString("gui_cv");
-          String cv = rs.getString("lng_language");
+          String type = rs.getString("adm_type");
+          String diploma = rs.getString("adm_diploma");
           
-          String tbData[] = {at , name, laname , salary , br_code , cv, language };
+          String tbData[] = {at , name, laname , salary , br_code , diploma , type };
           
           DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
           tblModel.addRow(tbData); 
@@ -80,14 +80,6 @@ public class Guide_Worker extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -103,8 +95,8 @@ public class Guide_Worker extends javax.swing.JFrame {
         BranchField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        LanguageField = new javax.swing.JTextField();
-        GuideCVField = new javax.swing.JTextField();
+        RoleBox = new javax.swing.JComboBox<>();
+        DiplomaField = new javax.swing.JTextField();
         SaveButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         ClearButton = new javax.swing.JButton();
@@ -147,62 +139,10 @@ public class Guide_Worker extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable3);
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane4.setViewportView(jTable5);
-
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane5.setViewportView(jTable6);
-
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable7);
-
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane7.setViewportView(jTable8);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Guide Worker");
+        jLabel1.setText("Admin Worker");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Worker", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
 
@@ -246,20 +186,22 @@ public class Guide_Worker extends javax.swing.JFrame {
         });
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel9.setText("Language");
+        jLabel9.setText("Diploma");
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel11.setText("Guide CV");
+        jLabel11.setText("Role");
 
-        LanguageField.addActionListener(new java.awt.event.ActionListener() {
+        RoleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LOGISTICS", "ADMINISTRATIVE", "ACCOUNTING" }));
+        RoleBox.setSelectedItem(jTable2);
+        RoleBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LanguageFieldActionPerformed(evt);
+                RoleBoxActionPerformed(evt);
             }
         });
 
-        GuideCVField.addActionListener(new java.awt.event.ActionListener() {
+        DiplomaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                GuideCVFieldActionPerformed(evt);
+                DiplomaFieldActionPerformed(evt);
             }
         });
 
@@ -268,35 +210,32 @@ public class Guide_Worker extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(25, 25, 25)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LastNameField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(BranchField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LanguageField)
-                            .addComponent(GuideCVField, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(IdField, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(SalaryField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NameField, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(IdField)
+                        .addComponent(SalaryField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(BranchField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(DiplomaField, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(RoleBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 350, Short.MAX_VALUE)
+                        .addComponent(LastNameField)))
+                .addGap(31, 31, 31))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(NameField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
@@ -319,12 +258,12 @@ public class Guide_Worker extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(LanguageField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                    .addComponent(DiplomaField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(GuideCVField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(27, 27, 27))
+                    .addComponent(RoleBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
@@ -375,8 +314,8 @@ public class Guide_Worker extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,12 +348,19 @@ public class Guide_Worker extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Worker AT", "Name", "Last Name", "Salary", "Branch Code", "Language", "Guide CV"
+                "Worker AT", "Name", "Last Name", "Salary", "Branch Code", "Diploma", "Admin Type"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -456,57 +402,59 @@ public class Guide_Worker extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(103, 103, 103))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SaveButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -515,7 +463,7 @@ public class Guide_Worker extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -526,178 +474,20 @@ public class Guide_Worker extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-        DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
-        int selectedRowIndex = jTable4.getSelectedRow();
-        BranchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-    }//GEN-LAST:event_jTable4MouseClicked
-
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-
-        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
-        int selectedRowIndex = jTable2.getSelectedRow();
-        IdField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-        NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-        LastNameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
-        SalaryField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
-        BranchField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
-        LanguageField.setText(model.getValueAt(selectedRowIndex ,5).toString());
-        GuideCVField.setText(model.getValueAt(selectedRowIndex ,6).toString());
-        SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-        
-    }//GEN-LAST:event_jTable2MouseClicked
-
-    private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
-
-        String name , lname , id , salary , brcode ,srid ,language,cv ;
-
-        name = NameField.getText();
-        lname =LastNameField.getText();
-        id = IdField.getText();
-        salary = SalaryField.getText();
-        brcode = BranchField.getText();
-        srid = SearchField.getText();
-        language = LanguageField.getText();
-        cv = GuideCVField.getText();
-       
-
-        try{
-
-            pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=? WHERE wrk_AT =?");
-            pst.setString(1,id);
-            pst.setString(2,name);
-            pst.setString(3,lname);
-            pst.setString(4,salary);
-            pst.setString(5,brcode);
-            pst.setString(6,srid);
-            pst.executeUpdate();     
-            pst= con.prepareStatement("update guide set gui_cv = ? WHERE gui_AT =?");
-            pst.setString(1,cv);
-            pst.setString(2,srid);
-            pst.executeUpdate();
-            pst= con.prepareStatement("update languages set lng_language = ? WHERE lng_gui_AT =?");
-            pst.setString(1,language);
-            pst.setString(2,srid);
-            pst.executeUpdate();       
-            JOptionPane.showMessageDialog(null , "Record Update!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
-            table_load();
-            NameField.setText("");
-            LastNameField.setText("");
-            IdField.setText("");
-            SalaryField.setText("");
-            BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
-            NameField.requestFocus();
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }//GEN-LAST:event_UpdateButton2ActionPerformed
-
-    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        String srid;
-
-        srid = SearchField.getText();
-
-        try{
-
-            pst= con.prepareStatement("delete from worker WHERE wrk_AT =?");
-            pst.setString(1,srid);
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
-            table_load();
-            NameField.setText("");
-            LastNameField.setText("");
-            IdField.setText("");
-            SalaryField.setText("");
-            BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
-            NameField.requestFocus();
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }//GEN-LAST:event_DeleteButtonActionPerformed
-
-    private void SearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyReleased
-
-        try{
-
-            String wrk_AT = SearchField.getText();
-
-            pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,gui_cv, lng_language FROM worker INNER JOIN guide ON gui_AT = wrk_AT INNER JOIN languages ON lng_gui_AT =  wrk_AT WHERE wrk_AT = ?");
-            pst.setString(1 , wrk_AT);
-            ResultSet rs = pst.executeQuery();
-
-            if(rs.next() == true)
-            {
-                String AT = rs.getString(1);
-                String name = rs.getString(2);
-                String lname = rs.getString(3);
-                String salary = rs.getString(4);
-                String code = rs.getString(5);
-                String language = rs.getString(6);
-                String cv = rs.getString(7);
-
-                NameField.setText(name);
-                LastNameField.setText(lname);
-                IdField.setText(AT);
-                SalaryField.setText(salary);
-                BranchField.setText(code);
-                LanguageField.setText(language);
-                GuideCVField.setText(cv);
-                
-            }else{
-
-                NameField.setText("");
-                LastNameField.setText("");
-                IdField.setText("");
-                SalaryField.setText("");
-                BranchField.setText("");
-                LanguageField.setText("");
-                GuideCVField.setText("");
-            }
-
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }//GEN-LAST:event_SearchFieldKeyReleased
-
-    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchFieldActionPerformed
-
-    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-
-         NameField.setText("");
-         LastNameField.setText("");
-         IdField.setText("");
-         SalaryField.setText("");
-         BranchField.setText("");
-         LanguageField.setText("");
-         GuideCVField.setText("");
-    }//GEN-LAST:event_ClearButtonActionPerformed
-
-    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_ExitButtonActionPerformed
-
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-
-            String name , lname , id , salary , brcode ,language,cv ;
-
+        
+        String name , lname , id , salary , brcode ,diploma , role ;
+        
         name = NameField.getText();
         lname =LastNameField.getText();
         id = IdField.getText();
         salary = SalaryField.getText();
         brcode = BranchField.getText();
-        language = LanguageField.getText();
-        cv = GuideCVField.getText();
-
+        diploma = DiplomaField.getText();
+        role = RoleBox.getSelectedItem().toString();
+        
         try{
-
+          
             pst= con.prepareStatement("insert into worker(wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code)values(?,?,?,?,?)");
             pst.setString(1,id);
             pst.setString(2,name);
@@ -705,37 +495,197 @@ public class Guide_Worker extends javax.swing.JFrame {
             pst.setString(4,salary);
             pst.setString(5,brcode);
             pst.executeUpdate();
-            pst= con.prepareStatement("insert into guide (gui_AT,gui_cv)values(?,?)");
+            pst= con.prepareStatement("insert into admin (adm_AT,adm_type,adm_diploma)values(?,?,?)");
             pst.setString(1,id);
-            pst.setString(2,cv);
+            pst.setString(2,role);
+            pst.setString(3,diploma);
             pst.executeUpdate();
-            pst= con.prepareStatement("insert into languages (lng_gui_AT,lng_language)values(?,?)");
+            pst= con.prepareStatement("insert into manages (mng_adm_AT,mng_br_code)values(?,?)");
             pst.setString(1,id);
-            pst.setString(2,language);
+            pst.setString(2,brcode);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
+            DiplomaField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
+
     }//GEN-LAST:event_SaveButtonActionPerformed
 
-    private void GuideCVFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuideCVFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GuideCVFieldActionPerformed
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void LanguageFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LanguageFieldActionPerformed
+    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
+            table_load();
+            NameField.setText("");
+            LastNameField.setText("");
+            IdField.setText("");
+            SalaryField.setText("");
+            BranchField.setText(""); 
+            DiplomaField.setText("");
+    }//GEN-LAST:event_ClearButtonActionPerformed
+
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LanguageFieldActionPerformed
+    }//GEN-LAST:event_SearchFieldActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
+      DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+      int selectedRowIndex = jTable2.getSelectedRow(); 
+      IdField.setText(model.getValueAt(selectedRowIndex ,0 ).toString()); 
+      NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+      LastNameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString()); 
+      SalaryField.setText(model.getValueAt(selectedRowIndex ,3 ).toString()); 
+      BranchField.setText(model.getValueAt(selectedRowIndex ,4 ).toString()); 
+      DiplomaField.setText(model.getValueAt(selectedRowIndex ,5).toString()); 
+      String combosub = model.getValueAt(selectedRowIndex ,6).toString(); 
+      for (int i = 0 ; i < RoleBox.getItemCount(); i++){
+         if(RoleBox.getItemAt(i).toString().equalsIgnoreCase(combosub)){
+         RoleBox.setSelectedIndex(i); 
+          }
+      }
+      SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
+        
+        String name , lname , id , salary , brcode ,srid ,diploma ,role;
+        
+        name = NameField.getText();
+        lname =LastNameField.getText();
+        id = IdField.getText();
+        salary = SalaryField.getText();
+        brcode = BranchField.getText();
+        srid = SearchField.getText();
+        diploma = DiplomaField.getText();
+        role = RoleBox.getSelectedItem().toString();
+        
+        try{
+          
+            pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=? WHERE wrk_AT =?");
+            pst.setString(1,id);
+            pst.setString(2,name);
+            pst.setString(3,lname);
+            pst.setString(4,salary);
+            pst.setString(5,brcode);
+            pst.setString(6,srid);
+            pst.executeUpdate();
+            pst= con.prepareStatement("update admin set adm_type =? ,adm_diploma = ? WHERE adm_AT =?");
+            pst.setString(1,role);
+            pst.setString(2,diploma);
+            pst.setString(3,srid);
+            pst.executeUpdate();
+            pst= con.prepareStatement("update manages set mng_br_code = ? WHERE mng_adm_AT =?");
+            pst.setString(1,brcode);
+            pst.setString(2,srid);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null , "Record Update!!");
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
+            table_load();
+            NameField.setText("");
+            LastNameField.setText("");
+            IdField.setText("");
+            SalaryField.setText("");
+            BranchField.setText(""); 
+            DiplomaField.setText(""); 
+            NameField.requestFocus();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_UpdateButton2ActionPerformed
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+      DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
+      int selectedRowIndex = jTable4.getSelectedRow(); 
+      BranchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString()); 
+    }//GEN-LAST:event_jTable4MouseClicked
+
+    private void SearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyReleased
+        
+        try{
+        
+             String wrk_AT = SearchField.getText();
+             
+             pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,adm_type,adm_diploma FROM worker INNER JOIN manages ON  mng_adm_AT = wrk_AT INNER JOIN admin ON adm_AT =  wrk_AT WHERE wrk_AT = ?");
+             pst.setString(1 , wrk_AT);
+             ResultSet rs = pst.executeQuery();
+             
+             if(rs.next() == true)
+             {
+                String AT = rs.getString(1);
+                String name = rs.getString(2);
+                String lname = rs.getString(3);
+                String salary = rs.getString(4);
+                String code = rs.getString(5);
+                String type = rs.getString(6);
+                String diploma = rs.getString(7);
+                
+                NameField.setText(name);
+                LastNameField.setText(lname);
+                IdField.setText(AT);
+                SalaryField.setText(salary);
+                BranchField.setText(code);
+                DiplomaField.setText(diploma); 
+                for (int i = 0 ; i < RoleBox.getItemCount(); i++){
+                   if(RoleBox.getItemAt(i).toString().equalsIgnoreCase(type)){
+                    RoleBox.setSelectedIndex(i); 
+                   }
+                 }  
+                }else{
+             
+                NameField.setText("");
+                LastNameField.setText("");
+                IdField.setText("");
+                SalaryField.setText("");
+                BranchField.setText("");
+                DiplomaField.setText(""); 
+           
+              }
+    
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_SearchFieldKeyReleased
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        String srid;
+       
+        srid = SearchField.getText();
+        
+        try{
+          
+            pst= con.prepareStatement("delete from worker WHERE wrk_AT =?");
+            pst.setString(1,srid);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null , "Record Deleted!!");
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
+            table_load();
+            NameField.setText("");
+            LastNameField.setText("");
+            IdField.setText("");
+            SalaryField.setText("");
+            BranchField.setText(""); 
+            DiplomaField.setText(""); 
+            SearchField.setText("");
+            NameField.requestFocus();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
+
+    private void RoleBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RoleBoxActionPerformed
 
     private void BranchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BranchFieldActionPerformed
         // TODO add your handling code here:
@@ -752,6 +702,10 @@ public class Guide_Worker extends javax.swing.JFrame {
     private void LastNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LastNameFieldActionPerformed
+
+    private void DiplomaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiplomaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DiplomaFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -770,27 +724,21 @@ public class Guide_Worker extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Guide_Worker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Branches_manipulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Guide_Worker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Branches_manipulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Guide_Worker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Branches_manipulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Guide_Worker.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Branches_manipulation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Guide_Worker().setVisible(true);
+                new Branches_manipulation().setVisible(true);
             }
         });
     }
@@ -799,12 +747,12 @@ public class Guide_Worker extends javax.swing.JFrame {
     private javax.swing.JTextField BranchField;
     private javax.swing.JButton ClearButton;
     private javax.swing.JButton DeleteButton;
+    private javax.swing.JTextField DiplomaField;
     private javax.swing.JButton ExitButton;
-    private javax.swing.JTextField GuideCVField;
     private javax.swing.JTextField IdField;
-    private javax.swing.JTextField LanguageField;
     private javax.swing.JTextField LastNameField;
     private javax.swing.JTextField NameField;
+    private javax.swing.JComboBox<String> RoleBox;
     private javax.swing.JTextField SalaryField;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
@@ -826,18 +774,10 @@ public class Guide_Worker extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
     private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
