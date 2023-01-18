@@ -34,7 +34,7 @@ public class Branches_manipulation extends javax.swing.JFrame {
     
     public void table_load() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT br_code , br_street , br_num , br_city ,ph_number FROM branch INNER JOIN phones ON br_code = ph_br_code ";
+      String table_sql = "SELECT br_code , br_street , br_num , br_city FROM branch ";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
@@ -91,18 +91,21 @@ public class Branches_manipulation extends javax.swing.JFrame {
         PhoneField = new javax.swing.JTextField();
         NameField = new javax.swing.JTextField();
         CityField = new javax.swing.JTextField();
-        SaveButton = new javax.swing.JButton();
-        ClearButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         SearchField = new javax.swing.JTextField();
-        DeleteButton = new javax.swing.JButton();
-        UpdateButton2 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        SearchphoneField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        SaveButton = new javax.swing.JButton();
+        UpdateButton2 = new javax.swing.JButton();
+        ClearButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
 
         jLabel2.setText("jLabel2");
 
@@ -181,12 +184,12 @@ public class Branches_manipulation extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CityField, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(NumberField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                    .addComponent(CityField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(PhoneField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(NumberField)
-                    .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(NameField))
                 .addGap(31, 31, 31))
         );
         jPanel3Layout.setVerticalGroup(
@@ -208,29 +211,18 @@ public class Branches_manipulation extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(PhoneField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
-        SaveButton.setText("Save");
-        SaveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveButtonActionPerformed(evt);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search / Insert Phone  ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 22))); // NOI18N
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jPanel1KeyReleased(evt);
             }
         });
-
-        ClearButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        ClearButton.setText("Clear");
-        ClearButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearButtonActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 22))); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel10.setText("ID Number");
+        jLabel10.setText("Branch Code");
 
         SearchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,42 +235,48 @@ public class Branches_manipulation extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel11.setText("Branch Phone");
+
+        SearchphoneField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchphoneFieldActionPerformed(evt);
+            }
+        });
+        SearchphoneField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SearchphoneFieldKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SearchField)
+                    .addComponent(SearchphoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11)
+                    .addComponent(SearchphoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
-
-        DeleteButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        DeleteButton.setText("Delete");
-        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteButtonActionPerformed(evt);
-            }
-        });
-
-        UpdateButton2.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
-        UpdateButton2.setText("Update");
-        UpdateButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButton2ActionPerformed(evt);
-            }
-        });
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -306,10 +304,7 @@ public class Branches_manipulation extends javax.swing.JFrame {
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
                 "Branch Code", "Phone"
@@ -330,6 +325,30 @@ public class Branches_manipulation extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable4);
 
+        SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
+        SaveButton.setText("Save");
+        SaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SaveButtonActionPerformed(evt);
+            }
+        });
+
+        UpdateButton2.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        UpdateButton2.setText("Update");
+        UpdateButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButton2ActionPerformed(evt);
+            }
+        });
+
+        ClearButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        ClearButton.setText("Clear");
+        ClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearButtonActionPerformed(evt);
+            }
+        });
+
         ExitButton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         ExitButton.setText("Exit");
         ExitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -338,67 +357,94 @@ public class Branches_manipulation extends javax.swing.JFrame {
             }
         });
 
+        DeleteButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
+        DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(156, 156, 156))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(184, 184, 184))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(221, 221, 221)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))))
+                .addGap(688, 688, 688))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(ExitButton, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ClearButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -406,38 +452,35 @@ public class Branches_manipulation extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1069, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1036, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-
-        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
-        int selectedRowIndex = jTable2.getSelectedRow();
-        SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-        NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-        NumberField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
-        CityField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
-        PhoneField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
-
-    }//GEN-LAST:event_jTable2MouseClicked
-
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
 
-        String   br_street , br_num , br_city , ph_number ,sear;
+        String   br_street , br_num , br_city , ph_number ,sear , search_phone;
 
           br_street= NameField.getText();
           br_num = NumberField.getText();
           br_city = CityField.getText();
           sear = SearchField.getText();
           ph_number = PhoneField.getText();
+          search_phone = SearchphoneField.getText();
+          
 
         try{
 
@@ -447,13 +490,12 @@ public class Branches_manipulation extends javax.swing.JFrame {
             pst.setString(3,br_city);
             pst.setString(4,sear);
             pst.executeUpdate();
-            pst= con.prepareStatement("update phone set ph_number=?  WHERE ph_br_code =?");
+            pst= con.prepareStatement("update phone set ph_number=?  WHERE ph_br_code =? AND ph_number=?");
             pst.setString(1,ph_number);
             pst.setString(2,sear);
+            pst.setString(3,search_phone);
             pst.executeUpdate();
-          
             JOptionPane.showMessageDialog(null , "Record Update!!");
-            
             jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
             jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
             table_load();
@@ -475,90 +517,25 @@ public class Branches_manipulation extends javax.swing.JFrame {
         srid = SearchField.getText();
 
         try{
-
-            pst= con.prepareStatement("delete from worker WHERE wrk_AT =?");
+            pst= con.prepareStatement("delete from branch WHERE br_code =?");
             pst.setString(1,srid);
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
+            jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
+            jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
             table_load();
+            table_load2(); 
             NameField.setText("");
             NumberField.setText("");
             CityField.setText("");
             PhoneField.setText("");
-            BranchField.setText("");
-            DiplomaField.setText("");
             SearchField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
-
-    private void SearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyReleased
-
-        try{
-
-            String wrk_AT = SearchField.getText();
-
-            pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,adm_type,adm_diploma FROM worker INNER JOIN manages ON  mng_adm_AT = wrk_AT INNER JOIN admin ON adm_AT =  wrk_AT WHERE wrk_AT = ?");
-            pst.setString(1 , wrk_AT);
-            ResultSet rs = pst.executeQuery();
-
-            if(rs.next() == true)
-            {
-                String AT = rs.getString(1);
-                String name = rs.getString(2);
-                String lname = rs.getString(3);
-                String salary = rs.getString(4);
-                String code = rs.getString(5);
-                String type = rs.getString(6);
-                String diploma = rs.getString(7);
-
-                NameField.setText(name);
-                NumberField.setText(lname);
-                CityField.setText(AT);
-                PhoneField.setText(salary);
-                BranchField.setText(code);
-                DiplomaField.setText(diploma);
-                for (int i = 0 ; i < RoleBox.getItemCount(); i++){
-                    if(RoleBox.getItemAt(i).toString().equalsIgnoreCase(type)){
-                        RoleBox.setSelectedIndex(i);
-                    }
-                }
-            }else{
-
-                NameField.setText("");
-                NumberField.setText("");
-                CityField.setText("");
-                PhoneField.setText("");
-                BranchField.setText("");
-                DiplomaField.setText("");
-
-            }
-
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }//GEN-LAST:event_SearchFieldKeyReleased
-
-    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SearchFieldActionPerformed
-
-    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-        table_load();
-        NameField.setText("");
-        NumberField.setText("");
-        CityField.setText("");
-        PhoneField.setText("");
-        BranchField.setText("");
-        DiplomaField.setText("");
-    }//GEN-LAST:event_ClearButtonActionPerformed
-
-    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
@@ -605,6 +582,23 @@ public class Branches_manipulation extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
+    private void SearchphoneFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchphoneFieldKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchphoneFieldKeyReleased
+
+    private void SearchphoneFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchphoneFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchphoneFieldActionPerformed
+
+    private void SearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyReleased
+
+       
+    }//GEN-LAST:event_SearchFieldKeyReleased
+
+    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchFieldActionPerformed
+
     private void CityFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CityFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CityFieldActionPerformed
@@ -617,12 +611,78 @@ public class Branches_manipulation extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NumberFieldActionPerformed
 
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+
+        DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        int selectedRowIndex = jTable2.getSelectedRow();
+        SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        NumberField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
+        CityField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
+        PhoneField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
+    }//GEN-LAST:event_jTable2MouseClicked
+
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int selectedRowIndex = jTable4.getSelectedRow();
-        
+
         PhoneField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        SearchphoneField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
     }//GEN-LAST:event_jTable4MouseClicked
+
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
+
+        NameField.setText("");
+        NumberField.setText("");
+        CityField.setText("");
+        PhoneField.setText("");
+        SearchField.setText("");
+        SearchphoneField.setText("");
+        NameField.requestFocus();
+    }//GEN-LAST:event_ClearButtonActionPerformed
+
+    private void jPanel1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyReleased
+        try{
+
+            String  br_code = SearchField.getText();
+            String search_phone = SearchphoneField.getText();
+
+            pst = con.prepareStatement("SELECT br_code , br_street , br_num , br_city ,ph_number FROM branch INNER JOIN phones ON br_code = ph_br_code WHERE br_code = ? and ph_number =?");
+            pst.setString(1 , br_code);
+            pst.setString(2 , search_phone);
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next() == true )
+            {
+                String code = rs.getString(1);
+                String sname = rs.getString(2);
+                String num = rs.getString(3);
+                String city = rs.getString(4);
+                String phone = rs.getString(5);
+
+                NameField.setText(sname);
+                NumberField.setText(num);
+                CityField.setText(city);
+                PhoneField.setText(phone);
+
+            }else{
+
+                NameField.setText("");
+                NumberField.setText("");
+                CityField.setText("");
+                PhoneField.setText("");
+                SearchField.setText("");
+                SearchphoneField.setText("");
+                NameField.requestFocus();
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jPanel1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -670,10 +730,16 @@ public class Branches_manipulation extends javax.swing.JFrame {
     private javax.swing.JTextField PhoneField;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
+    private javax.swing.JTextField SearchField1;
+    private javax.swing.JTextField SearchphoneField;
+    private javax.swing.JTextField SearchphoneField1;
     private javax.swing.JButton UpdateButton2;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -682,6 +748,8 @@ public class Branches_manipulation extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
