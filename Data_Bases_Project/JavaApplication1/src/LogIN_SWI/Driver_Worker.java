@@ -18,6 +18,7 @@ public class Driver_Worker extends javax.swing.JFrame {
     
     Connection con;
     PreparedStatement pst;
+    CallableStatement cs;
 
     public void Connect() throws SQLException {
 
@@ -34,7 +35,7 @@ public class Driver_Worker extends javax.swing.JFrame {
     
     public void table_load() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,gui_cv, lng_language FROM worker INNER JOIN guide ON gui_AT = wrk_AT INNER JOIN languages ON lng_gui_AT =  wrk_AT";
+      String table_sql = "SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,drv_license, drv_route ,drv_experience FROM worker INNER JOIN driver ON drv_AT = wrk_AT ";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
@@ -44,10 +45,11 @@ public class Driver_Worker extends javax.swing.JFrame {
           String laname = rs.getString("wrk_lname");
           String salary = String.valueOf(rs.getFloat("wrk_salary"));
           String br_code = String.valueOf(rs.getInt("wrk_br_code"));
-          String language = rs.getString("gui_cv");
-          String cv = rs.getString("lng_language");
+          String license = rs.getString("drv_license");
+          String route = rs.getString("drv_route");
+          String experience = String.valueOf(rs.getInt("drv_experience"));
           
-          String tbData[] = {at , name, laname , salary , br_code , cv, language };
+          String tbData[] = {at , name, laname , salary , br_code , license, route ,experience };
           
           DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
           tblModel.addRow(tbData); 
@@ -68,7 +70,6 @@ public class Driver_Worker extends javax.swing.JFrame {
       }
     }
     
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -262,14 +263,14 @@ public class Driver_Worker extends javax.swing.JFrame {
             }
         });
 
-        LicenseBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        LicenseBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D" }));
         LicenseBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LicenseBoxActionPerformed(evt);
             }
         });
 
-        RouteBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        RouteBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LOCAL", "ABROAD" }));
         RouteBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RouteBoxActionPerformed(evt);
@@ -555,15 +556,26 @@ public class Driver_Worker extends javax.swing.JFrame {
         LastNameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
         SalaryField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
         BranchField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
-        LanguageField.setText(model.getValueAt(selectedRowIndex ,5).toString());
-        GuideCVField.setText(model.getValueAt(selectedRowIndex ,6).toString());
+        String Licen= model.getValueAt(selectedRowIndex ,5).toString();
+        String Route= model.getValueAt(selectedRowIndex ,6).toString();
+        ExperienceField.setText(model.getValueAt(selectedRowIndex ,7).toString());
         SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        for (int i = 0 ; i < LicenseBox.getItemCount(); i++){
+         if(LicenseBox.getItemAt(i).toString().equalsIgnoreCase(Licen)){
+         LicenseBox.setSelectedIndex(i); 
+          }
+        }
+        for (int i = 0 ; i < RouteBox.getItemCount(); i++){
+         if(RouteBox.getItemAt(i).toString().equalsIgnoreCase(Route)){
+          RouteBox.setSelectedIndex(i); 
+          }
+      }
         
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
 
-        String name , lname , id , salary , brcode ,srid ,language,cv ;
+        String name , lname , id , salary , brcode ,srid ,license,route, experience;
 
         name = NameField.getText();
         lname =LastNameField.getText();
@@ -571,10 +583,10 @@ public class Driver_Worker extends javax.swing.JFrame {
         salary = SalaryField.getText();
         brcode = BranchField.getText();
         srid = SearchField.getText();
-        language = LanguageField.getText();
-        cv = GuideCVField.getText();
+        license  = LicenseBox.getSelectedItem().toString();
+        route = RouteBox.getSelectedItem().toString();
+        experience = ExperienceField.getText();
        
-
         try{
 
             pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=? WHERE wrk_AT =?");
@@ -585,24 +597,21 @@ public class Driver_Worker extends javax.swing.JFrame {
             pst.setString(5,brcode);
             pst.setString(6,srid);
             pst.executeUpdate();     
-            pst= con.prepareStatement("update guide set gui_cv = ? WHERE gui_AT =?");
-            pst.setString(1,cv);
-            pst.setString(2,srid);
-            pst.executeUpdate();
-            pst= con.prepareStatement("update languages set lng_language = ? WHERE lng_gui_AT =?");
-            pst.setString(1,language);
-            pst.setString(2,srid);
-            pst.executeUpdate();       
+            pst= con.prepareStatement("update driver set drv_license =? , drv_route= ? ,drv_experience=? WHERE drv_AT =?");
+            pst.setString(1,license);
+            pst.setString(2,route);
+            pst.setString(3,experience);
+            pst.setString(4,srid);
+            pst.executeUpdate();      
             JOptionPane.showMessageDialog(null , "Record Update!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
+            ExperienceField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -620,15 +629,14 @@ public class Driver_Worker extends javax.swing.JFrame {
             pst.setString(1,srid);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
+            ExperienceField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -641,27 +649,38 @@ public class Driver_Worker extends javax.swing.JFrame {
 
             String wrk_AT = SearchField.getText();
 
-            pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,gui_cv, lng_language FROM worker INNER JOIN guide ON gui_AT = wrk_AT INNER JOIN languages ON lng_gui_AT =  wrk_AT WHERE wrk_AT = ?");
+            pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,drv_license, drv_route ,drv_experience FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_AT = ?");
             pst.setString(1 , wrk_AT);
             ResultSet rs = pst.executeQuery();
 
             if(rs.next() == true)
             {
+                
                 String AT = rs.getString(1);
                 String name = rs.getString(2);
                 String lname = rs.getString(3);
                 String salary = rs.getString(4);
                 String code = rs.getString(5);
-                String language = rs.getString(6);
-                String cv = rs.getString(7);
+                String license = rs.getString(6);
+                String route = rs.getString(7);
+                String  experience = rs.getString(8);
 
                 NameField.setText(name);
                 LastNameField.setText(lname);
                 IdField.setText(AT);
                 SalaryField.setText(salary);
                 BranchField.setText(code);
-                LanguageField.setText(language);
-                GuideCVField.setText(cv);
+                 ExperienceField.setText(experience);
+                for (int i = 0 ; i < LicenseBox.getItemCount(); i++){
+                  if(LicenseBox.getItemAt(i).toString().equalsIgnoreCase( license)){
+                      LicenseBox.setSelectedIndex(i); 
+                     }
+                }
+                for (int i = 0 ; i < RouteBox.getItemCount(); i++){
+                  if(RouteBox.getItemAt(i).toString().equalsIgnoreCase(route)){
+                   RouteBox.setSelectedIndex(i); 
+                   }
+                }
                 
             }else{
 
@@ -670,8 +689,8 @@ public class Driver_Worker extends javax.swing.JFrame {
                 IdField.setText("");
                 SalaryField.setText("");
                 BranchField.setText("");
-                LanguageField.setText("");
-                GuideCVField.setText("");
+                ExperienceField.setText("");
+                NameField.requestFocus();
             }
 
         }catch(SQLException e){
@@ -690,8 +709,9 @@ public class Driver_Worker extends javax.swing.JFrame {
          IdField.setText("");
          SalaryField.setText("");
          BranchField.setText("");
-         LanguageField.setText("");
-         GuideCVField.setText("");
+         ExperienceField.setText("");
+         
+         
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -700,43 +720,37 @@ public class Driver_Worker extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-            String name , lname , id , salary , brcode ,language,cv ;
+        String name , lname , id , salary , brcode ,srid ,license,route, experience;
 
         name = NameField.getText();
         lname =LastNameField.getText();
         id = IdField.getText();
         salary = SalaryField.getText();
-        brcode = BranchField.getText();
-        language = LanguageField.getText();
-        cv = GuideCVField.getText();
+        license  = LicenseBox.getSelectedItem().toString();
+        route = RouteBox.getSelectedItem().toString();
+        experience = ExperienceField.getText();
 
         try{
 
-            pst= con.prepareStatement("insert into worker(wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code)values(?,?,?,?,?)");
-            pst.setString(1,id);
-            pst.setString(2,name);
-            pst.setString(3,lname);
-            pst.setString(4,salary);
-            pst.setString(5,brcode);
-            pst.executeUpdate();
-            pst= con.prepareStatement("insert into guide (gui_AT,gui_cv)values(?,?)");
-            pst.setString(1,id);
-            pst.setString(2,cv);
-            pst.executeUpdate();
-            pst= con.prepareStatement("insert into languages (lng_gui_AT,lng_language)values(?,?)");
-            pst.setString(1,id);
-            pst.setString(2,language);
-            pst.executeUpdate();
+            cs= con.prepareCall("{ call insert_driver(?,?,?,?,?,?,?)}");
+            cs.setString(1,id);
+            cs.setString(2,name);
+            cs.setString(3,lname);
+            cs.setString(4,salary);
+            cs.setString(5,license);
+            cs.setString(6,route);
+            cs.setString(7,experience);
+            cs.executeUpdate();
+          
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
             table_load();
             NameField.setText("");
             LastNameField.setText("");
             IdField.setText("");
             SalaryField.setText("");
             BranchField.setText("");
-            LanguageField.setText("");
-            GuideCVField.setText("");
+            ExperienceField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());

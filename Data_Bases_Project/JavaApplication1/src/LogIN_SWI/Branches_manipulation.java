@@ -88,15 +88,9 @@ public class Branches_manipulation extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         LastNameField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         SalaryField = new javax.swing.JTextField();
         NameField = new javax.swing.JTextField();
         IdField = new javax.swing.JTextField();
-        BranchField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        RoleBox = new javax.swing.JComboBox<>();
-        DiplomaField = new javax.swing.JTextField();
         SaveButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         ClearButton = new javax.swing.JButton();
@@ -142,30 +136,27 @@ public class Branches_manipulation extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Admin Worker");
+        jLabel1.setText("Branches");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Worker", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel4.setText("Name");
+        jLabel4.setText("Street Name");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel5.setText("Last Name");
+        jLabel5.setText("Street Number");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel6.setText("ID Number");
+        jLabel6.setText("City");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel7.setText("Salary");
+        jLabel7.setText("Phone");
 
         LastNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LastNameFieldActionPerformed(evt);
             }
         });
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel8.setText("Branch Code");
 
         SalaryField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,57 +170,23 @@ public class Branches_manipulation extends javax.swing.JFrame {
             }
         });
 
-        BranchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BranchFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel9.setText("Diploma");
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel11.setText("Role");
-
-        RoleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LOGISTICS", "ADMINISTRATIVE", "ACCOUNTING" }));
-        RoleBox.setSelectedItem(jTable2);
-        RoleBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RoleBoxActionPerformed(evt);
-            }
-        });
-
-        DiplomaField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DiplomaFieldActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(NameField, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(IdField)
-                        .addComponent(SalaryField, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(BranchField, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(DiplomaField, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(RoleBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 350, Short.MAX_VALUE)
-                        .addComponent(LastNameField)))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(IdField, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(SalaryField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(LastNameField)
+                    .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(31, 31, 31))
         );
         jPanel3Layout.setVerticalGroup(
@@ -251,19 +208,7 @@ public class Branches_manipulation extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(SalaryField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(BranchField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(DiplomaField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RoleBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         SaveButton.setFont(new java.awt.Font("Segoe UI", 0, 27)); // NOI18N
@@ -315,7 +260,7 @@ public class Branches_manipulation extends javax.swing.JFrame {
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,14 +628,6 @@ public class Branches_manipulation extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
-    private void RoleBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoleBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RoleBoxActionPerformed
-
-    private void BranchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BranchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BranchFieldActionPerformed
-
     private void IdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IdFieldActionPerformed
@@ -702,10 +639,6 @@ public class Branches_manipulation extends javax.swing.JFrame {
     private void LastNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastNameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LastNameFieldActionPerformed
-
-    private void DiplomaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiplomaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DiplomaFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -744,15 +677,12 @@ public class Branches_manipulation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BranchField;
     private javax.swing.JButton ClearButton;
     private javax.swing.JButton DeleteButton;
-    private javax.swing.JTextField DiplomaField;
     private javax.swing.JButton ExitButton;
     private javax.swing.JTextField IdField;
     private javax.swing.JTextField LastNameField;
     private javax.swing.JTextField NameField;
-    private javax.swing.JComboBox<String> RoleBox;
     private javax.swing.JTextField SalaryField;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField;
@@ -760,14 +690,11 @@ public class Branches_manipulation extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
