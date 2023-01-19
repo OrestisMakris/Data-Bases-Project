@@ -553,15 +553,14 @@ public class Branches_manipulation extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-        String name , lname , id , salary , brcode ,diploma , role ;
+         String   br_street , br_num , br_city , ph_number ,sear , search_phone;
 
-        name = NameField.getText();
-        lname =NumberField.getText();
-        id = CityField.getText();
-        salary = PhoneField.getText();
-        brcode = BranchField.getText();
-        diploma = DiplomaField.getText();
-        role = RoleBox.getSelectedItem().toString();
+          br_street= NameField.getText();
+          br_num = NumberField.getText();
+          br_city = CityField.getText();
+          sear = SearchField.getText();
+          ph_number = PhoneField.getText();
+          search_phone = SearchphoneField.getText();
 
         try{
 
@@ -577,19 +576,17 @@ public class Branches_manipulation extends javax.swing.JFrame {
             pst.setString(2,role);
             pst.setString(3,diploma);
             pst.executeUpdate();
-            pst= con.prepareStatement("insert into manages (mng_adm_AT,mng_br_code)values(?,?)");
-            pst.setString(1,id);
-            pst.setString(2,brcode);
-            pst.executeUpdate();
+           
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
+            jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
             table_load();
+            table_load2();
             NameField.setText("");
             NumberField.setText("");
             CityField.setText("");
             PhoneField.setText("");
-            BranchField.setText("");
-            DiplomaField.setText("");
+            SearchField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
