@@ -8,7 +8,6 @@ package procedures_test;
  *
  * @author Greg
  */
-import java.sql.*;
 
 public class Procedures_Test{
     public static void main(String[] args) {

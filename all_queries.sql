@@ -765,13 +765,17 @@ BEGIN
     FROM reservation_offers
     WHERE rsv_lastname=lname
     GROUP BY rsv_offer_id
-    HAVING COUNT(rsv_offer_id)>1;
+    HAVING COUNT(rsv_offer_id)>1
+    ORDER BY rsv_offer_id;
+
     DECLARE singleResCurs CURSOR FOR
     SELECT rsv_offer_id, COUNT(rsv_offer_id)
     FROM reservation_offers
     WHERE rsv_lastname=lname
     GROUP BY rsv_offer_id
-    HAVING COUNT(rsv_offer_id)=1;
+    HAVING COUNT(rsv_offer_id)=1
+    ORDER BY rsv_offer_id;
+
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET finishedFlag=1;
     OPEN multResCurs;
     SET finishedFlag=0;
