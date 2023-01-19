@@ -31,16 +31,16 @@
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="839" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                   <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
                   <Component id="jLabel8" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="143" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="749" max="-2" attributes="0"/>
+              <Component id="jButton3" pref="143" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="363" max="-2" attributes="0"/>
           </Group>
       </Group>
