@@ -872,7 +872,7 @@ DELIMITER ;
 
 /*trigger 3.1.4.1*/
 
-/*trigger gia ton log_trip*/
+/*triggers gia ton log_trip*/
 DROP TRIGGER IF EXISTS log_trip_insert;
 DELIMITER $
 CREATE TRIGGER log_trip_insert AFTER INSERT ON trip
@@ -890,8 +890,8 @@ CREATE TRIGGER log_trip_update AFTER UPDATE ON trip
 FOR EACH ROW
 BEGIN
     INSERT INTO log_trip VALUES
-    ('UPDATE',CURRENT_USER(),NOW(),NEW.tr_id,NEW.tr_departure,NEW.tr_return,
-    NEW.tr_maxseats,NEW.tr_cost,NEW.tr_br_code,NEW.tr_gui_AT,NEW.tr_drv_AT);
+    ('UPDATE',CURRENT_USER(),NOW(),OLD.tr_id,OLD.tr_departure,OLD.tr_return,
+    OLD.tr_maxseats,OLD.tr_cost,OLD.tr_br_code,OLD.tr_gui_AT,OLD.tr_drv_AT);
 END$
 DELIMITER ;
 
@@ -911,7 +911,7 @@ WHERE tr_id = 33;
 
 DELETE FROM trip where tr_id = 33;
 
-/*trigger gia ton log_reservation*/
+/*triggers gia ton log_reservation*/
 DROP TRIGGER IF EXISTS log_reservation_insert;
 DELIMITER $
 CREATE TRIGGER log_reservation_insert AFTER INSERT ON reservation
@@ -929,8 +929,8 @@ CREATE TRIGGER log_reservation_update AFTER UPDATE ON reservation
 FOR EACH ROW
 BEGIN
     INSERT INTO log_reservation VALUES
-    ('UPDATE',CURRENT_USER(),NOW(),NEW.res_tr_id,NEW.res_seatnum,
-    NEW.res_name,NEW.res_lname,NEW.res_isadult);
+    ('UPDATE',CURRENT_USER(),NOW(),OLD.res_tr_id,OLD.res_seatnum,
+    OLD.res_name,OLD.res_lname,OLD.res_isadult);
 END$
 DELIMITER ;
 
@@ -945,7 +945,7 @@ BEGIN
 END$
 DELIMITER ;
 
-/*trigger gia ton log_event*/
+/*triggers gia ton log_event*/
 DROP TRIGGER IF EXISTS log_event_insert;
 DELIMITER $
 CREATE TRIGGER log_event_insert AFTER INSERT ON event
@@ -963,8 +963,8 @@ CREATE TRIGGER log_event_update AFTER UPDATE ON event
 FOR EACH ROW
 BEGIN
     INSERT INTO log_event VALUES
-    ('UPDATE',CURRENT_USER(),NOW(),NEW.ev_tr_id,NEW.ev_start, 
-    NEW.ev_end,NEW.ev_descr);
+    ('UPDATE',CURRENT_USER(),NOW(),OLD.ev_tr_id,OLD.ev_start, 
+    OLD.ev_end,OLD.ev_descr);
 END$
 DELIMITER ;
 
@@ -979,7 +979,7 @@ BEGIN
 END$
 DELIMITER ;
 
-/*trigger gia ton log_travel_to*/
+/*triggers gia ton log_travel_to*/
 DROP TRIGGER IF EXISTS log_travel_to_insert;
 DELIMITER $
 CREATE TRIGGER log_travel_to_insert AFTER INSERT ON travel_to
@@ -997,8 +997,8 @@ CREATE TRIGGER log_travel_to_update AFTER UPDATE ON travel_to
 FOR EACH ROW
 BEGIN
     INSERT INTO log_travel_to VALUES
-    ('UPDATE',CURRENT_USER(),NOW(),NEW.to_tr_id,NEW.to_dst_id,
-    NEW.to_arrival,NEW.to_departure);
+    ('UPDATE',CURRENT_USER(),NOW(),OLD.to_tr_id,OLD.to_dst_id,
+    OLD.to_arrival,OLD.to_departure);
 END$
 DELIMITER ;
 
@@ -1013,7 +1013,7 @@ BEGIN
 END$
 DELIMITER ;
 
-/*trigger gia ton log_destination*/
+/*triggers gia ton log_destination*/
 DROP TRIGGER IF EXISTS log_destination_insert;
 DELIMITER $
 CREATE TRIGGER log_destination_insert AFTER INSERT ON destination
@@ -1031,8 +1031,8 @@ CREATE TRIGGER log_destination_update AFTER UPDATE ON destination
 FOR EACH ROW
 BEGIN
     INSERT INTO log_destination VALUES
-    ('UPDATE',CURRENT_USER(),NOW(),NEW.dst_id,NEW.dst_name,NEW.dst_dscr,
-    NEW.dst_rtype,NEW.dst_language,NEW.dst_location);
+    ('UPDATE',CURRENT_USER(),NOW(),OLD.dst_id,OLD.dst_name,OLD.dst_dscr,
+    OLD.dst_rtype,OLD.dst_language,OLD.dst_location);
 END$
 DELIMITER ;
 
@@ -1044,19 +1044,6 @@ BEGIN
     INSERT INTO log_destination VALUES
     ('DELETE',CURRENT_USER(),NOW(),OLD.dst_id,OLD.dst_name,OLD.dst_dscr,
     OLD.dst_rtype,OLD.dst_language,OLD.dst_location);
-END$
-DELIMITER ;
-
-/*trigger 3.1.4.2*/
-DROP TRIGGER IF EXISTS check_reservations;
-DELIMITER $
-CREATE TRIGGER check_reservations BEFORE UPDATE ON trip
-FOR EACH ROW
-BEGIN
-IF exists(SELECT * FROM reservation WHERE res_tr_id=OLD.tr_id)
-THEN
-SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This trip already has reservations therefore updates are restricted!';
-END IF;
 END$
 DELIMITER ;
 
