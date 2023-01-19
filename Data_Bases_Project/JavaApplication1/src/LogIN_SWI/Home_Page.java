@@ -147,12 +147,12 @@ public class Home_Page extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void INSERTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERTActionPerformed
-          try {
-            Branches_manipulation bm = new Branches_manipulation();
-            bm.show();
-        } catch (SQLException ex) {
-            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//          try {
+  //          Branches_manipulation bm = new Branches_manipulation();
+    //        bm.show();
+      //  } catch (SQLException ex) {
+        //    Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        //}
     }//GEN-LAST:event_INSERTActionPerformed
 
     private void INSERT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT1ActionPerformed

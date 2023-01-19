@@ -2,6 +2,8 @@ package LogIN_SWI;
 
 import java.awt.EventQueue;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -138,7 +140,7 @@ public class Branches_manipulation extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable3);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAlwaysOnTop(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -413,21 +415,20 @@ public class Branches_manipulation extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(688, 688, 688))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -467,8 +468,8 @@ public class Branches_manipulation extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -504,22 +505,22 @@ public class Branches_manipulation extends javax.swing.JFrame {
             pst.setString(3,br_city);
             pst.setString(4,sear);
             pst.executeUpdate();
-            pst= con.prepareStatement("update phone set ph_number=?  WHERE ph_br_code =? AND ph_number=?");
+            pst= con.prepareStatement("update phones set ph_number=?  WHERE ph_br_code =? AND ph_number=?");
             pst.setString(1,ph_number);
             pst.setString(2,sear);
             pst.setString(3,search_phone);
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Update!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
-            jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
-            table_load();
-            table_load2(); 
-            NameField.setText("");
-            NumberField.setText("");
-            CityField.setText("");
-            PhoneField.setText("");
-            SearchField.setText("");
-            NameField.requestFocus();
+            //JOptionPane.showMessageDialog(null , "Record Update!!");
+            //jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street","City"}));
+            //jTable4.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
+            //table_load();
+            //table_load2(); 
+            //NameField.setText("");
+            //NumberField.setText("");
+            //CityField.setText("");
+            //PhoneField.setText("");
+            //SearchField.setText("");
+            //NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -553,28 +554,33 @@ public class Branches_manipulation extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-         String   br_street , br_num , br_city , ph_number ,sear , search_phone;
+         String   br_street , br_num , br_city , ph_number;
 
           br_street= NameField.getText();
           br_num = NumberField.getText();
           br_city = CityField.getText();
-          sear = SearchField.getText();
           ph_number = PhoneField.getText();
-          search_phone = SearchphoneField.getText();
+          String br_code = null;
+      
 
         try{
 
-            pst= con.prepareStatement("insert into worker(wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code)values(?,?,?,?,?)");
-            pst.setString(1,id);
-            pst.setString(2,name);
-            pst.setString(3,lname);
-            pst.setString(4,salary);
-            pst.setString(5,brcode);
+            pst= con.prepareStatement("insert into branch(br_street,br_num,br_city)values(?,?,?)");
+            pst.setString(1, br_street);
+            pst.setString(2,  br_num);
+            pst.setString(3,br_city);
             pst.executeUpdate();
-            pst= con.prepareStatement("insert into admin (adm_AT,adm_type,adm_diploma)values(?,?,?)");
-            pst.setString(1,id);
-            pst.setString(2,role);
-            pst.setString(3,diploma);
+            Statement st = con.createStatement();
+            String table_sql = "SELECT br_code FROM branch ";
+            ResultSet rs = st.executeQuery(table_sql);
+            while(rs.next()){
+             br_code = String.valueOf(rs.getInt("br_code"));
+           
+            }
+            
+            pst= con.prepareStatement("insert into phones (ph_br_code,ph_number)values(?,?)");
+            pst.setString(1,br_code);
+            pst.setString(2,ph_number);
             pst.executeUpdate();
            
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
@@ -585,8 +591,6 @@ public class Branches_manipulation extends javax.swing.JFrame {
             NameField.setText("");
             NumberField.setText("");
             CityField.setText("");
-            PhoneField.setText("");
-            SearchField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -630,7 +634,6 @@ public class Branches_manipulation extends javax.swing.JFrame {
         NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
         NumberField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
         CityField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
-        PhoneField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
@@ -730,7 +733,11 @@ public class Branches_manipulation extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Branches_manipulation().setVisible(true);
+                try {
+                    new Branches_manipulation().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Branches_manipulation.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
