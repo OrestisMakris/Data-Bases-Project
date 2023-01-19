@@ -1,6 +1,7 @@
 package LogIN_SWI;
 
 import java.sql.*;
+import static java.util.Objects.isNull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -100,6 +101,7 @@ public class Branches extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JToggleButton();
         SaveButton = new javax.swing.JToggleButton();
         UpdateButton = new javax.swing.JToggleButton();
+        AddPhoneButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -298,10 +300,18 @@ public class Branches extends javax.swing.JFrame {
         });
 
         UpdateButton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        UpdateButton.setText("Save");
+        UpdateButton.setText("Update");
         UpdateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateButtonActionPerformed(evt);
+            }
+        });
+
+        AddPhoneButton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        AddPhoneButton.setText("Add Phone");
+        AddPhoneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddPhoneButtonActionPerformed(evt);
             }
         });
 
@@ -311,15 +321,16 @@ public class Branches extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AddPhoneButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,9 +338,9 @@ public class Branches extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
                         .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)))
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -348,12 +359,13 @@ public class Branches extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(UpdateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AddPhoneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
 
@@ -488,17 +500,58 @@ public class Branches extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
-        // TODO add your handling code here:
+         
+        String   br_street , br_num , br_city , ph_number ,sear , search_phone;
+
+          br_street= StreetField.getText();
+          br_num = NumberField.getText();
+          br_city = CityField.getText();
+          sear = SearchField.getText();
+          ph_number = PhoneField.getText();
+          search_phone = NewPhoneField.getText();
+          
+           try{
+            pst= con.prepareStatement("update branch set  br_street = ? , br_num = ? , br_city = ? WHERE br_code =?");
+            pst.setString(1,br_street);
+            pst.setString(2,br_num);
+            pst.setString(3,br_city);
+            pst.setString(4,sear);
+            pst.executeUpdate();
+            pst= con.prepareStatement("update phones set ph_number=?  WHERE ph_br_code =? AND ph_number=?");
+            pst.setString(1,ph_number);
+            pst.setString(2,sear);
+            pst.setString(3,search_phone);
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null , "Record Update!!");
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street Name","Street Number","City"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
+            table_load();
+            table_load2();
+            SearchField.setText("");
+            StreetField.setText("");
+            NumberField.setText("");
+            CityField.setText("");
+            NewPhoneField.setText("");
+            PhoneField.setText("");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+          
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
     private void SearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SearchFieldKeyReleased
         try{
 
             String  br_code = SearchField.getText();
-          
+            
             pst = con.prepareStatement("SELECT br_code , br_street , br_num , br_city ,ph_number FROM branch INNER JOIN phones ON br_code = ph_br_code WHERE br_code = ?");
             pst.setString(1 , br_code);
             ResultSet rs = pst.executeQuery();
+            
+             pst = con.prepareStatement("SELECT br_code , br_street , br_num , br_city  FROM branch WHERE br_code = ?");
+             pst.setString(1 , br_code);
+             ResultSet rs1  = pst.executeQuery();
+           
 
             if(rs.next() == true )
             {
@@ -507,25 +560,70 @@ public class Branches extends javax.swing.JFrame {
                 String num = rs.getString(3);
                 String city = rs.getString(4);
                 String phone = rs.getString(5);
-                SearchField.setText("code");
+                SearchField.setText(code);
                 StreetField.setText(street);
                 NumberField.setText(num);
                 CityField.setText(city);
                 PhoneField.setText(phone);
                 NewPhoneField.setText(phone);
 
-            }else{
-                  SearchField.setText("");
-                  StreetField.setText("");
-                  NumberField.setText("");
-                  CityField.setText("");
-                  NewPhoneField.setText("");
-                  PhoneField.setText("");
+            }else if (rs1.next() == true){ 
+
+                String code = rs1.getString(1);
+                String street = rs1.getString(2);
+                String num = rs1.getString(3);
+                String city = rs1.getString(4);
+                SearchField.setText(code);
+                StreetField.setText(street);
+                NumberField.setText(num);
+                CityField.setText(city);
+                NewPhoneField.setText("");
+                 PhoneField.setText("");
+            }else
+            {
+             SearchField.setText("");
+             StreetField.setText("");
+             NumberField.setText("");
+             CityField.setText("");
+             NewPhoneField.setText("");
+            PhoneField.setText("");
             }
+         
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
+
+    private void AddPhoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddPhoneButtonActionPerformed
+         String   br_code, ph_number;
+
+          ph_number = NewPhoneField.getText();
+          br_code = SearchField.getText();
+          
+          try{
+
+      
+            
+            pst= con.prepareStatement("insert into phones (ph_br_code,ph_number)values(?,?)");
+            pst.setString(1,br_code);
+            pst.setString(2,ph_number);
+            pst.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null , "Phone Addedd!!");
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Street Name","Street Number","City"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Branch Code", "Phones"}));
+            table_load();
+            table_load2();
+            SearchField.setText("");
+            StreetField.setText("");
+            NumberField.setText("");
+            CityField.setText("");
+            NewPhoneField.setText("");
+            PhoneField.setText("");
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_AddPhoneButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,6 +665,7 @@ public class Branches extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton AddPhoneButton;
     private javax.swing.JTextField CityField;
     private javax.swing.JToggleButton ClearButton;
     private javax.swing.JToggleButton DeleteButton;
@@ -593,4 +692,8 @@ public class Branches extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
+
+    private boolean notNull(ResultSet rs1) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
