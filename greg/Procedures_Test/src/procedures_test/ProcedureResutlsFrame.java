@@ -66,18 +66,18 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
             int columnCount = metaData.getColumnCount();
             
             //prosthetw tis sthles tou sql pianaka sto TableModel mono gia tin prwti klisi tou procedure
-            if(tmodel.getColumnCount() == 0){
-                tmodel.addColumn("Trip Id");
-                tmodel.addColumn("Cost");
-                tmodel.addColumn("MaxSeats");
-                tmodel.addColumn("Number Of Reservations");
-                tmodel.addColumn("Empty Seats");
-                tmodel.addColumn("Driver Lastname");
-                tmodel.addColumn("Driver Name");
-                tmodel.addColumn("Guide Lastname");
-                tmodel.addColumn("Guide Name");
-                tmodel.addColumn("Departure");
-                tmodel.addColumn("Return");
+            if(tmodel1.getColumnCount() == 0){
+                tmodel1.addColumn("Trip Id");
+                tmodel1.addColumn("Cost");
+                tmodel1.addColumn("MaxSeats");
+                tmodel1.addColumn("Number Of Reservations");
+                tmodel1.addColumn("Empty Seats");
+                tmodel1.addColumn("Driver Lastname");
+                tmodel1.addColumn("Driver Name");
+                tmodel1.addColumn("Guide Lastname");
+                tmodel1.addColumn("Guide Name");
+                tmodel1.addColumn("Departure");
+                tmodel1.addColumn("Return");
                 
             }
             
@@ -88,7 +88,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                 for (int i = 1; i <= columnCount; i++) {
                     row[i - 1] = rs.getObject(i);
                 }
-                tmodel.addRow(row);
+                tmodel1.addRow(row);
             }
             //process the next result set(s) epeidi to stored procedure dinei pollous pinakes
             while (stmt.getMoreResults()) {
@@ -98,7 +98,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                     for (int i = 1; i <= columnCount; i++) {
                         row[i - 1] = rs.getObject(i);
                     }
-                    tmodel.addRow(row);
+                    tmodel1.addRow(row);
                     }
             }
             
@@ -134,18 +134,18 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
             int columnCount = metaData.getColumnCount();
             
             //prosthetw tis sthles tou sql pianaka sto TableModel mono gia tin prwti klisi tou procedure
-            if(tmodel.getColumnCount() == 0){
-                tmodel.addColumn("Trip Id");
-                tmodel.addColumn("Cost");
-                tmodel.addColumn("MaxSeats");
-                tmodel.addColumn("Number Of Reservations");
-                tmodel.addColumn("Empty Seats");
-                tmodel.addColumn("Driver Lastname");
-                tmodel.addColumn("Driver Name");
-                tmodel.addColumn("Guide Lastname");
-                tmodel.addColumn("Guide Name");
-                tmodel.addColumn("Departure");
-                tmodel.addColumn("Return");
+            if(tmodel1.getColumnCount() == 0){
+                tmodel1.addColumn("Trip Id");
+                tmodel1.addColumn("Cost");
+                tmodel1.addColumn("MaxSeats");
+                tmodel1.addColumn("Number Of Reservations");
+                tmodel1.addColumn("Empty Seats");
+                tmodel1.addColumn("Driver Lastname");
+                tmodel1.addColumn("Driver Name");
+                tmodel1.addColumn("Guide Lastname");
+                tmodel1.addColumn("Guide Name");
+                tmodel1.addColumn("Departure");
+                tmodel1.addColumn("Return");
                 
             }
             
@@ -156,7 +156,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                 for (int i = 1; i <= columnCount; i++) {
                     row[i - 1] = rs.getObject(i);
                 }
-                tmodel.addRow(row);
+                tmodel1.addRow(row);
             }
             //process the next result set(s) epeidi to stored procedure dinei pollous pinakes
             while (stmt.getMoreResults()) {
@@ -166,7 +166,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                     for (int i = 1; i <= columnCount; i++) {
                         row[i - 1] = rs.getObject(i);
                     }
-                    tmodel.addRow(row);
+                    tmodel1.addRow(row);
                     }
             }
             
@@ -182,7 +182,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
         }
     }
     
-    //fortwnoume ton pinaka tmodel sto jTable tou parathiroumas 
+    //fortwnoume ton pinaka tmodel1 sto jTable tou parathiroumas 
     private void load_data(DefaultTableModel model){
         //set the model for the JTable
         jTable1.setModel(model);
@@ -232,6 +232,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setAutoCreateColumnsFromModel(false);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -304,8 +305,8 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 95, Short.MAX_VALUE))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 113, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jButton2)
@@ -338,14 +339,16 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(start_date)
-                                .addComponent(end_date, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)))
+                                    .addComponent(end_date, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(start_date, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4)))))
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -410,7 +413,6 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        tmodel = null;
         int num_of_branches = getDistBranchCount();
         String start = start_date.getText();
         String end = end_date.getText();
@@ -424,7 +426,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                 break;
             }
         }
-        load_data(tmodel);
+        load_data(tmodel1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void end_dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_end_dateActionPerformed
@@ -442,7 +444,8 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        load_data(tmodel);
+        load_data(tmodel2_1);
+        load_data(tmodel2_2);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
