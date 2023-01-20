@@ -732,7 +732,7 @@ public class Driver_Worker extends javax.swing.JFrame {
 
         try{
 
-            cs= con.prepareCall("{ call insert_driver(?,?,?,?,?,?,?)}");
+            cs= con.prepareCall("{ call insert driver(?,?,?,?,?,?,?)}");
             cs.setString(1,id);
             cs.setString(2,name);
             cs.setString(3,lname);
