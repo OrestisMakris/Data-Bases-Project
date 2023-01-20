@@ -2,6 +2,8 @@ package LogIN_SWI;
 
 import java.awt.EventQueue;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,11 +15,13 @@ public class Trip_Event extends javax.swing.JFrame {
         initComponents();
         Connect();
         table_load();
-        table_load_Branches();
+        table_load_Branches();   
     }
     
     Connection con;
     PreparedStatement pst;
+    PreparedStatement pst1;
+    PreparedStatement pst2;
     CallableStatement cs;
 
     public void Connect() throws SQLException {
@@ -56,24 +60,42 @@ public class Trip_Event extends javax.swing.JFrame {
       }
     }
     
-    public void table_loadDriver() throws SQLException {
-      Statement st = con.createStatement();
-      String bf = BranchField.getText();
-      String table_sql = "SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, drv_route FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_br_code =?";
-      pst.setString(1,bf);
-      ResultSet rs = st.executeQuery(table_sql);
+    public void table_loadDriver(String bf) throws SQLException {
+      pst1 = con.prepareStatement("SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, drv_route FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_br_code =?");
+      pst1.setString(1,bf);
+      ResultSet rs = pst1.executeQuery();
       
       while(rs.next()){
           
-          String at= String.valueOf(rs.getInt("wrk_AT"));
+          String at= rs.getString("wrk_AT");
           String name = rs.getString("wrk_name");
           String laname = rs.getString("wrk_lname");
           String code = String.valueOf(rs.getInt("wrk_br_code"));
-          String route = String.valueOf(rs.getFloat("drv_route"));
+          String route = rs.getString("drv_route");
          
           String tbData[] = {at,name,laname,code,route};
           
-          DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
+          DefaultTableModel tblModel = (DefaultTableModel)jTabledriver.getModel();
+          tblModel.addRow(tbData); 
+      }
+    }
+    
+    public void table_loadGuide(String bf) throws SQLException {
+      pst2 = con.prepareStatement( "SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, lng_language FROM worker INNER JOIN languages ON lng_gui_AT = wrk_AT WHERE wrk_br_code =?");
+      pst2.setString(1,bf);
+      ResultSet rs = pst2.executeQuery();
+  
+      while(rs.next()){
+          
+          String at= rs.getString("wrk_AT");
+          String name = rs.getString("wrk_name");
+          String laname = rs.getString("wrk_lname");
+          String code = String.valueOf(rs.getInt("wrk_br_code"));
+          String route =rs.getString("lng_language");
+         
+          String tbData[] = {at,name,laname,code,route};
+          
+          DefaultTableModel tblModel = (DefaultTableModel)jTableguide.getModel();
           tblModel.addRow(tbData); 
       }
     }
@@ -93,9 +115,7 @@ public class Trip_Event extends javax.swing.JFrame {
     }
     
 
-    @SuppressWarnings("unchecked")String bf = BranchField.getText();
-      String table_sql = "SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, lng_language FROM worker INNER JOIN languages ON lng_gui_AT = wrk_AT WHERE wrk_br_code =?";
-      pst.setString(1,bf);
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -146,6 +166,7 @@ public class Trip_Event extends javax.swing.JFrame {
         jTableguide = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTabledriver = new javax.swing.JTable();
+        UpdateButton3 = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -231,7 +252,7 @@ public class Trip_Event extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Trip Events");
+        jLabel1.setText("Trip & Events");
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Trip", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
 
@@ -281,6 +302,11 @@ public class Trip_Event extends javax.swing.JFrame {
         BranchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BranchFieldActionPerformed(evt);
+            }
+        });
+        BranchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                BranchFieldKeyReleased(evt);
             }
         });
 
@@ -510,6 +536,11 @@ public class Trip_Event extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableguide.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableguideMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(jTableguide);
 
         jTabledriver.setModel(new javax.swing.table.DefaultTableModel(
@@ -528,55 +559,67 @@ public class Trip_Event extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTabledriver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabledriverMouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(jTabledriver);
+
+        UpdateButton3.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        UpdateButton3.setText("Add Event");
+        UpdateButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(142, 142, 142)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UpdateButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 942, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane8))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(2, 2, 2)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -585,13 +628,16 @@ public class Trip_Event extends javax.swing.JFrame {
                             .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(19, 19, 19)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UpdateButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -599,25 +645,38 @@ public class Trip_Event extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        jTableguide.setModel(new DefaultTableModel(null , new String[]{"Driver AT", "Name","Last Name","Branch Code","Root"}));
+        jTabledriver.setModel(new DefaultTableModel(null , new String[]{"Guide AT", "Name","Last Name","Branch Code","Route"}));
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int selectedRowIndex = jTable4.getSelectedRow();
         BranchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        try {
+            table_loadDriver(model.getValueAt(selectedRowIndex ,0 ).toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            table_loadGuide(model.getValueAt(selectedRowIndex ,0 ).toString());
+      } catch (SQLException ex) {
+           Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
@@ -632,49 +691,45 @@ public class Trip_Event extends javax.swing.JFrame {
         BranchField.setText(model.getValueAt(selectedRowIndex ,5 ).toString());
         GuideATField.setText(model.getValueAt(selectedRowIndex ,6 ).toString());
         DriverATField.setText(model.getValueAt(selectedRowIndex ,7 ).toString());
-
+        
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
 
-        String name , lname , id , salary , brcode ,srid ,license,route, experience;
+        String departure , returnf , seats , cost , brcode ,srid ,Guideat ,Driverat;
 
-        name = DepartureField.getText();
-        lname =ReturnField.getText();
-        id = SeatsField.getText();
-        salary = CostField.getText();
+        departure = DepartureField.getText();
+        returnf =ReturnField.getText();
+        seats = SeatsField.getText();
+        cost = CostField.getText();
         brcode = BranchField.getText();
         srid = SearchField.getText();
-        license  = LicenseBox.getSelectedItem().toString();
-        route = RouteBox.getSelectedItem().toString();
-        experience = ExperienceField.getText();
+        Guideat  = GuideATField.getText();
+        Driverat = DriverATField.getText();
+ 
        
         try{
 
-            pst= con.prepareStatement("update worker set wrk_AT=? ,wrk_name=? ,wrk_lname=? ,wrk_salary=?, wrk_br_code=? WHERE wrk_AT =?");
-            pst.setString(1,id);
-            pst.setString(2,name);
-            pst.setString(3,lname);
-            pst.setString(4,salary);
+            pst= con.prepareStatement("update trip set tr_departure=? ,tr_return=? ,tr_maxseats=?, tr_cost=? ,tr_br_code=?, tr_gui_AT=? ,tr_drv_AT =? WHERE tr_id =?");
+            pst.setString(1,departure);
+            pst.setString(2,returnf);
+            pst.setString(3,seats);
+            pst.setString(4,cost);
             pst.setString(5,brcode);
-            pst.setString(6,srid);
-            pst.executeUpdate();     
-            pst= con.prepareStatement("update driver set drv_license =? , drv_route= ? ,drv_experience=? WHERE drv_AT =?");
-            pst.setString(1,license);
-            pst.setString(2,route);
-            pst.setString(3,experience);
-            pst.setString(4,srid);
-            pst.executeUpdate();      
+            pst.setString(6,Guideat);
+            pst.setString(7,Driverat);
+            pst.setString(8,srid);
+            pst.executeUpdate();    
             JOptionPane.showMessageDialog(null , "Record Update!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID", "Departure","Return","Max Seats","Cost","Branch Code","Guide AT" ,"Driver AT "}));
             table_load();
             DepartureField.setText("");
             ReturnField.setText("");
             SeatsField.setText("");
             CostField.setText("");
             BranchField.setText("");
-            ExperienceField.setText("");
-            DepartureField.requestFocus();
+            GuideATField.setText("");
+            DriverATField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -687,19 +742,19 @@ public class Trip_Event extends javax.swing.JFrame {
 
         try{
 
-            pst= con.prepareStatement("delete from worker WHERE wrk_AT =?");
+            pst= con.prepareStatement("delete from trip WHERE tr_id =?");
             pst.setString(1,srid);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID", "Departure","Return","Max Seats","Cost","Branch Code","Guide AT" ,"Driver AT "}));
             table_load();
             DepartureField.setText("");
             ReturnField.setText("");
             SeatsField.setText("");
             CostField.setText("");
             BranchField.setText("");
-            ExperienceField.setText("");
-            DepartureField.requestFocus();
+            GuideATField.setText("");
+            DriverATField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -711,13 +766,12 @@ public class Trip_Event extends javax.swing.JFrame {
 
             String wrk_AT = SearchField.getText();
 
-            pst = con.prepareStatement("SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,drv_license, drv_route ,drv_experience FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_AT = ?");
+            pst = con.prepareStatement("SELECT tr_id , tr_departure, tr_return ,tr_maxseats , tr_cost , tr_br_code , tr_gui_AT , tr_drv_AT FROM trip WHERE tr_id = ?");
             pst.setString(1 , wrk_AT);
             ResultSet rs = pst.executeQuery();
 
             if(rs.next() == true)
             {
-                
                 String AT = rs.getString(1);
                 String name = rs.getString(2);
                 String lname = rs.getString(3);
@@ -732,27 +786,14 @@ public class Trip_Event extends javax.swing.JFrame {
                 SeatsField.setText(AT);
                 CostField.setText(salary);
                 BranchField.setText(code);
-                 ExperienceField.setText(experience);
-                for (int i = 0 ; i < LicenseBox.getItemCount(); i++){
-                  if(LicenseBox.getItemAt(i).toString().equalsIgnoreCase( license)){
-                      LicenseBox.setSelectedIndex(i); 
-                     }
-                }
-                for (int i = 0 ; i < RouteBox.getItemCount(); i++){
-                  if(RouteBox.getItemAt(i).toString().equalsIgnoreCase(route)){
-                   RouteBox.setSelectedIndex(i); 
-                   }
-                }
-                
             }else{
-
-                DepartureField.setText("");
-                ReturnField.setText("");
-                SeatsField.setText("");
-                CostField.setText("");
-                BranchField.setText("");
-                ExperienceField.setText("");
-                DepartureField.requestFocus();
+                  DepartureField.setText("");
+                  ReturnField.setText("");
+                  SeatsField.setText("");
+                  CostField.setText("");
+                  BranchField.setText("");
+                  GuideATField.setText("");
+                  DriverATField.requestFocus();
             }
 
         }catch(SQLException e){
@@ -765,15 +806,16 @@ public class Trip_Event extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchFieldActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
+            
+            DepartureField.setText("");
+            ReturnField.setText("");
+            SeatsField.setText("");
+            CostField.setText("");
+            BranchField.setText("");
+            GuideATField.setText("");
+            SearchField.setText("");
+            DriverATField.requestFocus();
 
-         DepartureField.setText("");
-         ReturnField.setText("");
-         SeatsField.setText("");
-         CostField.setText("");
-         BranchField.setText("");
-         ExperienceField.setText("");
-         
-         
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -782,38 +824,38 @@ public class Trip_Event extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-        String name , lname , id , salary , brcode ,srid ,license,route, experience;
+        String  tr_departure , tr_return , tr_maxseats ,tr_cost ,tr_br_code ,tr_gui_AT, tr_drv_AT;
 
-        name = DepartureField.getText();
-        lname =ReturnField.getText();
-        id = SeatsField.getText();
-        salary = CostField.getText();
-        license  = LicenseBox.getSelectedItem().toString();
-        route = RouteBox.getSelectedItem().toString();
-        experience = ExperienceField.getText();
+        tr_departure = DepartureField.getText();
+        tr_return = ReturnField.getText();
+        tr_maxseats = SeatsField.getText();
+        tr_cost= CostField.getText();
+        tr_br_code = BranchField.getText();
+        tr_gui_AT = GuideATField.getText();
+        tr_drv_AT = DriverATField.getText();
 
         try{
 
-            cs= con.prepareCall("{ call insert_driver(?,?,?,?,?,?,?)}");
-            cs.setString(1,id);
-            cs.setString(2,name);
-            cs.setString(3,lname);
-            cs.setString(4,salary);
-            cs.setString(5,license);
-            cs.setString(6,route);
-            cs.setString(7,experience);
+            cs= con.prepareCall("insert into trip (tr_departure,tr_return,tr_maxseats,tr_cost,tr_br_code,tr_gui_AT,tr_drv_AT)values(?,?,?,?,?,?,?)");
+            cs.setString(1,tr_departure);
+            cs.setString(2,tr_return);
+            cs.setString(3,tr_maxseats);
+            cs.setString(4,tr_cost);
+            cs.setString(5,tr_br_code);
+            cs.setString(6,tr_gui_AT);
+            cs.setString(7,tr_drv_AT);
             cs.executeUpdate();
           
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Licensee","Route" ,"Experience"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Departure","Return","Max Seats","Cost","Branch Code","Guide AT" ,"Driver AT "}));
             table_load();
             DepartureField.setText("");
             ReturnField.setText("");
             SeatsField.setText("");
             CostField.setText("");
             BranchField.setText("");
-            ExperienceField.setText("");
-            DepartureField.requestFocus();
+            GuideATField.setText("");
+            DriverATField.requestFocus();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -846,6 +888,24 @@ public class Trip_Event extends javax.swing.JFrame {
     private void GuideATFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuideATFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_GuideATFieldActionPerformed
+
+    private void jTabledriverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabledriverMouseClicked
+        DefaultTableModel model = (DefaultTableModel) jTabledriver.getModel();
+        int selectedRowIndex =  jTabledriver.getSelectedRow();
+        DriverATField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+    }//GEN-LAST:event_jTabledriverMouseClicked
+
+    private void jTableguideMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableguideMouseClicked
+        DefaultTableModel model = (DefaultTableModel) jTableguide.getModel();
+        int selectedRowIndex =  jTableguide.getSelectedRow();
+        GuideATField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+    }//GEN-LAST:event_jTableguideMouseClicked
+
+    private void UpdateButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton3ActionPerformed
+
+        Events e = new Events();
+        e.show(); 
+    }//GEN-LAST:event_UpdateButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -940,7 +1000,11 @@ public class Trip_Event extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Trip_Event().setVisible(true);
+                try {
+                    new Trip_Event().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -959,6 +1023,7 @@ public class Trip_Event extends javax.swing.JFrame {
     private javax.swing.JTextField SearchField;
     private javax.swing.JTextField SeatsField;
     private javax.swing.JButton UpdateButton2;
+    private javax.swing.JButton UpdateButton3;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
