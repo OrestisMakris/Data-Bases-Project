@@ -6,18 +6,17 @@ package jj_procedures;
 
 /**
  *
- * @author Greg
+ * @author iason
  */
-public class JJ_Procedures {
-
+public class JJ_procedures 
+{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Hello JJ");
-        int var = 5;
-        var = 6;
-    }
-    
+    public static void main(String[] args) 
+    {
+        Branch_info frame1 = new Branch_info();
+        
+        frame1.setVisible(true);
+    }      
 }
