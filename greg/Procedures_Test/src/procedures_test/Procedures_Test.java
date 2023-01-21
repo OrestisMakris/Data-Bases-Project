@@ -12,7 +12,10 @@ package procedures_test;
 public class Procedures_Test{
     public static void main(String[] args) {
         ProcedureResutlsFrame frame1 = new ProcedureResutlsFrame();
+        InsertItAdmin frame2;
+        frame2 = new InsertItAdmin();
+        frame2.setVisible(true);
         // Show the window
-        frame1.setVisible(true);
+        //frame1.setVisible(true);
     }
 }
