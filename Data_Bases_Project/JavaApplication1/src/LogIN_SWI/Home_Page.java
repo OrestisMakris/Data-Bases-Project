@@ -194,8 +194,13 @@ public class Home_Page extends javax.swing.JFrame {
 
     private void INSERT4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_INSERT4ActionPerformed
        
-              Events ee = new Events();
+         
+              try {
+             Reservation ee = new Reservation();
               ee.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
+        }
       
     }//GEN-LAST:event_INSERT4ActionPerformed
 
