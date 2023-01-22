@@ -196,7 +196,7 @@ public class Home_Page extends javax.swing.JFrame {
        
          
               try {
-             Reservation ee = new Reservation();
+             offers  ee = new offers();
               ee.show();
         } catch (SQLException ex) {
             Logger.getLogger(Home_Page.class.getName()).log(Level.SEVERE, null, ex);
