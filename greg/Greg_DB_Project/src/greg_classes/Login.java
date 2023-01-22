@@ -14,21 +14,21 @@ public class Login extends javax.swing.JFrame {
     public static Connection conn;
     public static Login login;
 
-    /**
-     * Creates new form Login
-     */
+    public String username;
+    public String password;
+    
     public Login() {
         initComponents();
         login = this;
     }
     
-    private boolean connect(String username, String password){
+    private boolean connect(String uname, String pass){
         try{
             //connect to the database 
             String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?allowPublicKeyRetrieval=true";
-            String USERNAME = username;
-            String PASSWORD = password;
-            conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+            username = uname;
+            password = pass;
+            conn = DriverManager.getConnection(DB_URL, username, password);
             
         }catch(SQLException e){
             e.printStackTrace();

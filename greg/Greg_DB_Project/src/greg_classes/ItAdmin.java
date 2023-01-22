@@ -5,6 +5,8 @@
 package greg_classes;
 
 import static greg_classes.Login.conn;
+import static greg_classes.Login.login;
+import static greg_classes.Menu.menu;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,13 +14,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Greg
  */
-public class InsertItAdmin extends javax.swing.JFrame {
+public class ItAdmin extends javax.swing.JFrame {
     
     //private Connection conn;
     private DefaultTableModel tmodel;
     
     
-    public InsertItAdmin() {
+    public ItAdmin() {
         initComponents();
         //connect();
         tmodel = (DefaultTableModel) jTable.getModel();
@@ -182,12 +184,17 @@ public class InsertItAdmin extends javax.swing.JFrame {
             PreparedStatement stmt = conn.prepareStatement("delete from worker WHERE wrk_AT = ?");
             
             String at = idField.getText();
+            
+            //den mporw na diagrapsw ton user me ton opoio exw syndethei
+            if(login.username.equals(lastNameField.getText())){
+                return 1;
+            }
             stmt.setString(1, at);
 
             stmt.executeUpdate();    
             
             String username = lastNameField.getText();
-            stmt= conn.prepareStatement("drop user ?@localhost;");
+            stmt= conn.prepareStatement("drop user ?@localhost");
             stmt.setString(1,username);
             
             stmt.execute();
@@ -238,7 +245,6 @@ public class InsertItAdmin extends javax.swing.JFrame {
         selectAllButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         deleteButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
@@ -465,10 +471,6 @@ public class InsertItAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel8.setText("leave empty for default value");
-
         deleteButton.setFont(new java.awt.Font("Segoe UI", 0, 22)); // NOI18N
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -512,11 +514,6 @@ public class InsertItAdmin extends javax.swing.JFrame {
                                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
                         .addGap(12, 12, 12))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(693, 693, 693)
-                    .addComponent(jLabel8)
-                    .addContainerGap(719, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -542,11 +539,6 @@ public class InsertItAdmin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(301, 301, 301)
-                    .addComponent(jLabel8)
-                    .addContainerGap(301, Short.MAX_VALUE)))
         );
 
         pack();
@@ -628,6 +620,7 @@ public class InsertItAdmin extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        menu.requestFocus();
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**
@@ -647,20 +640,21 @@ public class InsertItAdmin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InsertItAdmin().setVisible(true);
+                new ItAdmin().setVisible(true);
             }
         });
     }
@@ -679,7 +673,6 @@ public class InsertItAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
