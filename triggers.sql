@@ -1,4 +1,5 @@
-/*Procedure pou dhmioyrgei enan neo user gia tin vasi travel_agency. Prepei na tin kalesoume afou kanoume insert enan it_admin*/
+/*Procedure pou dhmioyrgei enan neo user gia tin vasi travel_agency. Prepei na tin kalesoume afou kanoume insert enan it_admin
+an privilages = s exei mono select privilages alliws ta exei ola*/
 DROP PROCEDURE IF EXISTS create_user;
 DELIMITER $
 CREATE PROCEDURE create_user(IN it_username VARCHAR(20),IN it_password CHAR(10))
@@ -12,6 +13,7 @@ BEGIN
     EXECUTE cr;
     DEALLOCATE PREPARE cr;
     #omoiws gia to GRANT PRIVILEGES
+    
     SET @gr_user = CONCAT
     ('
     GRANT ALL ON travel_agency.* TO "',it_username,'"@"localhost" '

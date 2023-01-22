@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package procedures_test;
+package greg_classes;
 
+import static greg_classes.Login.conn;
+import static greg_classes.Menu.menu;
 import java.sql.*;
 import javax.swing.table.*;
 
@@ -15,7 +17,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
     /**
      * Creates new form ProcedureResutlsFrame
      */
-    private Connection conn;
+    //private Connection conn;
     private DefaultTableModel tmodel1;
     private DefaultTableModel tmodel2_1;
     private DefaultTableModel tmodel2_2;
@@ -23,17 +25,17 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
     
     public ProcedureResutlsFrame() {
         initComponents();
-        connect();
+        //connect();
     }
     
-    private void connect(){
+    /*private void connect(){
         try{
             //connect to the database 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travel_agency?useSSL = false", "root", "giagia12");
         }catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
     
     private int call_search_trip(int branch_code, String start_date, String end_date){
         try{
@@ -235,8 +237,9 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jButton1.setText("Search Trips");
@@ -413,6 +416,14 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
             }
         });
 
+        backButton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -424,15 +435,17 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
             .addGroup(layout.createSequentialGroup()
-                .addGap(749, 749, 749)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                .addGap(363, 363, 363))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(194, 194, 194)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,9 +465,11 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(32, 32, 32)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -499,8 +514,8 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
         String lname = last_name.getText();
         jLabel7.setText("Reserved offers for costumers with the lastname " + lname);
         jLabel8.setText("Reserved offers for costumers with one reservation per offer");
-        res_names(lname); //del
-        load_data(tmodel2_1, tmodel2_2); //del
+        res_names(lname); 
+        load_data(tmodel2_1, tmodel2_2); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -513,6 +528,12 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
         jTable2.setModel(model);
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        menu.requestFocus();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -550,6 +571,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField end_date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

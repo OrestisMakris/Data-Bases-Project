@@ -25,7 +25,7 @@ public class Branch_info extends javax.swing.JFrame {
     {
         try{
             //connect to the database 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db?useSSL = false", "root", "password");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travel_agency?useSSL = false", "root", "giagia12");
         }catch (SQLException e) {
             e.printStackTrace();
         }
