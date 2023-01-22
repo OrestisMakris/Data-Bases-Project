@@ -174,7 +174,7 @@ public class Reservation extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(TypeBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 273, Short.MAX_VALUE)
@@ -360,26 +360,29 @@ public class Reservation extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(88, 88, 88)
                         .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,14 +400,14 @@ public class Reservation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -429,25 +432,20 @@ public class Reservation extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
         int selectedRowIndex = jTable2.getSelectedRow();
-         LnameField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+         DestinationIDField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
 
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
-        SearchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-        DestinationIDField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-        SeatNumberField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
-        String type = model.getValueAt(selectedRowIndex ,3 ).toString();
-        NameField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
-        String dst_location = model.getValueAt(selectedRowIndex ,5 ).toString();
-        
-        if ("0".equals(dst_location) ){
-            LnameField.setText("0");
-           }else if (!"0".equals(dst_location)){
-            LnameField.setText(dst_location);
-           }
+        DestinationIDField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        SeatNumberField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        String type = model.getValueAt(selectedRowIndex ,4 ).toString();
+        NameField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
+        LnameField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
+        SearchField1.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        SearchField2.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
         
         for (int i = 0 ; i < TypeBox.getItemCount(); i++){
                     if(TypeBox.getItemAt(i).toString().equalsIgnoreCase( type)){
@@ -464,34 +462,36 @@ public class Reservation extends javax.swing.JFrame {
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
 
-         DestinationIDField.setText("");
-         SeatNumberField.setText("");
-         NameField.setText("");
-         LnameField.setText("");
-         SearchField.setText("0");
+          DestinationIDField.setText("");
+            SeatNumberField.setText("");
+            NameField.setText("");
+            LnameField.setText("");
+            SearchField1.setText("");
+            SearchField1.setText("");
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void DeleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButton1ActionPerformed
-         String search1 ;
+         String search1, search2 ;
 
-        search1 =  SearchField.getText();
+         search1 = SearchField1.getText();
+        search2 = SearchField2.getText();
  
 
         try{
 
-            pst= con.prepareStatement("delete from destination WHERE res_tr_id =? ");
+            pst= con.prepareStatement("delete from reservation WHERE res_tr_id =? and res_seatnum =?");
             pst.setString(1, search1);
+            pst.setString(2, search2);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable1.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name","Discription","Type","Language","Location"}));
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name"}));
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Seat Number","Name","Last Name","IS Adult"}));
             table_load();
-            table_load2();
-            DestinationIDField.setText("");
+             DestinationIDField.setText("");
             SeatNumberField.setText("");
             NameField.setText("");
-            LnameField.setText("0");
-            SearchField.setText("");
+            LnameField.setText("");
+            SearchField1.setText("");
+            SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -499,46 +499,48 @@ public class Reservation extends javax.swing.JFrame {
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
 
-        String res_seatnum ,res_name ,dst_rtype ,res_isadult,dst_location ,search1;
-
-        res_seatnum =DestinationIDField.getText();
-        res_name  = SeatNumberField.getText();
-        dst_rtype = TypeBox.getSelectedItem().toString();TypeBox.getSelectedItem().toString();
-        res_isadult=   NameField.getText();
-        dst_location =  LnameField.getText();
-        search1 = SearchField.getText();
-
+        String res_tr_id ,res_seatnum ,res_name ,res_lname,res_isadult ,search1 , search2 ;
+        String tr_maxseats = null;
+        res_tr_id = DestinationIDField.getText();
+        res_seatnum  = SeatNumberField.getText();
+        res_isadult = TypeBox.getSelectedItem().toString();TypeBox.getSelectedItem().toString();
+        res_name=   NameField.getText();
+        res_lname =  LnameField.getText();
+        search1 = SearchField1.getText();
+        search2 = SearchField2.getText();
+        String sr1 = SearchField1.getText();
+      
+        
         try{
+                pst = con.prepareStatement("SELECT tr_maxseats from trip WHERE tr_id =?");
+                pst.setString(1 , sr1);
+                ResultSet rs = pst.executeQuery();
+                  if(rs.next() == true)
+                   {
+                       tr_maxseats  = rs.getString(1);
+                   }
 
-            if ("0".equals(dst_location) ){
-             pst= con.prepareStatement("update destination set res_seatnum=? , res_name =?, dst_rtype = ? , res_isadult = ? WHERE  res_tr_id =?");
-            pst.setString(1,res_seatnum);
-            pst.setString(2,res_name);
-            pst.setString(3,dst_rtype);
-            pst.setString(4,res_isadult);
-            pst.setString(5,search1);
-            pst.executeUpdate();
-           }else if (!"0".equals(dst_location)){
-            pst= con.prepareStatement("update destination set res_seatnum=? , res_name =?, dst_rtype = ? , res_isadult = ? ,dst_location = ? WHERE  res_tr_id =?");
-            pst.setString(1,res_seatnum);
-            pst.setString(2,res_name);
-            pst.setString(3,dst_rtype);
-            pst.setString(4,res_isadult);
-            pst.setString(5, dst_location);
+               if ( Integer.valueOf(res_seatnum) >  Integer.valueOf(tr_maxseats) ){
+                     JOptionPane.showMessageDialog(null , "Seat Number Bigger than the availables");
+               }
+            pst= con.prepareStatement("update reservation set res_tr_id=? , res_seatnum=? , res_name =?, res_lname = ? , res_isadult =? WHERE res_tr_id =? and res_seatnum =?");
+            pst.setString(1,res_tr_id);
+            pst.setString(2,res_seatnum);
+            pst.setString(3,res_name);
+            pst.setString(4,res_lname);
+            pst.setString(5, res_isadult);
             pst.setString(6,search1);
+            pst.setString(7,search2);
             pst.executeUpdate();
-           }
-  
             JOptionPane.showMessageDialog(null , "Record Updated!!");
-           jTable1.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name","Discription","Type","Language","Location"}));
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name"}));
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Seat Number","Name","Last Name","IS Adult"}));
             table_load();
-            table_load2();
             DestinationIDField.setText("");
             SeatNumberField.setText("");
             NameField.setText("");
-            LnameField.setText("0");
-            SearchField.setText("");
+            LnameField.setText("");
+            SearchField1.setText("");
+            SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -546,43 +548,49 @@ public class Reservation extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-        String res_seatnum ,res_name ,dst_rtype ,res_isadult,dst_location ;
-
-        res_seatnum =DestinationIDField.getText();
-        res_name  = SeatNumberField.getText();
-        dst_rtype = TypeBox.getSelectedItem().toString();TypeBox.getSelectedItem().toString();
-        res_isadult=   NameField.getText();
-        dst_location =  LnameField.getText();
- 
+        String res_tr_id , res_seatnum ,res_name ,res_lname,res_isadult  ;
+         String tr_maxseats = null;
+        res_tr_id = DestinationIDField.getText();
+        res_seatnum  = SeatNumberField.getText();
+        res_isadult = TypeBox.getSelectedItem().toString();TypeBox.getSelectedItem().toString();
+        res_name=   NameField.getText();
+        res_lname =  LnameField.getText();
+         String sr1 = DestinationIDField.getText();
+     
 
         try{
+            
+            
+               pst = con.prepareStatement("SELECT tr_maxseats from trip WHERE tr_id =?");
+                pst.setString(1 , sr1);
+                ResultSet rs = pst.executeQuery();
+                  if(rs.next() == true)
+                   {
+                       tr_maxseats  = rs.getString(1);
+                   }
 
-            if ("0".equals(dst_location) ){
-            pst= con.prepareCall("insert into destination (res_seatnum,res_name,dst_rtype,res_isadult )values(?,?,?,?)");
-            pst.setString(1,res_seatnum);
-            pst.setString(2,res_name);
-            pst.setString(3,dst_rtype);
-            pst.setString(4,res_isadult);
+               if ( Integer.valueOf(res_seatnum) >  Integer.valueOf(tr_maxseats) ){
+                     JOptionPane.showMessageDialog(null , "Seat Number Bigger than the availables");
+               }
+            
+
+            pst= con.prepareCall("insert into reservation (res_tr_id,res_seatnum,res_name,res_lname,res_isadult )values(?,?,?,?,?)");
+            pst.setString(1,res_tr_id);
+            pst.setString(2,res_seatnum);
+            pst.setString(3,res_name);
+            pst.setString(4,res_lname);
+            pst.setString(5,res_isadult);
             pst.executeUpdate();
-            }else if (!"0".equals(dst_location)){
-             pst= con.prepareCall("insert into destination (res_seatnum,res_name,dst_rtype,res_isadult ,dst_location)values(?,?,?,?,?)");
-            pst.setString(1,res_seatnum);
-            pst.setString(2,res_name);
-            pst.setString(3,dst_rtype);
-            pst.setString(4,res_isadult);
-            pst.setString(5,dst_location);
-            pst.executeUpdate();
-            }
+         
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable1.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name","Discription","Type","Language","Location"}));
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Destination ID","Name"}));
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Seat Number","Name","Last Name","IS Adult"}));
             table_load();
-            table_load2();
             DestinationIDField.setText("");
             SeatNumberField.setText("");
             NameField.setText("");
-            LnameField.setText("0");
-            SearchField.setText("");
+            LnameField.setText("");
+            SearchField1.setText("");
+            SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -607,31 +615,38 @@ public class Reservation extends javax.swing.JFrame {
             String sr1 = SearchField1.getText();
             String sr2 = SearchField2.getText();
 
-            pst = con.prepareStatement("SELECT ev_tr_id , ev_start, ev_end, ev_descr FROM event WHERE ev_tr_id =? and ev_start =?");
+            pst = con.prepareStatement("SELECT ev_tr_id , ev_start, ev_end, ev_descr FROM reservation WHERE ev_tr_id =? and ev_start =?");
             pst.setString(1 , sr1);
             pst.setString(2 , sr2);
             ResultSet rs = pst.executeQuery();
 
             if(rs.next() == true)
             {
-                String ev_tr_id  = rs.getString(1);
-                String ev_start = rs.getString(2);
-                String ev_end = rs.getString(3);
-                String ev_descr = rs.getString(4);
+                String res_tr_id  = rs.getString(1);
+                String res_seatnum = rs.getString(2);
+                String res_name= rs.getString(3);
+                String res_lname = rs.getString(4);
+                String res_isadult = rs.getString(5);
 
-                StartField.setText(ev_tr_id);
-                EndField.setText(ev_start);
-                DiscriberField.setText(ev_end);
-                CodeField.setText( ev_descr);
+            DestinationIDField.setText(res_tr_id);
+            SeatNumberField.setText(res_seatnum);
+            NameField.setText(res_name);
+            LnameField.setText(res_lname);
+             for (int i = 0 ; i < TypeBox.getItemCount(); i++){
+                  if(TypeBox.getItemAt(i).toString().equalsIgnoreCase(res_isadult)){
+                   TypeBox.setSelectedIndex(i); 
+                   }
+                }
+            
 
             }else{
 
-                StartField.setText("");
-                EndField.setText("");
-                DiscriberField.setText("");
-                CodeField.setText("");
-                SearchField1.setText("");
-                SearchField2.setText("");
+             DestinationIDField.setText("");
+            SeatNumberField.setText("");
+            NameField.setText("");
+            LnameField.setText("");
+            SearchField1.setText("");
+            SearchField1.setText("");
             }
 
         }catch(SQLException e){
