@@ -338,6 +338,7 @@ public class Menu extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
 
         ItAdmin frame = new ItAdmin();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton13ActionPerformed
 
@@ -355,13 +356,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        ProcedureResutlsFrame frame = new ProcedureResutlsFrame();
+        ProcedureResutls frame = new ProcedureResutls();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        ProcedureResutlsFrame frame = new ProcedureResutlsFrame();
+        ProcedureResutls frame = new ProcedureResutls();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 

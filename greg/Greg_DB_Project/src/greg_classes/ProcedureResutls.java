@@ -13,9 +13,9 @@ import javax.swing.table.*;
  *
  * @author Greg
  */
-public class ProcedureResutlsFrame extends javax.swing.JFrame {
+public class ProcedureResutls extends javax.swing.JFrame {
     /**
-     * Creates new form ProcedureResutlsFrame
+     * Creates new form ProcedureResutls
      */
     //private Connection conn;
     private DefaultTableModel tmodel1;
@@ -23,7 +23,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
     private DefaultTableModel tmodel2_2;
     
     
-    public ProcedureResutlsFrame() {
+    public ProcedureResutls() {
         initComponents();
         //connect();
     }
@@ -239,7 +239,7 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jButton1.setText("Search Trips");
@@ -552,20 +552,21 @@ public class ProcedureResutlsFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProcedureResutlsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProcedureResutls.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProcedureResutlsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProcedureResutls.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProcedureResutlsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProcedureResutls.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProcedureResutlsFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProcedureResutls.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProcedureResutlsFrame().setVisible(true);
+                new ProcedureResutls().setVisible(true);
             }
         });
     }

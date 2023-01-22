@@ -4,6 +4,7 @@
  */
 package greg_classes;
 
+import java.awt.event.*;
 import java.sql.*;
 
 /**
@@ -20,6 +21,24 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         login = this;
+        //prosthtw enan keylistener gia na kanw focus sto password field otan valw to username 
+        userNameField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    passwordField.requestFocus();
+                }
+            }
+        });
+        //prosthtw enan keylistener gia na pataei to enterButton otan patisw to enter key
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    enterButton.doClick();
+                }
+            }
+        });
     }
     
     private boolean connect(String uname, String pass){
@@ -144,6 +163,7 @@ public class Login extends javax.swing.JFrame {
         if(connected){
             Menu menu = new Menu();
             this.setVisible(false);
+            menu.setLocationRelativeTo(null);
             menu.setVisible(true);
         }
     }//GEN-LAST:event_enterButtonActionPerformed
@@ -151,6 +171,7 @@ public class Login extends javax.swing.JFrame {
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         userNameField.setText("");
         passwordField.setText("");
+        userNameField.requestFocus();
     }//GEN-LAST:event_resetButtonActionPerformed
 
     /**

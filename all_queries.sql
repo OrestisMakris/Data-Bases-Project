@@ -808,9 +808,54 @@ END$
 DELIMITER ;
 
 /*Procedure pou dhmioyrgei enan neo user gia tin vasi travel_agency. Prepei na tin kalesoume afou kanoume insert enan it_admin*/
+
 DROP PROCEDURE IF EXISTS create_user;
 DELIMITER $
 CREATE PROCEDURE create_user(IN it_username VARCHAR(20),IN it_password CHAR(10))
+BEGIN
+    /*prepei na xrisimopoiisw tin CONCAT() giati den mas epitrepei na ektelesoume tin CREATE USER me metavlites*/
+
+    SET @cr_user = CONCAT
+    ('
+    CREATE USER "',it_username,'"@"localhost" IDENTIFIED BY "',it_password,'" '
+    );
+    PREPARE cr FROM @cr_user;
+    EXECUTE cr;
+    DEALLOCATE PREPARE cr;
+
+    /*omoiws gia to GRANT PRIVILEGES*/
+    
+    SET @gr_user = CONCAT
+    ('
+    GRANT ALL ON travel_agency.* TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr FROM @gr_user;
+    EXECUTE gr;
+    DEALLOCATE PREPARE gr;
+
+    /*gia na mporei na kanei create user*/
+
+    SET @gr_cr_user = CONCAT
+    ('
+    GRANT CREATE USER ON *.* TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr_cr FROM @gr_cr_user;
+    EXECUTE gr_cr;
+    DEALLOCATE PREPARE gr_cr;
+
+    SET @flush = "FLUSH PRIVILEGES";
+    PREPARE stmt FROM @flush;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+
+END$
+DELIMITER ;
+
+/*user mono me select privilages*/
+
+DROP PROCEDURE IF EXISTS create_select_user;
+DELIMITER $
+CREATE PROCEDURE create_select_user(IN it_username VARCHAR(20),IN it_password CHAR(10))
 BEGIN
     #prepei na xrisimopoiisw tin CONCAT() giati den mas epitrepei na ektelesoume tin CREATE USER me metavlites
     SET @cr_user = CONCAT
@@ -820,14 +865,21 @@ BEGIN
     PREPARE cr FROM @cr_user;
     EXECUTE cr;
     DEALLOCATE PREPARE cr;
-    #omoiws gia to GRANT PRIVILEGES
+    
+    #PRIVILEGES SELECT kai EXECUTE gia na mporei na kalei procedures
     SET @gr_user = CONCAT
     ('
-    GRANT ALL ON travel_agency.* TO "',it_username,'"@"localhost" '
+    GRANT EXECUTE, SELECT ON travel_agency.* TO "',it_username,'"@"localhost" '
     );
     PREPARE gr FROM @gr_user;
     EXECUTE gr;
     DEALLOCATE PREPARE gr;
+
+    SET @flush = "FLUSH PRIVILEGES";
+    PREPARE stmt FROM @flush;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+
 END$
 DELIMITER ;
 
