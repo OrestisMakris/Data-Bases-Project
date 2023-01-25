@@ -19,3 +19,10 @@ INSERT INTO it_admin (it_at,it_password,it_start_date)VALUES
 
 drop user deli@localhost;
 SELECT * FROM mysql.user;
+
+SELECT wrk_name,wrk_lname,wrk_br_code FROM admin INNER JOIN worker ON adm_AT=wrk_AT WHERE adm_type='ADMINISTRATIVE';
+
+SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code,
+                                            it_password,it_start_date,it_end_date,Insert_priv FROM worker 
+                                            INNER JOIN it_admin ON it_at = wrk_AT  
+                                            INNER JOIN mysql.db ON wrk_lname = User;

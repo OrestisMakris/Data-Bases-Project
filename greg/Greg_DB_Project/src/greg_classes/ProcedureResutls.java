@@ -4,7 +4,7 @@
  */
 package greg_classes;
 
-import static greg_classes.Login.conn;
+import static greg_classes.Login.*;
 import static greg_classes.Menu.menu;
 import java.sql.*;
 import javax.swing.table.*;

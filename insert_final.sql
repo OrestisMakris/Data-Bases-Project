@@ -340,9 +340,7 @@ INSERT INTO worker VALUES
 ('AK12000007' , 'Grigotis' , 'Delibaltadakis','1500',3),
 ('AK12000008' , 'Alexandros' ,  'Alexandrou','1500',4),
 ('AK12000009' , 'Nikolas' , 'Karavlidis','1500',5),
-('AK12000010' , 'Viki' , 'Alexiou','1500',5);
-
-/*insert into it_admin 2 fores gia na kanw insert kai me default times*/
+('AK12000010' , 'Viki' , 'Aleksiou','1500',5);
 
 INSERT INTO it_admin (it_at,it_start_date)VALUES
 ('AK12000001'  ,'2015-02-06 14:00:00'),
@@ -351,12 +349,23 @@ INSERT INTO it_admin (it_at,it_start_date)VALUES
 ('AK12000010' , '2017-11-11 10:00:00');
 
 INSERT INTO it_admin (it_at,it_password,it_start_date)VALUES
-('AK12000003' , 'John' ,'2010-02-06 14:00:00','2015-02-05 14:00:00'),
-('AK12000005' , '1234' ,'2007-01-31 14:00:00','2020-03-01 14:00:00'),
+('AK12000003' , 'John' ,'2010-02-06 14:00:00'),
+('AK12000005' , '1234' ,'2007-01-31 14:00:00'),
 ('AK12000006' , '1444' ,'2019-03-06 12:00:00'),
 ('AK12000007' , 'ff' ,'2012-05-06 10:00:00'),
 ('AK12000008' , 'AlexAlex' ,'2010-09-06 10:00:00'),
 ('AK12000009' , 'Nik', '2016-02-04 10:00:00');
+
+create_user('Padadimitriou','password');
+create_user('Prodromou','password');
+create_user('Stathopoulos','John');
+create_user('Vasiladiotis','password');
+create_user('Raikos','1234');
+create_user('Makris','1444');
+create_user('Delibaltadakis','ff');
+create_user('Alexandrou','AlexAlex');
+create_user('Karavlidis','Nik');
+create_user('Aleksiou','password');
 
 INSERT INTO  offers VALUES
 (null ,'2023-02-06 14:00:00','2023-02-18 22:00:00' ,400,'5'),

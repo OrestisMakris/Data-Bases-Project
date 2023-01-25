@@ -23,6 +23,16 @@ BEGIN
     EXECUTE gr;
     DEALLOCATE PREPARE gr;
 
+    /*gia na mporei na kanei select kai delete to user ston pinaka mysql.db*/
+
+    SET @gr_user = CONCAT
+    ('
+    GRANT SELECT,DELETE ON mysql.db TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr FROM @gr_user;
+    EXECUTE gr;
+    DEALLOCATE PREPARE gr;
+
     /*gia na mporei na kanei create user*/
 
     SET @gr_cr_user = CONCAT
@@ -60,6 +70,16 @@ BEGIN
     SET @gr_user = CONCAT
     ('
     GRANT EXECUTE, SELECT ON travel_agency.* TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr FROM @gr_user;
+    EXECUTE gr;
+    DEALLOCATE PREPARE gr;
+
+    /*gia na mporei na kanei select kai delete to user ston pinaka mysql.db*/
+
+    SET @gr_user = CONCAT
+    ('
+    GRANT SELECT,DELETE ON mysql.db TO "',it_username,'"@"localhost" '
     );
     PREPARE gr FROM @gr_user;
     EXECUTE gr;

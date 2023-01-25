@@ -478,7 +478,7 @@ INSERT INTO travel_to VALUES
 (29, 17, '2023-02-20 19:45:00', '2023-02-26 18:00:00'),
 (30, 18, '2023-06-16 15:00:00', '2023-06-25 14:00:00');
 
-insert into event values
+INSERT INTO event VALUES
 (1,'2022-03-06 10:00:00', '2022-03-06 14:00:00', 'Mpanio stin Kokkini Paralia.'),
 (2, '2022-03-11 09:00:00','2022-03-11 13:00:00', 'Mpanio stin paralia Platys Gualos.'),
 (3, '2022-04-16 15:00:00', '2022-04-16 19:00:00', 'Volta stin Naousa.'),
@@ -606,32 +606,6 @@ INSERT INTO reservation VALUES
 (30, 1, 'Virginia', 'Papaderou', 'ADULT'),
 (30, 2, 'Xara', 'Papaderou', 'ADULT'),
 (30, 3, 'Konstantinos', 'Papaderos', 'MINOR');
-
-INSERT INTO worker VALUES
-('AK12000001' , 'Artemis' , 'Padadimitriou','1500',1),
-('AK12000002' , 'Maria' , 'Prodromou','1500',1),
-('AK12000003' , 'John' , 'Stathopoulos','1500',1),
-('AK12000004' , 'Andreas' , 'Vasiladiotis','1500',2),
-('AK12000005' , 'Iason' , 'Raikos','1500',2),
-('AK12000006' , 'Orestis' , 'Makris','1500',3),
-('AK12000007' , 'Grigotis' , 'Delibaltadakis','1500',3),
-('AK12000008' , 'Alexandros' ,  'Alexandrou','1500',4),
-('AK12000009' , 'Nikolas' , 'Karavlidis','1500',5),
-('AK12000010' , 'Viki' , 'Alexiou','1500',5);
-
-INSERT INTO it_admin (it_at,it_start_date)VALUES
-('AK12000001'  ,'2015-02-06 14:00:00'),
-('AK12000002'  ,'2012-01-26 14:00:00'),
-('AK12000004'  , '2008-02-06 14:00:00'),
-('AK12000010' , '2017-11-11 10:00:00');
-
-INSERT INTO it_admin (it_at,it_password,it_start_date)VALUES
-('AK12000003' , 'John' ,'2010-02-06 14:00:00','2015-02-05 14:00:00'),
-('AK12000005' , '1234' ,'2007-01-31 14:00:00','2020-03-01 14:00:00'),
-('AK12000006' , '1444' ,'2019-03-06 12:00:00'),
-('AK12000007' , 'ff' ,'2012-05-06 10:00:00'),
-('AK12000008' , 'AlexAlex' ,'2010-09-06 10:00:00'),
-('AK12000009' , 'Nik', '2016-02-04 10:00:00');
 
 INSERT INTO  offers VALUES
 (null ,'2023-02-06 14:00:00','2023-02-18 22:00:00' ,400,'5'),
@@ -808,7 +782,6 @@ END$
 DELIMITER ;
 
 /*Procedure pou dhmioyrgei enan neo user gia tin vasi travel_agency. Prepei na tin kalesoume afou kanoume insert enan it_admin*/
-
 DROP PROCEDURE IF EXISTS create_user;
 DELIMITER $
 CREATE PROCEDURE create_user(IN it_username VARCHAR(20),IN it_password CHAR(10))
@@ -828,6 +801,16 @@ BEGIN
     SET @gr_user = CONCAT
     ('
     GRANT ALL ON travel_agency.* TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr FROM @gr_user;
+    EXECUTE gr;
+    DEALLOCATE PREPARE gr;
+
+    /*gia na mporei na kanei select kai delete to user ston pinaka mysql.db*/
+
+    SET @gr_user = CONCAT
+    ('
+    GRANT SELECT,DELETE ON mysql.db TO "',it_username,'"@"localhost" '
     );
     PREPARE gr FROM @gr_user;
     EXECUTE gr;
@@ -866,10 +849,21 @@ BEGIN
     EXECUTE cr;
     DEALLOCATE PREPARE cr;
     
-    #PRIVILEGES SELECT kai EXECUTE gia na mporei na kalei procedures
+    /*PRIVILEGES SELECT kai EXECUTE gia na mporei na kalei procedures*/
+
     SET @gr_user = CONCAT
     ('
     GRANT EXECUTE, SELECT ON travel_agency.* TO "',it_username,'"@"localhost" '
+    );
+    PREPARE gr FROM @gr_user;
+    EXECUTE gr;
+    DEALLOCATE PREPARE gr;
+
+    /*gia na mporei na kanei select kai delete to user ston pinaka mysql.db*/
+
+    SET @gr_user = CONCAT
+    ('
+    GRANT SELECT ON mysql.db TO "',it_username,'"@"localhost" '
     );
     PREPARE gr FROM @gr_user;
     EXECUTE gr;
@@ -923,6 +917,45 @@ END WHILE;
 CLOSE branchCurs;
 END$
 DELIMITER ;
+
+/*insert tous it_admins edw epeidi xreiazomoun to create_user() procedure*/
+
+INSERT INTO worker VALUES
+('AK12000001' , 'Artemis' , 'Padadimitriou','1500',1),
+('AK12000002' , 'Maria' , 'Prodromou','1500',1),
+('AK12000003' , 'John' , 'Stathopoulos','1500',1),
+('AK12000004' , 'Andreas' , 'Vasiladiotis','1500',2),
+('AK12000005' , 'Iason' , 'Raikos','1500',2),
+('AK12000006' , 'Orestis' , 'Makris','1500',3),
+('AK12000007' , 'Grigotis' , 'Delibaltadakis','1500',3),
+('AK12000008' , 'Alexandros' ,  'Alexandrou','1500',4),
+('AK12000009' , 'Nikolas' , 'Karavlidis','1500',5),
+('AK12000010' , 'Viki' , 'Aleksiou','1500',5);
+
+INSERT INTO it_admin (it_at,it_start_date)VALUES
+('AK12000001'  ,'2015-02-06 14:00:00'),
+('AK12000002'  ,'2012-01-26 14:00:00'),
+('AK12000004'  , '2008-02-06 14:00:00'),
+('AK12000010' , '2017-11-11 10:00:00');
+
+INSERT INTO it_admin (it_at,it_password,it_start_date)VALUES
+('AK12000003' , 'John' ,'2010-02-06 14:00:00'),
+('AK12000005' , '1234' ,'2007-01-31 14:00:00'),
+('AK12000006' , '1444' ,'2019-03-06 12:00:00'),
+('AK12000007' , 'ff' ,'2012-05-06 10:00:00'),
+('AK12000008' , 'AlexAlex' ,'2010-09-06 10:00:00'),
+('AK12000009' , 'Nik', '2016-02-04 10:00:00');
+
+call create_user('Padadimitriou','password');
+call create_user('Prodromou','password');
+call create_user('Stathopoulos','John');
+call create_user('Vasiladiotis','password');
+call create_user('Raikos','1234');
+call create_user('Makris','1444');
+call create_user('Delibaltadakis','ff');
+call create_user('Alexandrou','AlexAlex');
+call create_user('Karavlidis','Nik');
+call create_user('Aleksiou','password');
 
 /*Triggers*/
 

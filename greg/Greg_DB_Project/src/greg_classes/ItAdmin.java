@@ -8,8 +8,6 @@ import static greg_classes.Login.conn;
 import static greg_classes.Login.login;
 import static greg_classes.Menu.menu;
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,19 +22,9 @@ public class ItAdmin extends javax.swing.JFrame {
     
     public ItAdmin() {
         initComponents();
-        //connect();
         tmodel = (DefaultTableModel) jTable.getModel();
         selectAll();
     }
-    
-    /*private void connect(){
-        try{
-            //connect to the database 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travel_agency?useSSL = false", "root", "giagia12");
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void selectAll(){
         try {
