@@ -698,7 +698,7 @@ DROP PROCEDURE IF EXISTS delete_worker;
 DELIMITER $
 CREATE PROCEDURE delete_worker(IN name varchar(20),IN lname varchar(20))
 BEGIN
-IF exists(SELECT * FROM worker INNER JOIN admin ON wrk_AT=adm_AT WHERE wrk_lname=lname AND wrk_name=name)
+IF exists(SELECT * FROM worker INNER JOIN admin ON wrk_AT=adm_AT WHERE wrk_lname=lname AND wrk_name=name AND adm_type="ADMINISTRATIVE")
 THEN
 SELECT "This person is an admin in a branch therefore the deletion is restricted!" AS Error;
 ELSEIF exists(SELECT * FROM worker WHERE wrk_lname=lname AND wrk_name=name) 
