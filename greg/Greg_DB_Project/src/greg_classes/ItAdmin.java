@@ -8,6 +8,8 @@ import static greg_classes.Login.conn;
 import static greg_classes.Login.login;
 import static greg_classes.Menu.menu;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,30 +20,24 @@ public class ItAdmin extends javax.swing.JFrame {
     
     //private Connection conn;
     private DefaultTableModel tmodel;
+    private DefaultTableModel branch_tmodel;
     
     
     public ItAdmin() {
         initComponents();
-        //connect();
         tmodel = (DefaultTableModel) jTable.getModel();
+        branch_tmodel = (DefaultTableModel) jTable.getModel();
         selectAll();
+        tableLoadBranches();
     }
-    
-    /*private void connect(){
-        try{
-            //connect to the database 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travel_agency?useSSL = false", "root", "giagia12");
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     private void selectAll(){
         try {
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code,"
-                                            + "it_password,it_start_date,it_end_date FROM worker "
-                                            + "INNER JOIN it_admin ON it_at = wrk_AT;");
+            ResultSet rs = stmt.executeQuery("SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code, " +
+                                            "it_password,it_start_date,it_end_date,Insert_priv FROM worker " +
+                                            "INNER JOIN it_admin ON it_at = wrk_AT " +
+                                            "INNER JOIN mysql.db ON wrk_lname = User");
             ResultSetMetaData metaData = rs.getMetaData();
             int columnCount = metaData.getColumnCount();
             Object[] row;
@@ -60,9 +56,32 @@ public class ItAdmin extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-  
-    private int insertItAdmin(){
+    
+    public void tableLoadBranches(){
         try {
+            Statement st = conn.createStatement();
+            String table_sql = "SELECT br_code FROM branch";
+            ResultSet rs = st.executeQuery(table_sql);
+            
+            while(rs.next()){
+                
+                String br = rs.getString("br_code");
+                String tbData[] = {br};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable4.getModel();
+                tblModel.addRow(tbData);
+            } 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+  
+    private int insertItAdmin() throws SQLException{
+        try {
+            boolean userCreated = createUser();
+            if(userCreated==false){
+                return 1;
+            }
+            
             String sql = "INSERT INTO worker(wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code)"
                         + "VALUES(?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -80,7 +99,7 @@ public class ItAdmin extends javax.swing.JFrame {
             String passwordValue = passwordField.getText();
             if(passwordValue.isEmpty()){
                 insertItAdminDefPass();
-                return 1;
+                return 0;
             }
             
             sql = "INSERT INTO it_admin(it_at,it_password,it_start_date,it_end_date)VALUES(?,?,?,?)";
@@ -98,12 +117,21 @@ public class ItAdmin extends javax.swing.JFrame {
             }
             
             stmt.executeUpdate();
-            createUser();
             
             stmt.close();
             
         }catch(SQLException e) {
             e.printStackTrace();
+            //mporei na dimiourgithei o user alla na yparxei provlima stin dimiourgia worker i it_admin opote 
+            //diagrafw ton user pou eixe dimiourgithei
+            String username = lastNameField.getText();
+            PreparedStatement stmt= conn.prepareStatement("drop user ?@localhost");
+            stmt.setString(1,username);
+            stmt.execute();
+            
+            stmt = conn.prepareStatement("delete from mysql.db WHERE User = ?");
+            stmt.setString(1, username);
+            stmt.executeUpdate();
             return 1;
         }
         catch(NumberFormatException e){
@@ -113,7 +141,7 @@ public class ItAdmin extends javax.swing.JFrame {
         return 0;
     }
     
-    private void insertItAdminDefPass(){
+    private void insertItAdminDefPass() throws SQLException{
         try {
             String sql = "INSERT INTO it_admin(it_at,it_password,it_start_date,it_end_date)VALUES(?,DEFAULT,?,?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -130,33 +158,40 @@ public class ItAdmin extends javax.swing.JFrame {
             }
             
             stmt.executeUpdate();
-            createUser();
             
             stmt.close();
             
         }catch(SQLException e) {
             e.printStackTrace();
+            String username = lastNameField.getText();
+            PreparedStatement stmt= conn.prepareStatement("drop user ?@localhost");
+            stmt.setString(1,username);
+            stmt.execute();
+            
+            stmt = conn.prepareStatement("delete from mysql.db WHERE User = ?");
+            stmt.setString(1, username);
+            stmt.executeUpdate();
         }
     }
     
-    private void createUser(){
-        try{
-            //create statement object
-            CallableStatement stmt = conn.prepareCall("{call create_user(?, ?)}");
+    private boolean createUser(){
+        try{            
+            String priv = (String)privilegesBox.getSelectedItem();
+            CallableStatement stmt;
+            
+            if(priv.equals("Select Privileges")){
+                stmt = conn.prepareCall("{call create_select_user(?, ?)}");
+            }
+            else{
+                stmt = conn.prepareCall("{call create_user(?, ?)}");
+            }
             
             String username = lastNameField.getText();
             
-            //get password of the user 
-            String sql = "SELECT it_password FROM it_admin " +
-                         "INNER JOIN worker ON wrk_AT = it_at " +
-                         "WHERE wrk_lname = ?";
-            PreparedStatement getPass = conn.prepareStatement(sql);
-            getPass.setString(1, username);
-            
-            ResultSet rs = getPass.executeQuery();
-            rs.next();
-            
-            String password = rs.getString(1);
+            String password = passwordField.getText();
+            if(password.isEmpty()){
+                password = "password";
+            }
             
             //set procedure input args
             stmt.setString(1, username); 
@@ -170,7 +205,9 @@ public class ItAdmin extends javax.swing.JFrame {
  
         }catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
     
     private void clearTable(DefaultTableModel model){
@@ -181,23 +218,29 @@ public class ItAdmin extends javax.swing.JFrame {
     
     private int deleteItAdmin(){
         try{
-            PreparedStatement stmt = conn.prepareStatement("delete from worker WHERE wrk_AT = ?");
-            
-            String at = idField.getText();
-            
             //den mporw na diagrapsw ton user me ton opoio exw syndethei
             if(login.username.equals(lastNameField.getText())){
                 return 1;
             }
-            stmt.setString(1, at);
-
-            stmt.executeUpdate();    
             
             String username = lastNameField.getText();
-            stmt= conn.prepareStatement("drop user ?@localhost");
+            PreparedStatement stmt= conn.prepareStatement("drop user ?@localhost");
             stmt.setString(1,username);
             
             stmt.execute();
+            
+            stmt = conn.prepareStatement("delete from worker WHERE wrk_AT = ?");
+            
+            String at = idField.getText();
+            stmt.setString(1, at);
+
+            stmt.executeUpdate();
+            
+            stmt = conn.prepareStatement("delete from mysql.db WHERE User = ?");
+            
+            stmt.setString(1, username);
+
+            stmt.executeUpdate();
             
             nameField.setText("");
             lastNameField.setText("");
@@ -240,6 +283,8 @@ public class ItAdmin extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        privilegesLabel = new javax.swing.JLabel();
+        privilegesBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         selectAllButton = new javax.swing.JButton();
@@ -247,8 +292,10 @@ public class ItAdmin extends javax.swing.JFrame {
         clearButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("IT Admin ");
@@ -297,6 +344,7 @@ public class ItAdmin extends javax.swing.JFrame {
             }
         });
 
+        branchField.setEditable(false);
         branchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 branchFieldActionPerformed(evt);
@@ -333,6 +381,11 @@ public class ItAdmin extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(102, 102, 102));
         jLabel9.setText("leave empty for default value");
 
+        privilegesLabel.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        privilegesLabel.setText("Privileges");
+
+        privilegesBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Privileges", "Select Privileges" }));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -354,7 +407,12 @@ public class ItAdmin extends javax.swing.JFrame {
                                 .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(branchCodeLabel, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(endDateLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7)
+                            .addComponent(salaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(privilegesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(36, 36, 36)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -366,14 +424,8 @@ public class ItAdmin extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
-                                .addGap(0, 90, Short.MAX_VALUE))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(salaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 90, Short.MAX_VALUE))
+                            .addComponent(privilegesBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -421,7 +473,11 @@ public class ItAdmin extends javax.swing.JFrame {
                         .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)))
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(privilegesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(privilegesBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -429,11 +485,11 @@ public class ItAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Worker AT", "Name", "Last Name", "Salary", "Branch Code", "Password", "Start Date", "End Date"
+                "Worker AT", "Name", "Last Name", "Salary", "Branch Code", "Password", "Start Date", "End Date", "All Privileges"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -487,6 +543,30 @@ public class ItAdmin extends javax.swing.JFrame {
             }
         });
 
+        jTable4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Branches"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable4MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -512,7 +592,10 @@ public class ItAdmin extends javax.swing.JFrame {
                                 .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1)))
                         .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
@@ -522,23 +605,25 @@ public class ItAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(selectAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(12, 12, 12))
         );
 
         pack();
@@ -581,12 +666,29 @@ public class ItAdmin extends javax.swing.JFrame {
         branchField.setText(tmodel.getValueAt(selectedRowIndex ,4 ).toString());
         passwordField.setText(tmodel.getValueAt(selectedRowIndex ,5).toString());
         startDateField.setText(tmodel.getValueAt(selectedRowIndex ,6).toString());
-        endDateField.setText(tmodel.getValueAt(selectedRowIndex ,7 ).toString());
+        
+        try{
+            endDateField.setText(tmodel.getValueAt(selectedRowIndex ,7 ).toString());
+        }
+        catch(NullPointerException e){
+            endDateField.setText("");
+        }
+        
+        if(tmodel.getValueAt(selectedRowIndex ,8).toString().equals("Y")){
+            privilegesBox.setSelectedItem("All Privileges");
+        }
+        else{
+            privilegesBox.setSelectedItem("Select Privileges");
+        }
     }//GEN-LAST:event_jTableMouseClicked
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         clearTable(tmodel);
-        insertItAdmin();
+        try {
+            insertItAdmin();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         selectAll();
     }//GEN-LAST:event_saveButtonActionPerformed
 
@@ -600,9 +702,6 @@ public class ItAdmin extends javax.swing.JFrame {
          passwordField.setText("");
          startDateField.setText("");
          endDateField.setText("");
-         
-         //clear jTable
-         clearTable(tmodel);
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void selectAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectAllButtonActionPerformed
@@ -622,6 +721,12 @@ public class ItAdmin extends javax.swing.JFrame {
         this.dispose();
         menu.requestFocus();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
+        int selectedRowIndex = jTable4.getSelectedRow();
+        branchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+    }//GEN-LAST:event_jTable4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -676,13 +781,17 @@ public class ItAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField passwordField;
     private javax.swing.JLabel passwordLabel;
+    private javax.swing.JComboBox<String> privilegesBox;
+    private javax.swing.JLabel privilegesLabel;
     private javax.swing.JTextField salaryField;
     private javax.swing.JLabel salaryLabel;
     private javax.swing.JButton saveButton;
