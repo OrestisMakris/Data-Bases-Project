@@ -4,6 +4,7 @@
  */
 package LogIN_SWI;
 
+import greg_classes.Log_Destination;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

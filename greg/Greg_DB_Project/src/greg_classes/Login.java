@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package greg_classes;
 
 import java.awt.event.*;
 import java.sql.*;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Greg
- */
 public class Login extends javax.swing.JFrame {
     public static Connection conn;
     public static Login login;
@@ -83,6 +76,11 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("Password");
 
         userNameField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        userNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userNameFieldActionPerformed(evt);
+            }
+        });
 
         passwordField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
@@ -166,6 +164,14 @@ public class Login extends javax.swing.JFrame {
             menu.setLocationRelativeTo(null);
             menu.setVisible(true);
         }
+        else {
+            
+            JOptionPane.showMessageDialog(this, "Username or Password Wrong..");
+            userNameField.setText("");
+            passwordField.setText("");
+            userNameField.requestFocus();
+            
+        }
     }//GEN-LAST:event_enterButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
@@ -173,6 +179,10 @@ public class Login extends javax.swing.JFrame {
         passwordField.setText("");
         userNameField.requestFocus();
     }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void userNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userNameFieldActionPerformed
 
     /**
      * @param args the command line arguments
