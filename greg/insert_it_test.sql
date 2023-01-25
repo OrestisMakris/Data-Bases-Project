@@ -26,3 +26,7 @@ SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code,
                                             it_password,it_start_date,it_end_date,Insert_priv FROM worker 
                                             INNER JOIN it_admin ON it_at = wrk_AT  
                                             INNER JOIN mysql.db ON wrk_lname = User;
+
+drop database travel_agency;
+CREATE DATABASE travel_agency;
+use travel_agency;
