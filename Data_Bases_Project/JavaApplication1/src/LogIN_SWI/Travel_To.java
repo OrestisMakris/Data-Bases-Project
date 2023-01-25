@@ -1,6 +1,8 @@
 package LogIN_SWI;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -9,11 +11,12 @@ public class Travel_To extends javax.swing.JFrame {
     /**
      * Creates new form Travel_To
      */
-    public Travel_To() {
+    public Travel_To() throws SQLException {
         initComponents();
         Connect();
         table_load();
         table_load2();
+        table_load3();
     }
 
     Connection con;
@@ -72,6 +75,23 @@ public class Travel_To extends javax.swing.JFrame {
           tblModel.addRow(tbData); 
       }
     }
+      
+      public void table_load3() throws SQLException {
+      Statement st = con.createStatement();
+      String table_sql = "SELECT dst_id , dst_name FROM destination";
+      ResultSet rs = st.executeQuery(table_sql);
+      
+      while(rs.next()){
+          
+          String dst_id = String.valueOf(rs.getInt("dst_id"));
+          String dst_name = rs.getString("dst_name");
+
+          String tbData[] = {dst_id , dst_name };
+          
+          DefaultTableModel tblModel = (DefaultTableModel)jTable3.getModel();
+          tblModel.addRow(tbData); 
+      }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,8 +121,10 @@ public class Travel_To extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JButton();
         UpdateButton2 = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Travel To");
@@ -118,7 +140,7 @@ public class Travel_To extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel7.setText("Trip ID");
 
-        DepartureField.setText("YYY-MM-DD HH:MM:SS");
+        DepartureField.setText("YYYY-MM-DD HH:MM:SS");
         DepartureField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DepartureFieldActionPerformed(evt);
@@ -135,7 +157,7 @@ public class Travel_To extends javax.swing.JFrame {
             }
         });
 
-        ArrivalField.setText("YYY-MM-DD HH:MM:SS");
+        ArrivalField.setText("YYYY-MM-DD HH:MM:SS");
         ArrivalField.setToolTipText("");
         ArrivalField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +239,7 @@ public class Travel_To extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Travel ID", "Destination ID", "Time Arrival", "Time Departure"
+                "Trip ID", "Destination ID", "Time Arrival", "Time Departure"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -229,6 +251,11 @@ public class Travel_To extends javax.swing.JFrame {
             }
         });
         jTable2.setToolTipText("");
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 22))); // NOI18N
@@ -270,14 +297,11 @@ public class Travel_To extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(SearchTripField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DestinationSField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(SearchTripField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DestinationSField, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,11 +310,11 @@ public class Travel_To extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
                     .addComponent(SearchTripField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DestinationSField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel24))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ExitButton.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
@@ -333,6 +357,29 @@ public class Travel_To extends javax.swing.JFrame {
             }
         });
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Destination ID", "Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -343,55 +390,54 @@ public class Travel_To extends javax.swing.JFrame {
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(UpdateButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(42, 42, 42)
                         .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
+                        .addGap(50, 50, 50)
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane3))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 968, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 50, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22))))
+                            .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -420,7 +466,7 @@ public class Travel_To extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
-        DestinationField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        TripField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -443,7 +489,7 @@ public class Travel_To extends javax.swing.JFrame {
             String sr1 = SearchTripField.getText();
             String sr2 = DestinationSField.getText();
 
-            pst = con.prepareStatement("SELECT to_tr_id , to_dst_id, to_arrival, to_departure FROM event WHERE to_tr_id =? and to_dst_id =?");
+            pst = con.prepareStatement("SELECT to_tr_id , to_dst_id, to_arrival, to_departure FROM travel_to WHERE to_tr_id =? and to_dst_id =?");
             pst.setString(1 , sr1);
             pst.setString(2 , sr2);
             ResultSet rs = pst.executeQuery();
@@ -487,6 +533,7 @@ public class Travel_To extends javax.swing.JFrame {
         DestinationField.setText("");
         SearchTripField.setText("");
         DestinationSField.setText("");
+        
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
@@ -502,7 +549,7 @@ public class Travel_To extends javax.swing.JFrame {
             pst.setString(2, search2);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Travel ID","Destination ID","Time Arrival","Time Departure"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Destination ID","Time Arrival","Time Departure"}));
             table_load();
              ArrivalField.setText("");
              DepartureField.setText("");
@@ -528,7 +575,7 @@ public class Travel_To extends javax.swing.JFrame {
 
         try{
 
-            pst= con.prepareStatement("update event set to_tr_id =? ,to_dst_id=? , to_arrival=?, to_departure=? WHERE to_tr_id =? and to_dst_id =?");
+            pst= con.prepareStatement("update travel_TO set to_tr_id =? ,to_dst_id=? , to_arrival=?, to_departure=? WHERE to_tr_id =? and to_dst_id =?");
             pst.setString(1,to_tr_id);
             pst.setString(2,to_dst_id);
             pst.setString(3,to_arrival);
@@ -536,7 +583,7 @@ public class Travel_To extends javax.swing.JFrame {
             pst.setString(5,search1);
             pst.setString(6,search2);
             pst.executeUpdate();
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Travel ID","Destination ID","Time Arrival","Time Departure"}));
+            jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Destination ID","Time Arrival","Time Departure"}));
             table_load();
              ArrivalField.setText("");
              DepartureField.setText("");
@@ -560,14 +607,14 @@ public class Travel_To extends javax.swing.JFrame {
 
         try{
 
-            cs= con.prepareCall("insert into event (to_tr_id,to_dst_id,to_arrival,to_departure)values(?,?,?,?)");
+            cs= con.prepareCall("insert into travel_to (to_tr_id,to_dst_id,to_arrival,to_departure)values(?,?,?,?)");
             cs.setString(1,to_tr_id );
             cs.setString(2,to_dst_id);
             cs.setString(3,to_arrival);
             cs.setString(4,to_departure);
             cs.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-             jTable2.setModel(new DefaultTableModel(null , new String[]{"Travel ID","Destination ID","Time Arrival","Time Departure"}));
+             jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID","Destination ID","Time Arrival","Time Departure"}));
              table_load();
              ArrivalField.setText("");
              DepartureField.setText("");
@@ -579,6 +626,25 @@ public class Travel_To extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+        int selectedRowIndex = jTable3.getSelectedRow();
+        DestinationField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+       DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+        int selectedRowIndex = jTable2.getSelectedRow();
+        TripField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        SearchTripField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+        DestinationField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        DestinationSField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        ArrivalField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
+        DepartureField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
+
+    }//GEN-LAST:event_jTable2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -610,7 +676,11 @@ public class Travel_To extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Travel_To().setVisible(true);
+                try {
+                    new Travel_To().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Travel_To.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -638,7 +708,9 @@ public class Travel_To extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     // End of variables declaration//GEN-END:variables
 }

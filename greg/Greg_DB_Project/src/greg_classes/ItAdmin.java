@@ -8,6 +8,8 @@ import static greg_classes.Login.conn;
 import static greg_classes.Login.login;
 import static greg_classes.Menu.menu;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,12 +20,15 @@ public class ItAdmin extends javax.swing.JFrame {
     
     //private Connection conn;
     private DefaultTableModel tmodel;
+    private DefaultTableModel branch_tmodel;
     
     
     public ItAdmin() {
         initComponents();
         tmodel = (DefaultTableModel) jTable.getModel();
+        branch_tmodel = (DefaultTableModel) jTable.getModel();
         selectAll();
+        tableLoadBranches();
     }
 
     private void selectAll(){
@@ -48,6 +53,24 @@ public class ItAdmin extends javax.swing.JFrame {
             stmt.close();
             
         }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void tableLoadBranches(){
+        try {
+            Statement st = conn.createStatement();
+            String table_sql = "SELECT br_code FROM branch";
+            ResultSet rs = st.executeQuery(table_sql);
+            
+            while(rs.next()){
+                
+                String br = rs.getString("br_code");
+                String tbData[] = {br};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable4.getModel();
+                tblModel.addRow(tbData);
+            } 
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -269,6 +292,8 @@ public class ItAdmin extends javax.swing.JFrame {
         clearButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -319,6 +344,7 @@ public class ItAdmin extends javax.swing.JFrame {
             }
         });
 
+        branchField.setEditable(false);
         branchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 branchFieldActionPerformed(evt);
@@ -517,6 +543,30 @@ public class ItAdmin extends javax.swing.JFrame {
             }
         });
 
+        jTable4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Branches"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable4MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable4);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -542,7 +592,10 @@ public class ItAdmin extends javax.swing.JFrame {
                                 .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1)))
                         .addGap(12, 12, 12))))
         );
         layout.setVerticalGroup(
@@ -552,20 +605,24 @@ public class ItAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(selectAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(12, 12, 12))
         );
 
@@ -665,6 +722,12 @@ public class ItAdmin extends javax.swing.JFrame {
         menu.requestFocus();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
+        DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
+        int selectedRowIndex = jTable4.getSelectedRow();
+        branchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
+    }//GEN-LAST:event_jTable4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -718,7 +781,9 @@ public class ItAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField nameField;
