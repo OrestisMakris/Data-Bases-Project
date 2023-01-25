@@ -13,14 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class offers extends javax.swing.JFrame {
+public class Reservation_Offers extends javax.swing.JFrame {
 
    
-    public offers() throws SQLException {
+    public Reservation_Offers() throws SQLException {
         initComponents();
         Connect();
         table_load();
-       table_load2();
+        table_load2();
        
     }
 
@@ -43,18 +43,18 @@ public class offers extends javax.swing.JFrame {
     
     public void table_load() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT offer_id,offer_trip_start_date , offer_trip_end_date ,Price_per_Person ,offer_dst_id from offers";
+      String table_sql = "SELECT rsv_id , rsv_name ,rsv_lastname ,deposit_amount ,rsv_offer_id FROM reservation_offers";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
           
-          String offer_id = String.valueOf(rs.getInt("offer_id"));
-          String offer_trip_start_date = rs.getString("offer_trip_start_date");
-          String offer_trip_end_date=  rs.getString("offer_trip_end_date");
-          String Price_per_Person = String.valueOf(rs.getInt("Price_per_Person"));
-          String offer_dst_id= String.valueOf(rs.getInt("offer_dst_id"));
-     
-          String tbData[] = {offer_id,offer_trip_start_date , offer_trip_end_date, Price_per_Person ,offer_dst_id};
+          String rsv_id = String.valueOf(rs.getInt("rsv_id"));
+          String rsv_name= rs.getString("rsv_name");
+          String rsv_lastname = rs.getString("rsv_lastname");
+          String deposit_amount=  String.valueOf(rs.getInt("deposit_amount"));
+          String rsv_offer_id =  String.valueOf(rs.getInt("rsv_offer_id"));
+    
+          String tbData[] = {rsv_id , rsv_name, rsv_lastname ,deposit_amount ,rsv_offer_id};
           
           DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
           tblModel.addRow(tbData); 
@@ -63,17 +63,17 @@ public class offers extends javax.swing.JFrame {
     
       public void table_load2() throws SQLException {
       Statement st = con.createStatement();
-      String table_sql = "SELECT dst_id ,dst_name, tr_departure ,tr_return from trip INNER JOIN travel_to ON tr_id = to_tr_id  INNER JOIN destination ON to_dst_id = dst_id";
+      String table_sql = "SELECT offer_id ,offer_trip_start_date , offer_trip_end_date ,Price_per_Person , dst_name from offers INNER JOIN destination ON dst_id = offer_dst_id  ";
       ResultSet rs = st.executeQuery(table_sql);
-      
       while(rs.next()){
           
-          String dst_id= String.valueOf(rs.getInt("dst_id"));
-          String dst_name= rs.getString("dst_name");
-          String tr_departure= rs.getString("tr_departure");
-          String tr_return= rs.getString("tr_return");
- 
-          String tbData[] = {dst_name, tr_departure,tr_return, dst_id};
+          String offer_id = String.valueOf(rs.getInt("offer_id"));
+          String offer_trip_start_date = rs.getString("offer_trip_start_date");
+          String offer_trip_end_date = rs.getString("offer_trip_end_date");
+          String Price_per_Person = String.valueOf(rs.getInt("Price_per_Person"));
+          String dst_name = rs.getString("dst_name");
+         
+          String tbData[] = {offer_id, offer_trip_start_date, offer_trip_end_date,Price_per_Person , dst_name};
 
           DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
           tblModel.addRow(tbData); 
@@ -87,13 +87,13 @@ public class offers extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        StartDateField = new javax.swing.JTextField();
+        NameField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        StartEndField = new javax.swing.JTextField();
-        LnameField = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        PriceField = new javax.swing.JTextField();
+        DepositField = new javax.swing.JTextField();
+        IDField = new javax.swing.JTextField();
+        LastField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -110,46 +110,44 @@ public class offers extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Offers");
+        jLabel1.setText("Reservation Offers");
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Offers", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add Destination", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 24))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel5.setText("End Date");
+        jLabel5.setText("Name");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel6.setText("Last Name");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel7.setText("Price");
+        jLabel7.setText("Deposit");
 
-        StartDateField.setEditable(false);
-        StartDateField.addActionListener(new java.awt.event.ActionListener() {
+        NameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StartDateFieldActionPerformed(evt);
+                NameFieldActionPerformed(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel8.setText("Destination ID");
+        jLabel8.setText("Offer ID");
 
-        StartEndField.setEditable(false);
-        StartEndField.addActionListener(new java.awt.event.ActionListener() {
+        DepositField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StartEndFieldActionPerformed(evt);
+                DepositFieldActionPerformed(evt);
             }
         });
 
-        LnameField.setEditable(false);
-        LnameField.addActionListener(new java.awt.event.ActionListener() {
+        IDField.setEditable(false);
+        IDField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LnameFieldActionPerformed(evt);
+                IDFieldActionPerformed(evt);
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel9.setText("Start Date");
-
-        PriceField.addActionListener(new java.awt.event.ActionListener() {
+        LastField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PriceFieldActionPerformed(evt);
+                LastFieldActionPerformed(evt);
             }
         });
 
@@ -158,46 +156,45 @@ public class offers extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StartDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(StartEndField, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(LnameField, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(PriceField, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(DepositField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                .addComponent(NameField, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(61, 61, 61)
+                        .addComponent(LastField)))
                 .addGap(19, 19, 19))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(StartDateField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                    .addComponent(jLabel9))
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(StartEndField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
+                    .addComponent(NameField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(LastField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(DepositField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(LnameField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGap(16, 16, 16))
+                    .addComponent(IDField, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -205,7 +202,7 @@ public class offers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Offer ID", "Trip Start Date", "Trip End Date", "Price", "Destination ID"
+                "ID", "Name", "Last Name", "Deposit Amount", "Offer ID "
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -228,11 +225,11 @@ public class offers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Destinatio Name", "Trip Start Date ", "Trip End Date ", "Destination ID"
+                "Offer ID", "Name", "Start Date", "End Date", "Price", "Destination"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -289,7 +286,7 @@ public class offers extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 22))); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
-        jLabel13.setText("Offer ID");
+        jLabel13.setText("Reservation ID");
 
         SearchField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,18 +306,18 @@ public class offers extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(SearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 7, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addComponent(SearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(SearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(SearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -328,79 +325,76 @@ public class offers extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addGap(0, 20, Short.MAX_VALUE))
+                        .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2))
+                        .addGap(16, 16, 16))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void StartDateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartDateFieldActionPerformed
+    private void NameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NameFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StartDateFieldActionPerformed
+    }//GEN-LAST:event_NameFieldActionPerformed
 
-    private void StartEndFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartEndFieldActionPerformed
+    private void DepositFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepositFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StartEndFieldActionPerformed
+    }//GEN-LAST:event_DepositFieldActionPerformed
 
-    private void LnameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LnameFieldActionPerformed
+    private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_LnameFieldActionPerformed
+    }//GEN-LAST:event_IDFieldActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
         int selectedRowIndex = jTable2.getSelectedRow();
-         StartDateField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-         StartEndField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
-         LnameField.setText(model.getValueAt(selectedRowIndex ,3 ).toString());
+         IDField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
 
     }//GEN-LAST:event_jTable2MouseClicked
 
@@ -408,11 +402,10 @@ public class offers extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
         int selectedRowIndex = jTable1.getSelectedRow();
         SearchField1.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
-        StartDateField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
-        StartEndField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
-        PriceField.setText(model.getValueAt(selectedRowIndex ,3 ).toString()); 
-        LnameField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
-    
+        NameField.setText(model.getValueAt(selectedRowIndex ,1 ).toString());
+        LastField.setText(model.getValueAt(selectedRowIndex ,2 ).toString());
+        DepositField.setText(model.getValueAt(selectedRowIndex ,3).toString());
+        IDField.setText(model.getValueAt(selectedRowIndex ,4 ).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
@@ -421,32 +414,32 @@ public class offers extends javax.swing.JFrame {
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
 
-            StartDateField.setText("");
-            StartEndField.setText("");
-            PriceField.setText("");
-            LnameField.setText("");
+            LastField.setText("");
+            NameField.setText("");
+            DepositField.setText("");
+            IDField.setText("");
             SearchField1.setText("");
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void DeleteButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButton1ActionPerformed
-         String search1 ;
+         String search1;
 
          search1 = SearchField1.getText();
- 
- 
-
+  
         try{
 
-            pst= con.prepareStatement("delete from offers WHERE offer_id =?");
+            pst= con.prepareStatement("delete from reservation_offers WHERE rsv_id =?");
             pst.setString(1, search1);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
-                   jTable1.setModel(new DefaultTableModel(null , new String[]{"Offer ID","Trip Start Date","Trip End Date","Price", "Destination ID"}));
+            
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"ID","Name","Last Name","Deposit Amoun","Offer ID "}));
+            
             table_load();
-            StartDateField.setText("");
-            StartEndField.setText("");
-            PriceField.setText("");
-            LnameField.setText("");
+            LastField.setText("");
+            NameField.setText("");
+            DepositField.setText("");
+            IDField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -455,31 +448,34 @@ public class offers extends javax.swing.JFrame {
 
     private void UpdateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton2ActionPerformed
 
-        String offer_trip_start_date ,offer_trip_end_date ,Price_per_Person ,offer_dst_id ;
+        String  rsv_name ,rsv_lastname , deposit_amount, rsv_offer_id , sr1 ;
         
-        offer_trip_start_date = StartDateField.getText();
-        offer_trip_end_date  = StartEndField.getText();
-        Price_per_Person =PriceField.getText();
-        offer_dst_id =  LnameField.getText();
-        String sr1 = SearchField1.getText();
+        rsv_name = NameField.getText();
+        rsv_lastname  = LastField.getText();
+        deposit_amount = DepositField.getText();
+        rsv_offer_id = IDField.getText();
+        sr1 = SearchField1.getText();
       
         
         try{
-    
-            pst= con.prepareStatement("update offers set offer_trip_start_date=? , offer_trip_end_date=? , Price_per_Person =?, offer_dst_id = ? WHERE offer_id =?");
-            pst.setString(1,offer_trip_start_date);
-            pst.setString(2,offer_trip_end_date);
-            pst.setString(3,Price_per_Person);
-            pst.setString(4,offer_dst_id);
+         
+            pst= con.prepareStatement("update reservation_offers set  rsv_name=? , rsv_lastname =?, deposit_amount = ? , rsv_offer_id =? WHERE rsv_id =? ");
+            pst.setString(1,rsv_name);
+            pst.setString(2,rsv_lastname);
+            pst.setString(3,deposit_amount);
+            pst.setString(4, rsv_offer_id);
             pst.setString(5,sr1);
+       
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Updated!!");
-                       jTable1.setModel(new DefaultTableModel(null , new String[]{"Offer ID","Trip Start Date","Trip End Date","Price", "Destination ID"}));
+            
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"ID","Name","Last Name","Deposit Amoun","Offer ID "}));
+            
             table_load();
-            StartDateField.setText("");
-            StartEndField.setText("");
-            PriceField.setText("");
-            LnameField.setText("");
+            LastField.setText("");
+            NameField.setText("");
+            DepositField.setText("");
+            IDField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -487,30 +483,32 @@ public class offers extends javax.swing.JFrame {
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-  
-        String offer_trip_start_date ,offer_trip_end_date ,Price_per_Person ,offer_dst_id ;
-         
-        offer_trip_start_date = StartDateField.getText();
-        offer_trip_end_date  = StartEndField.getText();
-        Price_per_Person =PriceField.getText();
-        offer_dst_id =  LnameField.getText();
+
+        String  rsv_name ,rsv_lastname , deposit_amount, rsv_offer_id  ;
+        
+        rsv_name = NameField.getText();
+        rsv_lastname  = LastField.getText();
+        deposit_amount = DepositField.getText();
+        rsv_offer_id = IDField.getText();
+        
         try{
-          
-            pst= con.prepareCall("insert into offers (offer_trip_start_date,offer_trip_end_date,Price_per_Person,offer_dst_id )values(?,?,?,?)");
-            pst.setString(1,offer_trip_start_date);
-            pst.setString(2,offer_trip_end_date);
-            pst.setString(3,Price_per_Person);
-            pst.setString(4,offer_dst_id);
+            pst= con.prepareCall("insert into reservation_offers (rsv_name, rsv_lastname , deposit_amount , rsv_offer_id)values(?,?,?,?)");
+            pst.setString(1,rsv_name);
+            pst.setString(2,rsv_lastname);
+            pst.setString(3,deposit_amount);
+            pst.setString(4,rsv_offer_id);
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Updated!!");
-                 jTable1.setModel(new DefaultTableModel(null , new String[]{"Offer ID","Trip Start Date","Trip End Date","Price", "Destination ID"}));
-            table_load();
-            StartDateField.setText("");
-            StartEndField.setText("");
-            PriceField.setText("");
-            LnameField.setText("");
-            SearchField1.setText("");
          
+            JOptionPane.showMessageDialog(null , "Record Addedd!!");
+            
+            jTable1.setModel(new DefaultTableModel(null , new String[]{"ID","Name","Last Name","Deposit Amoun","Offer ID "}));
+            
+            table_load();
+            LastField.setText("");
+            NameField.setText("");
+            DepositField.setText("");
+            IDField.setText("");
+            SearchField1.setText("");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -524,9 +522,9 @@ public class offers extends javax.swing.JFrame {
 
     }//GEN-LAST:event_SearchField1KeyReleased
 
-    private void PriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PriceFieldActionPerformed
+    private void LastFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PriceFieldActionPerformed
+    }//GEN-LAST:event_LastFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -545,13 +543,13 @@ public class offers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reservation_Offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reservation_Offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reservation_Offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Reservation_Offers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -562,7 +560,11 @@ public class offers extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             
-                    new offers().setVisible(true);
+                try {
+                    new Reservation_Offers().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Reservation_Offers.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             }
         });
@@ -571,20 +573,20 @@ public class offers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ClearButton;
     private javax.swing.JButton DeleteButton1;
+    private javax.swing.JTextField DepositField;
     private javax.swing.JButton ExitButton;
-    private javax.swing.JTextField LnameField;
-    private javax.swing.JTextField PriceField;
+    private javax.swing.JTextField IDField;
+    private javax.swing.JTextField LastField;
+    private javax.swing.JTextField NameField;
     private javax.swing.JButton SaveButton;
     private javax.swing.JTextField SearchField1;
-    private javax.swing.JTextField StartDateField;
-    private javax.swing.JTextField StartEndField;
     private javax.swing.JButton UpdateButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
