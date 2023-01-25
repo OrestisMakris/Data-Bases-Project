@@ -698,7 +698,7 @@ DROP PROCEDURE IF EXISTS delete_worker;
 DELIMITER $
 CREATE PROCEDURE delete_worker(IN name varchar(20),IN lname varchar(20))
 BEGIN
-IF exists(SELECT * FROM worker INNER JOIN admin ON wrk_AT=adm_AT WHERE wrk_lname=lname AND wrk_name=name)
+IF exists(SELECT * FROM worker INNER JOIN admin ON wrk_AT=adm_AT WHERE wrk_lname=lname AND wrk_name=name AND adm_type="ADMINISTRATIVE")
 THEN
 SELECT "This person is an admin in a branch therefore the deletion is restricted!" AS Error;
 ELSEIF exists(SELECT * FROM worker WHERE wrk_lname=lname AND wrk_name=name) 
@@ -1133,6 +1133,19 @@ BEGIN
     INSERT INTO log_destination VALUES
     ('DELETE',CURRENT_USER(),NOW(),OLD.dst_id,OLD.dst_name,OLD.dst_dscr,
     OLD.dst_rtype,OLD.dst_language,OLD.dst_location);
+END$
+DELIMITER ;
+
+/*trigger 3.1.4.2*/
+DROP TRIGGER IF EXISTS check_reservations;
+DELIMITER $
+CREATE TRIGGER check_reservations BEFORE UPDATE ON trip
+FOR EACH ROW
+BEGIN
+IF exists(SELECT * FROM reservation WHERE res_tr_id=OLD.tr_id)
+THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This trip already has reservations therefore updates are restricted!';
+END IF;
 END$
 DELIMITER ;
 
