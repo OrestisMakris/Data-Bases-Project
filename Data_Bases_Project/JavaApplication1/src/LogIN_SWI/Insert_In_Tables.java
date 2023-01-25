@@ -1,7 +1,9 @@
 package LogIN_SWI;
 
-import java.awt.EventQueue;
+
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -736,7 +738,11 @@ public class Insert_In_Tables extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Insert_In_Tables().setVisible(true);
+                try {
+                    new Insert_In_Tables().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Insert_In_Tables.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

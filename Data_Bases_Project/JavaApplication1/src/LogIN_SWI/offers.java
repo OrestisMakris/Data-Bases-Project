@@ -1,6 +1,5 @@
 package LogIN_SWI;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -433,8 +432,6 @@ public class offers extends javax.swing.JFrame {
 
          search1 = SearchField1.getText();
  
- 
-
         try{
 
             pst= con.prepareStatement("delete from offers WHERE offer_id =?");
@@ -562,7 +559,11 @@ public class offers extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             
+                try {
                     new offers().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(offers.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             }
         });

@@ -1,7 +1,6 @@
 package LogIN_SWI;
 
 import java.sql.*;
-import static java.util.Objects.isNull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -612,7 +611,11 @@ public class Events extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Events().setVisible(true);
+                try {
+                    new Events().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Events.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -1,7 +1,6 @@
 package LogIN_SWI;
 
 import java.sql.*;
-import static java.util.Objects.isNull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

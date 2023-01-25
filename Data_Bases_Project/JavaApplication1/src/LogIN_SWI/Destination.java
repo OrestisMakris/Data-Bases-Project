@@ -1,6 +1,5 @@
 package LogIN_SWI;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -436,7 +435,7 @@ public class Destination extends javax.swing.JFrame {
                 LocationField.setText(dst_location);
                
                 for (int i = 0 ; i < TypeBox.getItemCount(); i++){
-                    if(TypeBox.getItemAt(i).toString().equalsIgnoreCase( dst_rtype)){
+                    if(TypeBox.getItemAt(i).equalsIgnoreCase( dst_rtype)){
                         TypeBox.setSelectedIndex(i);
                     }
                 }
@@ -648,7 +647,11 @@ public class Destination extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
             
+                try {
                     new Destination().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Destination.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             }
         });

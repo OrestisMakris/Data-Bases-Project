@@ -1,7 +1,8 @@
 package LogIN_SWI;
 
-import java.awt.EventQueue;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -790,7 +791,11 @@ public class Guide_Worker extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Guide_Worker().setVisible(true);
+                try {
+                    new Guide_Worker().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Guide_Worker.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
