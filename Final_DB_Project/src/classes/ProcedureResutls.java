@@ -9,14 +9,8 @@ import static classes.Menu.menu;
 import java.sql.*;
 import javax.swing.table.*;
 
-/**
- *
- * @author Greg
- */
 public class ProcedureResutls extends javax.swing.JFrame {
-    /**
-     * Creates new form ProcedureResutls
-     */
+   
     //private Connection conn;
     private DefaultTableModel tmodel1;
     private DefaultTableModel tmodel2_1;
@@ -25,17 +19,8 @@ public class ProcedureResutls extends javax.swing.JFrame {
     
     public ProcedureResutls() {
         initComponents();
-        //connect();
     }
     
-    /*private void connect(){
-        try{
-            //connect to the database 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/travel_agency?useSSL = false", "root", "giagia12");
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
     
     private int call_search_trip(int branch_code, String start_date, String end_date){
         try{
@@ -79,7 +64,7 @@ public class ProcedureResutls extends javax.swing.JFrame {
             while (rs.next()) {
                 row = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
-                    row[i - 1] = rs.getObject(i);
+                    row[i - 1] = rs.getString(i);
                 }
                 tmodel1.addRow(row);
             }
@@ -89,7 +74,7 @@ public class ProcedureResutls extends javax.swing.JFrame {
                 while (rs.next()) {
                     row = new Object[columnCount];
                     for (int i = 1; i <= columnCount; i++) {
-                        row[i - 1] = rs.getObject(i);
+                        row[i - 1] = rs.getString(i);
                     }
                     tmodel1.addRow(row);
                     }
@@ -143,7 +128,7 @@ public class ProcedureResutls extends javax.swing.JFrame {
                     }
                     row = new Object[columnCount];
                     for (int i = 1; i <= columnCount; i++) {
-                        row[i - 1] = rs.getObject(i);
+                        row[i - 1] = rs.getString(i);
                     }
                     tmodel2_1.addRow(row);
                 }
@@ -162,7 +147,7 @@ public class ProcedureResutls extends javax.swing.JFrame {
                     columnCount = metaData.getColumnCount();
                     row = new Object[columnCount];
                     for (int i = 1; i <= columnCount; i++) {
-                        row[i - 1] = rs.getObject(i);
+                        row[i - 1] = rs.getString(i);
                     }
                     tmodel2_2.addRow(row);
                  }

@@ -44,7 +44,7 @@ public class ItAdmin extends javax.swing.JFrame {
             while (rs.next()) {
                 row = new Object[columnCount];
                 for (int i = 1; i <= columnCount; i++) {
-                    row[i - 1] = rs.getObject(i);
+                    row[i - 1] = rs.getString(i);
                 }
                 tmodel.addRow(row);
             }

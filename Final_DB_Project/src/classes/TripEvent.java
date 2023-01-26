@@ -643,8 +643,8 @@ public class TripEvent extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-        jTableguide.setModel(new DefaultTableModel(null , new String[]{"Driver AT", "Name","Last Name","Branch Code","Root"}));
-        jTabledriver.setModel(new DefaultTableModel(null , new String[]{"Guide AT", "Name","Last Name","Branch Code","Route"}));
+        jTabledriver.setModel(new DefaultTableModel(null , new String[]{"Driver AT", "Name","Last Name","Branch Code","Route"}));
+        jTableguide.setModel(new DefaultTableModel(null , new String[]{"Guide AT", "Name","Last Name","Branch Code","Language"}));
         DefaultTableModel model = (DefaultTableModel)jTable4.getModel();
         int selectedRowIndex = jTable4.getSelectedRow();
         BranchField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
@@ -829,7 +829,7 @@ public class TripEvent extends javax.swing.JFrame {
             cs.executeUpdate();
           
             JOptionPane.showMessageDialog(null , "Record Addedd!!");
-            jTable2.setModel(new DefaultTableModel(null , new String[]{"Departure","Return","Max Seats","Cost","Branch Code","Guide AT" ,"Driver AT "}));
+             jTable2.setModel(new DefaultTableModel(null , new String[]{"Trip ID", "Departure","Return","Max Seats","Cost","Branch Code","Guide AT" ,"Driver AT "}));
             table_load();
             DepartureField.setText("");
             ReturnField.setText("");
