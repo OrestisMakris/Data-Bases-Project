@@ -1,11 +1,12 @@
 import mysql.connector
 import random
 import csv
-from io import StringIO
+data = StringIO(url.read().decode('utf-8'))
+df = pd.read_csv(data, sep=',', header=None)
 import sys
 nam =[]
 last =[]
-with open('C:\\Users\\Orestis\\Downloads\\names.txt', 'r' ,encoding= 'utf-16') as names:                                                                                        
+with open('C:\\Users\\Orestis\\OneDrive - University of Patras\\Documents\\GitHub\\Data-Bases-Project\\names.txt', 'r' ,encoding= 'utf-16') as names:                                                                                        
  for line in names:
         row =line.split()
         nam.append(row[:-1])
@@ -16,7 +17,7 @@ with open('C:\\Users\\Orestis\\Downloads\\names.txt', 'r' ,encoding= 'utf-16') a
 mydb = mysql.connector.connect(
    host="localhost",
    user="root",
-   password="0r35t1s21802Makr1s!",
+   password="123456789987654321",
    database="travel_agency"
  )
 
