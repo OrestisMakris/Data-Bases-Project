@@ -1,5 +1,6 @@
-package LogIN_SWI;
+package classes;
 
+import static classes.Login.conn;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,37 +8,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
-public class Trip_Event extends javax.swing.JFrame {
+public class TripEvent extends javax.swing.JFrame {
 
 
-    public Trip_Event() throws SQLException {
+    public TripEvent() throws SQLException {
         initComponents();
-        Connect();
         table_load();
         table_load_Branches();   
     }
     
-    Connection con;
     PreparedStatement pst;
     PreparedStatement pst1;
     PreparedStatement pst2;
     CallableStatement cs;
-
-    public void Connect() throws SQLException {
-
-      String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?useSSL = false";
-      String USERNAME = "root";
-      String PASSWORD = "123456789987654321";
-      try{
-          con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-        }catch (SQLException e){
-          System.out.println(e.getMessage());
-        }
-    
-    }
     
     public void table_load() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT * FROM trip";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -60,7 +46,7 @@ public class Trip_Event extends javax.swing.JFrame {
     }
     
     public void table_loadDriver(String bf) throws SQLException {
-      pst1 = con.prepareStatement("SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, drv_route FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_br_code =?");
+      pst1 = conn.prepareStatement("SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, drv_route FROM worker INNER JOIN driver ON drv_AT = wrk_AT WHERE wrk_br_code =?");
       pst1.setString(1,bf);
       ResultSet rs = pst1.executeQuery();
       
@@ -80,7 +66,7 @@ public class Trip_Event extends javax.swing.JFrame {
     }
     
     public void table_loadGuide(String bf) throws SQLException {
-      pst2 = con.prepareStatement( "SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, lng_language FROM worker INNER JOIN languages ON lng_gui_AT = wrk_AT WHERE wrk_br_code =?");
+      pst2 = conn.prepareStatement( "SELECT wrk_AT ,wrk_name,wrk_lname,wrk_br_code, lng_language FROM worker INNER JOIN languages ON lng_gui_AT = wrk_AT WHERE wrk_br_code =?");
       pst2.setString(1,bf);
       ResultSet rs = pst2.executeQuery();
   
@@ -100,7 +86,7 @@ public class Trip_Event extends javax.swing.JFrame {
     }
     
     public void table_load_Branches() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT br_code FROM branch";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -301,11 +287,6 @@ public class Trip_Event extends javax.swing.JFrame {
         BranchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BranchFieldActionPerformed(evt);
-            }
-        });
-        BranchField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                BranchFieldKeyReleased(evt);
             }
         });
 
@@ -670,12 +651,12 @@ public class Trip_Event extends javax.swing.JFrame {
         try {
             table_loadDriver(model.getValueAt(selectedRowIndex ,0 ).toString());
         } catch (SQLException ex) {
-            Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             table_loadGuide(model.getValueAt(selectedRowIndex ,0 ).toString());
       } catch (SQLException ex) {
-           Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
        }
        
     }//GEN-LAST:event_jTable4MouseClicked
@@ -711,7 +692,7 @@ public class Trip_Event extends javax.swing.JFrame {
        
         try{
 
-            pst= con.prepareStatement("update trip set tr_departure=? ,tr_return=? ,tr_maxseats=?, tr_cost=? ,tr_br_code=?, tr_gui_AT=? ,tr_drv_AT =? WHERE tr_id =?");
+            pst= conn.prepareStatement("update trip set tr_departure=? ,tr_return=? ,tr_maxseats=?, tr_cost=? ,tr_br_code=?, tr_gui_AT=? ,tr_drv_AT =? WHERE tr_id =?");
             pst.setString(1,departure);
             pst.setString(2,returnf);
             pst.setString(3,seats);
@@ -743,7 +724,7 @@ public class Trip_Event extends javax.swing.JFrame {
 
         try{
 
-            pst= con.prepareStatement("delete from trip WHERE tr_id =?");
+            pst= conn.prepareStatement("delete from trip WHERE tr_id =?");
             pst.setString(1,srid);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
@@ -767,7 +748,7 @@ public class Trip_Event extends javax.swing.JFrame {
 
             String wrk_AT = SearchField.getText();
 
-            pst = con.prepareStatement("SELECT tr_id , tr_departure, tr_return ,tr_maxseats , tr_cost , tr_br_code , tr_gui_AT , tr_drv_AT FROM trip WHERE tr_id = ?");
+            pst = conn.prepareStatement("SELECT tr_id , tr_departure, tr_return ,tr_maxseats , tr_cost , tr_br_code , tr_gui_AT , tr_drv_AT FROM trip WHERE tr_id = ?");
             pst.setString(1 , wrk_AT);
             ResultSet rs = pst.executeQuery();
 
@@ -837,7 +818,7 @@ public class Trip_Event extends javax.swing.JFrame {
 
         try{
 
-            cs= con.prepareCall("insert into trip (tr_departure,tr_return,tr_maxseats,tr_cost,tr_br_code,tr_gui_AT,tr_drv_AT)values(?,?,?,?,?,?,?)");
+            cs= conn.prepareCall("insert into trip (tr_departure,tr_return,tr_maxseats,tr_cost,tr_br_code,tr_gui_AT,tr_drv_AT)values(?,?,?,?,?,?,?)");
             cs.setString(1,tr_departure);
             cs.setString(2,tr_return);
             cs.setString(3,tr_maxseats);
@@ -908,7 +889,7 @@ public class Trip_Event extends javax.swing.JFrame {
             Events e = new Events(); 
             e.show();
         } catch (SQLException ex) {
-            Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_UpdateButton3ActionPerformed
 
@@ -920,9 +901,9 @@ public class Trip_Event extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new Trip_Event().setVisible(true);
+                    new TripEvent().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(Trip_Event.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
