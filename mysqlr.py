@@ -1,17 +1,17 @@
 import mysql.connector
 import random
 import csv
-data = StringIO(url.read().decode('utf-8'))
-df = pd.read_csv(data, sep=',', header=None)
+from io import StringIO
 import sys
+
 nam =[]
 last =[]
+
 with open('C:\\Users\\Orestis\\OneDrive - University of Patras\\Documents\\GitHub\\Data-Bases-Project\\names.txt', 'r' ,encoding= 'utf-16') as names:                                                                                        
  for line in names:
         row =line.split()
         nam.append(row[:-1])
         last.append(row[-1])
-
 
 
 mydb = mysql.connector.connect(
@@ -28,7 +28,7 @@ with open('C:\\Users\\Orestis\OneDrive - University of Patras\\Documents\\GitHub
  id = 1
  for i in range(1,4,1):
   for j in range(1,20001 ,1):
-   index = random.randint(0, 9999)
+   index = random.randint(0, 9998)
    Name = nam[index][0]
    lastname = last[index]
    amount = random.randint(70, 200)
