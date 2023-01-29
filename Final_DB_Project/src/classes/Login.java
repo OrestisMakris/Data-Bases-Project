@@ -65,7 +65,7 @@ public class Login extends javax.swing.JFrame {
         enterButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBorderColor"));
 
