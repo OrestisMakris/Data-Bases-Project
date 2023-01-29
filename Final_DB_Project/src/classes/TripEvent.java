@@ -887,7 +887,7 @@ public class TripEvent extends javax.swing.JFrame {
 
         try {
             Events e = new Events(); 
-            e.show();
+            e.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
