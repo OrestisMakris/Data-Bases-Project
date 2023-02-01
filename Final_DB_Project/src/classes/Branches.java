@@ -432,7 +432,7 @@ public class Branches extends javax.swing.JFrame {
             NewPhoneField.setText("");
             PhoneField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -478,7 +478,7 @@ public class Branches extends javax.swing.JFrame {
             NewPhoneField.setText("");
             PhoneField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
           
     }//GEN-LAST:event_SaveButtonActionPerformed
@@ -518,7 +518,7 @@ public class Branches extends javax.swing.JFrame {
             NewPhoneField.setText("");
             PhoneField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
           
     }//GEN-LAST:event_UpdateButtonActionPerformed
@@ -574,7 +574,7 @@ public class Branches extends javax.swing.JFrame {
             }
          
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
@@ -605,13 +605,11 @@ public class Branches extends javax.swing.JFrame {
             NewPhoneField.setText("");
             PhoneField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_AddPhoneButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

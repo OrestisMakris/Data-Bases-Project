@@ -431,7 +431,7 @@ public class Destination extends javax.swing.JFrame {
             }
 
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
@@ -502,7 +502,7 @@ public class Destination extends javax.swing.JFrame {
             LocationField.setText("0");
             SearchField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
@@ -549,7 +549,7 @@ public class Destination extends javax.swing.JFrame {
             LocationField.setText("0");
             SearchField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -593,7 +593,7 @@ public class Destination extends javax.swing.JFrame {
             LocationField.setText("0");
             SearchField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 

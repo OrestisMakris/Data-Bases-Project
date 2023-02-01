@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package classes;
 
 import java.sql.*;
@@ -9,10 +5,6 @@ import javax.swing.table.DefaultTableModel;
 import static classes.Login.*;
 import static classes.Menu.menu;
 
-/**
- *
- * @author Greg
- */
 public class BranchInfo extends javax.swing.JFrame {
     
    private DefaultTableModel tmodel1;
@@ -65,7 +57,7 @@ public class BranchInfo extends javax.swing.JFrame {
                 }
                 tmodel1.addRow(row);
             }
-            //process the next result set(s) epeidi to stored procedure dinei pollous pinakes
+            
             while (stmt.getMoreResults()) 
             {
                 rs = stmt.getResultSet();
@@ -80,16 +72,16 @@ public class BranchInfo extends javax.swing.JFrame {
                 }
             }
             
-            //close the resources
+         
             rs.close();
             stmt.close();
             
-            return 0; //an den yparxei exception return 0 
+            return 0;
         }
         catch (SQLException e) 
         {
             e.printStackTrace();
-            return 1; //an yparxei exception return 1
+            return 1;
         }
     }
     

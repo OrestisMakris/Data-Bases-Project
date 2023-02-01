@@ -678,7 +678,7 @@ public class GuideWorker extends javax.swing.JFrame {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-            String name , lname , id , salary , brcode ,language,cv ;
+        String name , lname , id , salary , brcode ,language,cv ;
 
         name = NameField.getText();
         lname =LastNameField.getText();
@@ -689,7 +689,6 @@ public class GuideWorker extends javax.swing.JFrame {
         cv = GuideCVField.getText();
 
         try{
-
             pst= conn.prepareStatement("insert into worker(wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code)values(?,?,?,?,?)");
             pst.setString(1,id);
             pst.setString(2,name);
@@ -717,7 +716,7 @@ public class GuideWorker extends javax.swing.JFrame {
             GuideCVField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
