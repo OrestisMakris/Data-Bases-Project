@@ -29,7 +29,7 @@ public class Reservations extends javax.swing.JFrame {
       try{
           conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
         }catch (SQLException e){
-          System.out.println(e.getMessage());
+           JOptionPane.showMessageDialog(null , e.getMessage());
         }
     
     }
@@ -486,7 +486,7 @@ public class Reservations extends javax.swing.JFrame {
             SearchField1.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
@@ -535,7 +535,7 @@ public class Reservations extends javax.swing.JFrame {
             SearchField1.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -585,7 +585,7 @@ public class Reservations extends javax.swing.JFrame {
             SearchField1.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
@@ -643,7 +643,7 @@ public class Reservations extends javax.swing.JFrame {
             }
 
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchField2KeyReleased
 

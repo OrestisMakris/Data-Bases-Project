@@ -431,7 +431,7 @@ public class Offers extends javax.swing.JFrame {
             LnameField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
@@ -464,7 +464,7 @@ public class Offers extends javax.swing.JFrame {
             LnameField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -494,7 +494,7 @@ public class Offers extends javax.swing.JFrame {
             SearchField1.setText("");
          
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 

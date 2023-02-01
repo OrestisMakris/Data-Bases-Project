@@ -713,7 +713,7 @@ public class TripEvent extends javax.swing.JFrame {
             GuideATField.setText("");
             DriverATField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -738,7 +738,7 @@ public class TripEvent extends javax.swing.JFrame {
             GuideATField.setText("");
             DriverATField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -779,7 +779,7 @@ public class TripEvent extends javax.swing.JFrame {
             }
 
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
@@ -839,7 +839,7 @@ public class TripEvent extends javax.swing.JFrame {
             GuideATField.setText("");
             DriverATField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 

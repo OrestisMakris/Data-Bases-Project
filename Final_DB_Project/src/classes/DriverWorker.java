@@ -628,7 +628,7 @@ public class DriverWorker extends javax.swing.JFrame {
             ExperienceField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -683,7 +683,7 @@ public class DriverWorker extends javax.swing.JFrame {
             }
 
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
@@ -742,7 +742,7 @@ public class DriverWorker extends javax.swing.JFrame {
             ExperienceField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 

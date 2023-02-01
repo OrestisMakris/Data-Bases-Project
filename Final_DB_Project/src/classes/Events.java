@@ -431,7 +431,7 @@ public class Events extends javax.swing.JFrame {
             DiscriberField.setText("");
             CodeField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
@@ -464,7 +464,7 @@ public class Events extends javax.swing.JFrame {
             DiscriberField.setText("");
             CodeField.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -490,7 +490,7 @@ public class Events extends javax.swing.JFrame {
             SearchField1.setText("");
             SearchField2.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
@@ -556,7 +556,7 @@ public class Events extends javax.swing.JFrame {
             }
 
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchField2KeyReleased
 

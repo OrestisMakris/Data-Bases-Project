@@ -422,7 +422,7 @@ public class ReservationOffers extends javax.swing.JFrame {
             IDField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButton1ActionPerformed
 
@@ -458,7 +458,7 @@ public class ReservationOffers extends javax.swing.JFrame {
             IDField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -490,7 +490,7 @@ public class ReservationOffers extends javax.swing.JFrame {
             IDField.setText("");
             SearchField1.setText("");
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
 
