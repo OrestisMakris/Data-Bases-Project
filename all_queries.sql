@@ -1162,3 +1162,5 @@ END IF;
 END$
 DELIMITER ;
 
+DELETE FROM worker WHERE wrk_name`= 'Orestis' and  wrk_lname = 'Delimpaltadakis'
+

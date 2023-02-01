@@ -422,7 +422,7 @@ public class AdminWorker extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
-                .addGap(154, 154, 154))
+                .addGap(26, 26, 26))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -515,7 +515,7 @@ public class AdminWorker extends javax.swing.JFrame {
             DiplomaField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
 
     }//GEN-LAST:event_SaveButtonActionPerformed
@@ -604,7 +604,7 @@ public class AdminWorker extends javax.swing.JFrame {
             DiplomaField.setText(""); 
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
@@ -657,7 +657,7 @@ public class AdminWorker extends javax.swing.JFrame {
               }
     
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+             JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_SearchFieldKeyReleased
 
@@ -683,7 +683,7 @@ public class AdminWorker extends javax.swing.JFrame {
             SearchField.setText("");
             NameField.requestFocus();
         }catch(SQLException e){
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null , e.getMessage());
         }
     }//GEN-LAST:event_DeleteButtonActionPerformed
 
