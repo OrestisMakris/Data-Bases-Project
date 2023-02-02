@@ -712,7 +712,7 @@ DELIMITER ;
 
 /*index */
 DROP INDEX res_ind ON reservation_offers;
-CREATE INDEX res_ind ON reservation_offers(rsv_lastname,deposit_amount);
+CREATE INDEX res_ind ON reservation_offers(deposit_amount, rsv_lastname, rsv_offer_id);
 
 -- procedure 3.1.3.4 a)
 DROP PROCEDURE IF EXISTS res_range;
@@ -1162,5 +1162,4 @@ END IF;
 END$
 DELIMITER ;
 
-DELETE FROM worker WHERE wrk_name`= 'Orestis' and  wrk_lname = 'Delimpaltadakis'
 
