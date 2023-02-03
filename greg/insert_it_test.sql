@@ -30,3 +30,10 @@ SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code,
 drop database travel_agency;
 CREATE DATABASE travel_agency;
 use travel_agency;
+
+
+select adm_AT, adm_type, wrk_br_code from admin inner join worker on adm_AT=wrk_AT where wrk_br_code = 2; -- admins
+select it_at, it_password,wrk_br_code from it_admin inner join worker on it_at=wrk_AT where wrk_br_code = 2; --it_admin
+select drv_AT, drv_license,drv_route, drv_experience,wrk_br_code from driver inner join worker on drv_AT=wrk_AT where wrk_br_code = 2; --drivers
+select gui_AT,wrk_br_code from guide inner join worker on gui_AT=wrk_AT where wrk_br_code = 2; --guide
+

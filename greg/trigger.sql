@@ -58,10 +58,15 @@ BEGIN
 END$
 DELIMITER ;
 
-UPDATE trip SET tr_departure = '2069-03-05 15:30:06'
-WHERE tr_id = 33;
+--test
 
-DELETE FROM trip where tr_id = 33;
+INSERT INTO trip VALUES
+(null, '2023-03-05 15:30:00', '2023-03-08 12:30:00', 30, 300, 1, 'AK10311111', 'AM10410000');
+ 
+UPDATE trip SET tr_departure = '2023-04-05 15:30:06'
+WHERE tr_id = 31;
+
+DELETE FROM trip where tr_id = 31;
 
 /*triggers gia ton log_reservation*/
 DROP TRIGGER IF EXISTS log_reservation_insert;
