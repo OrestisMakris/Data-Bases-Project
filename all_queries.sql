@@ -712,7 +712,7 @@ DELIMITER ;
 
 /*index */
 DROP INDEX res_ind ON reservation_offers;
-CREATE INDEX res_ind ON reservation_offers(rsv_lastname,deposit_amount);
+CREATE INDEX res_ind ON reservation_offers(deposit_amount, rsv_lastname, rsv_offer_id);
 
 -- procedure 3.1.3.4 a)
 DROP PROCEDURE IF EXISTS res_range;
@@ -995,11 +995,6 @@ BEGIN
 END$
 DELIMITER ;
 
-UPDATE trip SET tr_departure = '2069-03-05 15:30:06'
-WHERE tr_id = 33;
-
-DELETE FROM trip where tr_id = 33;
-
 /*triggers gia ton log_reservation*/
 DROP TRIGGER IF EXISTS log_reservation_insert;
 DELIMITER $
@@ -1162,5 +1157,30 @@ END IF;
 END$
 DELIMITER ;
 
-DELETE FROM worker WHERE wrk_name`= 'Orestis' and  wrk_lname = 'Delimpaltadakis'
+/*trigger 3.1.4.2*/
+DROP TRIGGER IF EXISTS check_reservations;
+DELIMITER $
+CREATE TRIGGER check_reservations BEFORE UPDATE ON trip
+FOR EACH ROW
+BEGIN
+IF exists(SELECT * FROM reservation WHERE res_tr_id=OLD.tr_id)
+THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='This trip already has reservations therefore updates are restricted!';
+END IF;
+END$
+DELIMITER ;
+
+/*trigger 3.1.4.3*/
+DROP TRIGGER IF EXISTS check_salary;
+DELIMITER $
+CREATE TRIGGER check_salary BEFORE UPDATE ON worker
+FOR EACH ROW
+BEGIN
+IF OLD.wrk_salary>=NEW.wrk_salary
+THEN
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The new salary must be greater than the older!';
+END IF;
+END$
+DELIMITER ;
+
 
