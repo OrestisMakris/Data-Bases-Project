@@ -247,7 +247,7 @@ log_dst_language varchar(30) NOT NULL,
 log_dst_location INT(11)
 );
 
-DROP TABLE IF EXISTS offer;
+DROP TABLE IF EXISTS offers;
 create table offers(
 offer_id int(11) AUTO_INCREMENT,
 offer_trip_start_date datetime not null,
