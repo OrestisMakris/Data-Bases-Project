@@ -58,7 +58,7 @@ SELECT trip_id AS 'Trip Id',cost AS 'Cost',maxseats AS 'Maxseats',no_of_reservat
 FETCH tripCurs INTO trip_id,dep,ret,maxseats,cost,br_code,guide_AT,driver_AT;
 END WHILE;
 
-CLOSE branchCurs;
+CLOSE tripCurs;
 END$
 DELIMITER ;
 
