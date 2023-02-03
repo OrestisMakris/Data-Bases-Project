@@ -1183,5 +1183,3 @@ SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='The new salary must be greater than th
 END IF;
 END$
 DELIMITER ;
-
-
