@@ -1,7 +1,6 @@
 package classes;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import static classes.Login.conn;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,12 +20,10 @@ public class Offers extends javax.swing.JFrame {
        table_load2();
        
     }
-
-    Connection con;
     PreparedStatement pst;
  
     public void table_load() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT offer_id,offer_trip_start_date , offer_trip_end_date ,Price_per_Person ,offer_dst_id from offers";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -46,7 +43,7 @@ public class Offers extends javax.swing.JFrame {
     }
     
       public void table_load2() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT dst_id ,dst_name, tr_departure ,tr_return from trip INNER JOIN travel_to ON tr_id = to_tr_id  INNER JOIN destination ON to_dst_id = dst_id";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -419,7 +416,7 @@ public class Offers extends javax.swing.JFrame {
  
         try{
 
-            pst= con.prepareStatement("delete from offers WHERE offer_id =?");
+            pst= conn.prepareStatement("delete from offers WHERE offer_id =?");
             pst.setString(1, search1);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
@@ -448,7 +445,7 @@ public class Offers extends javax.swing.JFrame {
         
         try{
     
-            pst= con.prepareStatement("update offers set offer_trip_start_date=? , offer_trip_end_date=? , Price_per_Person =?, offer_dst_id = ? WHERE offer_id =?");
+            pst= conn.prepareStatement("update offers set offer_trip_start_date=? , offer_trip_end_date=? , Price_per_Person =?, offer_dst_id = ? WHERE offer_id =?");
             pst.setString(1,offer_trip_start_date);
             pst.setString(2,offer_trip_end_date);
             pst.setString(3,Price_per_Person);
@@ -478,7 +475,7 @@ public class Offers extends javax.swing.JFrame {
         offer_dst_id =  LnameField.getText();
         try{
           
-            pst= con.prepareCall("insert into offers (offer_trip_start_date,offer_trip_end_date,Price_per_Person,offer_dst_id )values(?,?,?,?)");
+            pst= conn.prepareCall("insert into offers (offer_trip_start_date,offer_trip_end_date,Price_per_Person,offer_dst_id )values(?,?,?,?)");
             pst.setString(1,offer_trip_start_date);
             pst.setString(2,offer_trip_end_date);
             pst.setString(3,Price_per_Person);

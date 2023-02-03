@@ -16,7 +16,7 @@ public class Log_Destination extends javax.swing.JFrame {
         table_load();
     }
 
-PreparedStatement pst;
+
 
 public void table_load() throws SQLException {
       Statement st = conn.createStatement();
@@ -27,9 +27,9 @@ public void table_load() throws SQLException {
           
           String log_type = rs.getString("log_type");
           String log_it_lname = rs.getString("log_it_lname");
-          String log_timestamp = String.valueOf("log_timestamp ");
+          String log_timestamp = rs.getString("log_timestamp");
           String log_dst_id = String.valueOf(rs.getInt("log_dst_id"));
-          String log_dst_name = String.valueOf(rs.getInt("log_dst_name"));
+          String log_dst_name = rs.getString("log_dst_name");
           String log_dst_dscr  = rs.getString("log_dst_dscr");
           String log_dst_rtype = rs.getString("log_dst_rtype");
           String log_dst_language  = rs.getString("log_dst_language");

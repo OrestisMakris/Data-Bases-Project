@@ -1,7 +1,18 @@
 package classes;
 
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
@@ -12,6 +23,7 @@ public class Login extends javax.swing.JFrame {
     public String password;
     
     public Login() {
+        
         initComponents();
         login = this;
         //prosthtw enan keylistener gia na kanw focus sto password field otan valw to username 
@@ -32,6 +44,60 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+     private void insert(){
+       ArrayList<String> names = new ArrayList<>();
+       ArrayList<String> lastNames = new ArrayList<>();
+ 
+       File file = new File("../names.txt");
+      
+       try (FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis, StandardCharsets.UTF_16);
+            BufferedReader reader = new BufferedReader(isr)){
+            String str;
+             while ((str = reader.readLine()) != null) {
+                String[] parts = str.split("\t");
+                names.add(parts[0]);
+                lastNames.add(parts[1]);
+             } 
+    } catch (FileNotFoundException e) {
+      System.out.println("File not found: " + e.getMessage());
+    }   catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      int di = 1;
+    for(int j = 1; j<4 ; j++ ){
+     for (int i = 0; i <= 20000; i++) {
+        Random random = new Random();
+        int min = 0;
+        int max = 9999;
+        int index = random.nextInt(max - min ) + min;
+        String Name = names.get(index);
+        String Last_Name = lastNames.get(index);
+
+        String id = Integer.toString(di);
+          
+        min =70;
+        max = 200;
+        int dep = random.nextInt(max - min ) + min;
+        String depos = Integer.toString(dep);
+        PreparedStatement pst;
+        
+        try{
+        
+            pst= conn.prepareStatement("insert into reservation_offers(rsv_name,rsv_lastname,deposit_amount,rsv_offer_id)values(?,?,?,?)");
+            pst.setString(1,Name);
+            pst.setString(2,Last_Name);
+            pst.setString(3,depos);
+            pst.setString(4,id);
+            pst.executeUpdate();
+             }catch(SQLException e){
+             JOptionPane.showMessageDialog(null , e.getMessage());
+        }
+    }   
+     di +=1;   
+    }
     }
     
     private boolean connect(String uname, String pass){
@@ -171,6 +237,25 @@ public class Login extends javax.swing.JFrame {
             passwordField.setText("");
             userNameField.requestFocus();
             
+        }
+        
+         try {
+
+            Statement statement = conn.createStatement();
+            String reservation_offers ="reservation_offers";
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM " +reservation_offers);
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                if (count == 0) {
+                    System.out.println("Table is empty");
+                     insert();
+                } else {
+                    System.out.println("Table is not empty");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("An error occurred while connecting to the database");
         }
     }//GEN-LAST:event_enterButtonActionPerformed
 

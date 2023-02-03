@@ -20,18 +20,7 @@ public class AdminWorker extends javax.swing.JFrame {
     
     PreparedStatement pst;
 
-    public void Connect() throws SQLException {
-
-      String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?useSSL = false";
-      String USERNAME = "root";
-      String PASSWORD = "123456789987654321";
-      try{
-          conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-        }catch (SQLException e){
-          System.out.println(e.getMessage());
-        }
-    
-    }
+ 
     
     public void table_load() throws SQLException {
       Statement st = conn.createStatement();

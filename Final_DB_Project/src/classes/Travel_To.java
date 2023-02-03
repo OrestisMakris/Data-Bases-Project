@@ -1,5 +1,5 @@
-package LogIN_SWI;
-
+package classes;
+import static classes.Login.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -8,36 +8,20 @@ import javax.swing.table.DefaultTableModel;
 
 public class Travel_To extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Travel_To
-     */
+   
     public Travel_To() throws SQLException {
         initComponents();
-        Connect();
         table_load();
         table_load2();
         table_load3();
     }
 
-    Connection con;
+   
     PreparedStatement pst;
     CallableStatement cs;
 
-    public void Connect() throws SQLException {
-
-      String DB_URL = "jdbc:mysql://localhost:3306/travel_agency?useSSL = false";
-      String USERNAME = "root";
-      String PASSWORD = "123456789987654321";
-      try{
-          con = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-        }catch (SQLException e){
-          System.out.println(e.getMessage());
-        }
-    
-    }
-    
     public void table_load() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT to_tr_id , to_dst_id ,to_arrival ,to_departure FROM travel_to";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -57,7 +41,7 @@ public class Travel_To extends javax.swing.JFrame {
     }
     
       public void table_load2() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT tr_id, tr_departure , tr_return ,tr_br_code FROM trip";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -77,7 +61,7 @@ public class Travel_To extends javax.swing.JFrame {
     }
       
       public void table_load3() throws SQLException {
-      Statement st = con.createStatement();
+      Statement st = conn.createStatement();
       String table_sql = "SELECT dst_id , dst_name FROM destination";
       ResultSet rs = st.executeQuery(table_sql);
       
@@ -489,7 +473,7 @@ public class Travel_To extends javax.swing.JFrame {
             String sr1 = SearchTripField.getText();
             String sr2 = DestinationSField.getText();
 
-            pst = con.prepareStatement("SELECT to_tr_id , to_dst_id, to_arrival, to_departure FROM travel_to WHERE to_tr_id =? and to_dst_id =?");
+            pst = conn.prepareStatement("SELECT to_tr_id , to_dst_id, to_arrival, to_departure FROM travel_to WHERE to_tr_id =? and to_dst_id =?");
             pst.setString(1 , sr1);
             pst.setString(2 , sr2);
             ResultSet rs = pst.executeQuery();
@@ -544,7 +528,7 @@ public class Travel_To extends javax.swing.JFrame {
 
         try{
 
-            pst= con.prepareStatement("delete from travel_to WHERE to_tr_id =? and to_dst_id=? ");
+            pst= conn.prepareStatement("delete from travel_to WHERE to_tr_id =? and to_dst_id=? ");
             pst.setString(1, search1);
             pst.setString(2, search2);
             pst.executeUpdate();
@@ -575,7 +559,7 @@ public class Travel_To extends javax.swing.JFrame {
 
         try{
 
-            pst= con.prepareStatement("update travel_TO set to_tr_id =? ,to_dst_id=? , to_arrival=?, to_departure=? WHERE to_tr_id =? and to_dst_id =?");
+            pst= conn.prepareStatement("update travel_TO set to_tr_id =? ,to_dst_id=? , to_arrival=?, to_departure=? WHERE to_tr_id =? and to_dst_id =?");
             pst.setString(1,to_tr_id);
             pst.setString(2,to_dst_id);
             pst.setString(3,to_arrival);
@@ -607,7 +591,7 @@ public class Travel_To extends javax.swing.JFrame {
 
         try{
 
-            cs= con.prepareCall("insert into travel_to (to_tr_id,to_dst_id,to_arrival,to_departure)values(?,?,?,?)");
+            cs= conn.prepareCall("insert into travel_to (to_tr_id,to_dst_id,to_arrival,to_departure)values(?,?,?,?)");
             cs.setString(1,to_tr_id );
             cs.setString(2,to_dst_id);
             cs.setString(3,to_arrival);

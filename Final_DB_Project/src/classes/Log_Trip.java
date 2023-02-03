@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 public class Log_Trip extends javax.swing.JFrame {
 
-PreparedStatement pst;
+
 
 public void table_load() throws SQLException {
       Statement st = conn.createStatement();
@@ -24,9 +24,9 @@ public void table_load() throws SQLException {
           
           String log_type = rs.getString("log_type");
           String log_it_lname = rs.getString("log_it_lname");
-          String log_timestamp = String.valueOf("log_timestamp ");
+          String log_timestamp = rs.getString("log_timestamp");
           String log_tr_id = String.valueOf(rs.getInt("log_tr_id"));
-          String log_tr_departure = String.valueOf(rs.getInt("log_tr_departure"));
+          String log_tr_departure = rs.getString("log_tr_departure");
           String log_tr_return  = rs.getString("log_tr_return");
           String log_tr_maxseats =String.valueOf(rs.getInt("log_tr_maxseats"));
           String log_tr_br_code = String.valueOf(rs.getInt("log_tr_br_code"));
