@@ -687,9 +687,10 @@ BEGIN
         driver_lname AS 'Driver Lastname', driver_name AS 'Driver Name', 
         guide_lname AS 'Guide Lastname', guide_name AS 'Guide Name' ,dep AS 'Departure',
         ret AS 'Return';
-    FETCH tripCurs INTO trip_id, dep, ret, maxseats, cost,
-    br_code, guide_AT, driver_AT;
+        FETCH tripCurs INTO trip_id, dep, ret, maxseats, cost,
+        br_code, guide_AT, driver_AT;
     END WHILE;
+    CLOSE tripCurs;
 END$
 DELIMITER ;
 
