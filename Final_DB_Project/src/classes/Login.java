@@ -46,7 +46,7 @@ public class Login extends javax.swing.JFrame {
         });
     }
     
-     private void insert(){
+  private void insert(){
        ArrayList<String> names = new ArrayList<>();
        ArrayList<String> lastNames = new ArrayList<>();
  
