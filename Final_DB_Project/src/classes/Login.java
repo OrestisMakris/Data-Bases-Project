@@ -68,7 +68,7 @@ public class Login extends javax.swing.JFrame {
         }
       int di = 1;
     for(int j = 1; j<4 ; j++ ){
-     for (int i = 0; i <= 20000; i++) {
+     for (int i = 0; i <= 25000; i++) {
         Random random = new Random();
         int min = 0;
         int max = 9999;
