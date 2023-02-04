@@ -32,8 +32,57 @@ CREATE DATABASE travel_agency;
 use travel_agency;
 
 
-select adm_AT, adm_type, wrk_br_code from admin inner join worker on adm_AT=wrk_AT where wrk_br_code = 2; -- admins
-select it_at, it_password,wrk_br_code from it_admin inner join worker on it_at=wrk_AT where wrk_br_code = 2; --it_admin
-select drv_AT, drv_license,drv_route, drv_experience,wrk_br_code from driver inner join worker on drv_AT=wrk_AT where wrk_br_code = 2; --drivers
-select gui_AT,wrk_br_code from guide inner join worker on gui_AT=wrk_AT where wrk_br_code = 2; --guide
+select count(*),wrk_br_code from worker where wrk_br_code = 5;
+select adm_AT, adm_type, wrk_br_code from admin inner join worker on adm_AT=wrk_AT where wrk_br_code = 5; -- admins
+select it_at, it_password,wrk_br_code from it_admin inner join worker on it_at=wrk_AT where wrk_br_code = 5; --it_admin
+select drv_AT, drv_license,drv_route, drv_experience,wrk_br_code from driver inner join worker on drv_AT=wrk_AT where wrk_br_code = 5; --drivers
+select gui_AT,wrk_br_code,lng_language from guide inner join worker on gui_AT=wrk_AT inner join languages on lng_gui_AT = gui_AT where wrk_br_code = 5; --guide
 
+select count(*) distinct tr_br_code from trip;
+
+--ola ta trips mazi me ta destinations
+select tr_id,tr_departure,tr_return,tr_drv_AT,tr_gui_AT,tr_br_code,dst_id,dst_name#ev_descr
+from trip
+inner join travel_to on to_tr_id = tr_id
+inner join destination on to_dst_id = dst_id 
+#inner join event on ev_tr_id = tr_id
+inner join branch on tr_br_code = br_code
+#where tr_id = 8
+where tr_br_code = 1
+order by tr_id; 
+
+inner join event on ev_tr_id = tr_id
+
+dst_id,dst_name,dst_rtype, dst_language, 
+inner join destination on to_dst_id = dst_id 
+
+--drivers sta trips 
+select tr_id,tr_drv_AT,drv_route,dst_id,dst_name,dst_rtype
+from trip
+inner join travel_to on to_tr_id = tr_id
+inner join destination on to_dst_id = dst_id 
+inner join branch on tr_br_code = br_code
+inner join driver on drv_AT= tr_drv_AT
+where dst_rtype = 'ABROAD'
+order by tr_id; 
+
+--gia ta events 
+select tr_id,tr_departure,to_arrival,ev_start,ev_end,to_departure,tr_return,dst_name,ev_descr
+from trip
+inner join travel_to on to_tr_id = tr_id
+inner join destination on to_dst_id = dst_id 
+inner join event on ev_tr_id = tr_id
+inner join branch on tr_br_code = br_code
+where tr_id = 8
+where tr_br_code = 1
+order by tr_id; 
+
+select tr_id,tr_br_code,dst_id,dst_name,ev_descr
+from trip
+inner join travel_to on to_tr_id = tr_id
+inner join destination on to_dst_id = dst_id 
+inner join event on ev_tr_id = tr_id
+inner join branch on tr_br_code = br_code
+where tr_id = 8
+
+order by tr_id; 
