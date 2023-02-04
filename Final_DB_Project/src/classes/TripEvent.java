@@ -151,7 +151,7 @@ public class TripEvent extends javax.swing.JFrame {
         jTableguide = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
         jTabledriver = new javax.swing.JTable();
-        UpdateButton3 = new javax.swing.JButton();
+        AdddEventButton = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -546,11 +546,11 @@ public class TripEvent extends javax.swing.JFrame {
         });
         jScrollPane9.setViewportView(jTabledriver);
 
-        UpdateButton3.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
-        UpdateButton3.setText("Add Event");
-        UpdateButton3.addActionListener(new java.awt.event.ActionListener() {
+        AdddEventButton.setFont(new java.awt.Font("Segoe UI", 0, 25)); // NOI18N
+        AdddEventButton.setText("Add Event");
+        AdddEventButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButton3ActionPerformed(evt);
+                AdddEventButtonActionPerformed(evt);
             }
         });
 
@@ -569,7 +569,7 @@ public class TripEvent extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(UpdateButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(AdddEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -615,7 +615,7 @@ public class TripEvent extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(SaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(UpdateButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(AdddEventButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(UpdateButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(DeleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -883,7 +883,7 @@ public class TripEvent extends javax.swing.JFrame {
         GuideATField.setText(model.getValueAt(selectedRowIndex ,0 ).toString());
     }//GEN-LAST:event_jTableguideMouseClicked
 
-    private void UpdateButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButton3ActionPerformed
+    private void AdddEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdddEventButtonActionPerformed
 
         try {
             Events e = new Events(); 
@@ -891,7 +891,7 @@ public class TripEvent extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(TripEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_UpdateButton3ActionPerformed
+    }//GEN-LAST:event_AdddEventButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -910,6 +910,7 @@ public class TripEvent extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AdddEventButton;
     private javax.swing.JTextField BranchField;
     private javax.swing.JButton ClearButton;
     private javax.swing.JTextField CostField;
@@ -923,7 +924,6 @@ public class TripEvent extends javax.swing.JFrame {
     private javax.swing.JTextField SearchField;
     private javax.swing.JTextField SeatsField;
     private javax.swing.JButton UpdateButton2;
-    private javax.swing.JButton UpdateButton3;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
