@@ -12,7 +12,6 @@ public class Menu extends javax.swing.JFrame {
     
     public Menu() {
         
-        Insert in = new Insert();
         initComponents();
         menu = this;
     }

@@ -11,7 +11,6 @@ public class Main{
         login.setLocationRelativeTo(null);
         // Show the login window
         login.setVisible(true);
-       
-     
+        
     }
 }
