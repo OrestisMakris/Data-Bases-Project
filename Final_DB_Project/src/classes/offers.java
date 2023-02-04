@@ -15,8 +15,8 @@ public class Offers extends javax.swing.JFrame {
 
    
     public Offers() throws SQLException {
-        initComponents();
-        table_load();
+       initComponents();
+       table_load();
        table_load2();
        
     }
@@ -44,17 +44,17 @@ public class Offers extends javax.swing.JFrame {
     
       public void table_load2() throws SQLException {
       Statement st = conn.createStatement();
-      String table_sql = "SELECT dst_id ,dst_name, tr_departure ,tr_return from trip INNER JOIN travel_to ON tr_id = to_tr_id  INNER JOIN destination ON to_dst_id = dst_id";
+      String table_sql = "SELECT dst_id , dst_name, dst_dscr , dst_rtype FROM destination";
       ResultSet rs = st.executeQuery(table_sql);
       
       while(rs.next()){
           
           String dst_id= String.valueOf(rs.getInt("dst_id"));
           String dst_name= rs.getString("dst_name");
-          String tr_departure= rs.getString("tr_departure");
-          String tr_return= rs.getString("tr_return");
+          String dst_dscr = rs.getString("dst_dscr");
+          String dst_rtype = rs.getString("dst_rtype");
  
-          String tbData[] = {dst_name, tr_departure,tr_return, dst_id};
+          String tbData[] = {dst_name, dst_dscr , dst_rtype, dst_id};
 
           DefaultTableModel tblModel = (DefaultTableModel)jTable2.getModel();
           tblModel.addRow(tbData); 
@@ -101,7 +101,6 @@ public class Offers extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel7.setText("Price");
 
-        StartDateField.setEditable(false);
         StartDateField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StartDateFieldActionPerformed(evt);
@@ -111,7 +110,6 @@ public class Offers extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel8.setText("Destination ID");
 
-        StartEndField.setEditable(false);
         StartEndField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StartEndFieldActionPerformed(evt);
@@ -209,11 +207,11 @@ public class Offers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Destinatio Name", "Trip Start Date ", "Trip End Date ", "Destination ID"
+                "Destinatio Name", "Discriber", "Type", "Destination ID"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
