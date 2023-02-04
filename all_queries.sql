@@ -1,3 +1,9 @@
+/*Δημιουργία της βάσης*/
+
+DROP DATABASE IF EXISTS travel_agency;
+CREATE DATABASE travel_agency;
+USE travel_agency;
+
 /*Create Tables*/
 
 DROP TABLE IF EXISTS branch;

@@ -41,7 +41,7 @@ select gui_AT,wrk_br_code,lng_language from guide inner join worker on gui_AT=wr
 select count(*) distinct tr_br_code from trip;
 
 --ola ta trips mazi me ta destinations
-select tr_id,tr_departure,tr_return,tr_drv_AT,tr_gui_AT,tr_br_code,dst_id,dst_name#ev_descr
+select tr_id,tr_drv_AT,tr_gui_AT,tr_br_code,dst_id,dst_name#ev_descr
 from trip
 inner join travel_to on to_tr_id = tr_id
 inner join destination on to_dst_id = dst_id 
@@ -57,24 +57,22 @@ dst_id,dst_name,dst_rtype, dst_language,
 inner join destination on to_dst_id = dst_id 
 
 --drivers sta trips 
-select tr_id,tr_drv_AT,drv_route,dst_id,dst_name,dst_rtype
+select tr_id,tr_maxseats,tr_drv_AT,drv_license,dst_name,dst_rtype
 from trip
 inner join travel_to on to_tr_id = tr_id
 inner join destination on to_dst_id = dst_id 
 inner join branch on tr_br_code = br_code
 inner join driver on drv_AT= tr_drv_AT
-where dst_rtype = 'ABROAD'
 order by tr_id; 
 
 --gia ta events 
-select tr_id,tr_departure,to_arrival,ev_start,ev_end,to_departure,tr_return,dst_name,ev_descr
+select tr_id,tr_departure,to_arrival,ev_start,ev_end,to_departure,tr_return,dst_name
 from trip
 inner join travel_to on to_tr_id = tr_id
 inner join destination on to_dst_id = dst_id 
 inner join event on ev_tr_id = tr_id
 inner join branch on tr_br_code = br_code
-where tr_id = 8
-where tr_br_code = 1
+where tr_id = 26
 order by tr_id; 
 
 select tr_id,tr_br_code,dst_id,dst_name,ev_descr
@@ -83,6 +81,15 @@ inner join travel_to on to_tr_id = tr_id
 inner join destination on to_dst_id = dst_id 
 inner join event on ev_tr_id = tr_id
 inner join branch on tr_br_code = br_code
-where tr_id = 8
+where tr_id = 15
 
+order by tr_id; 
+
+select tr_id,dst_name, ev_descr
+from trip
+inner join travel_to on to_tr_id = tr_id
+inner join destination on to_dst_id = dst_id 
+inner join event on ev_tr_id = tr_id
+inner join branch on tr_br_code = br_code
+where tr_id = 26
 order by tr_id; 

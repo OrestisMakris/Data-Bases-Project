@@ -149,6 +149,11 @@ public class Login extends javax.swing.JFrame {
         });
 
         passwordField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
 
         enterButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         enterButton.setText("Enter");
@@ -268,6 +273,10 @@ public class Login extends javax.swing.JFrame {
     private void userNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_userNameFieldActionPerformed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldActionPerformed
 
     /**
      * @param args the command line arguments
