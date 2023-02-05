@@ -28,13 +28,14 @@ public void table_load() throws SQLException {
           String log_tr_id = String.valueOf(rs.getInt("log_tr_id"));
           String log_tr_departure = rs.getString("log_tr_departure");
           String log_tr_return  = rs.getString("log_tr_return");
-          String log_tr_maxseats =String.valueOf(rs.getInt("log_tr_maxseats"));
-          String log_tr_br_code = String.valueOf(rs.getInt("log_tr_br_code"));
-          String log_tr_gui_AT = String.valueOf("log_tr_gui_AT ");
-          String log_tr_drv_AT = String.valueOf("log_tr_drv_AT ");
+          String log_tr_maxseats =rs.getString("log_tr_maxseats");
+          String log_tr_cost = rs.getString("log_tr_cost");
+          String log_tr_br_code = rs.getString(rs.getInt("log_tr_br_code"));
+          String log_tr_gui_AT = rs.getString("log_tr_gui_AT");
+          String log_tr_drv_AT = rs.getString("log_tr_drv_AT");
          
        
-          String tbData[] = {log_type,log_it_lname,log_timestamp ,log_tr_id,log_tr_departure , log_tr_return,log_tr_maxseats,log_tr_br_code,log_tr_gui_AT,log_tr_drv_AT};
+          String tbData[] = {log_type,log_it_lname,log_timestamp ,log_tr_id,log_tr_departure , log_tr_return,log_tr_maxseats,log_tr_cost,log_tr_br_code,log_tr_gui_AT,log_tr_drv_AT};
           
           DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
           tblModel.addRow(tbData); 
