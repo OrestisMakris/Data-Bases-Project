@@ -18,7 +18,7 @@ public class GuideWorker extends javax.swing.JFrame {
     }
     
     PreparedStatement pst;
-
+    CallableStatement cs;
     
     public void table_load() throws SQLException {
       Statement st = conn.createStatement();
@@ -588,15 +588,17 @@ public class GuideWorker extends javax.swing.JFrame {
     }//GEN-LAST:event_UpdateButton2ActionPerformed
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
-        String srid;
+        String name , lname;
 
-        srid = SearchField.getText();
+        name = NameField.getText();
+        lname = LastNameField.getText();
 
         try{
 
-            pst= conn.prepareStatement("delete from worker WHERE wrk_AT =?");
-            pst.setString(1,srid);
-            pst.executeUpdate();
+            cs= conn.prepareCall("{ call delete_worker(?,?) }");
+            cs.setString(1,name);
+            cs.setString(2,lname);
+            cs.executeUpdate();
             JOptionPane.showMessageDialog(null , "Record Deleted!!");
             jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Language","Guide CV"}));
             table_load();
