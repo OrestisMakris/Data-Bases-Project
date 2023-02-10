@@ -658,7 +658,6 @@ public class AdminWorker extends javax.swing.JFrame {
             cs.setString(1,name);
             cs.setString(2,lname);
             cs.executeUpdate();
-            JOptionPane.showMessageDialog(null , "Record Deleted!!");
             jTable2.setModel(new DefaultTableModel(null , new String[]{"Worker AT", "Name","Last Name","Salary","Branch Code","Admin Type","Diploma"}));
             table_load();
             NameField.setText("");
