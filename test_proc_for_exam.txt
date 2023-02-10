@@ -1,0 +1,65 @@
+stored procedures:
+
+3.1.3.1
+Μπορούμε στο gui να κάνουμε insert χωρίς να επιλέξουμε branch code 
+
+ή
+
+Στο terminal:
+call insert_driver('AT87653490', 'Mike', 'Ravazoulas', 1000, 'D', 'LOCAL', 5);
+
+εμφανιση αποτελεσμάτων:
+SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,drv_license, drv_route ,drv_experience 
+FROM worker 
+INNER JOIN driver ON drv_AT = wrk_AT;
+
+3.1.3.2
+Στο gui βάζω τις ημερομηνίες.
+2022-03-17 18:30:00
+2022-10-08 16:30:00
+
+ή
+
+στο terminal:
+call search_trip(1,'2022-03-17 18:30:00', '2022-10-08 16:30:00');
+
+3.1.3.3
+terminal:
+/*no error giati einai LOGISTICS*/
+call delete_worker('Andreas','Georgiou');
+
+/*error giati einai ADMINISTRATIVE*/
+call delete_worker('Maria','Papadopoulou');
+
+Αντιστοιχα και στο gui με το κουμπί DELETE.
+
+3.1.3.4 a)
+terminal:
+call res_range(80,95);
+
+ή 
+
+Στο gui αντίστοιχα
+
+3.1.3.4 b)
+terminal:
+call res_names('Ibarra');
+
+Αν μας ρωτήσουν να δείξουμε και την δεύτερη περίπτωση αυτού του procedure:
+πρέπει:
+INSERT INTO reservation_offers VALUES(null,'Greg','Deli',50,1);
+INSERT INTO reservation_offers VALUES(null,'Maria','Deli',50,1);
+INSERT INTO reservation_offers VALUES(null,'Greg','Deli',50,2);
+INSERT INTO reservation_offers VALUES(null,'Greg','Deli',50,3);
+
+call res_names('Deli');
+
+ή
+
+Στο gui αντίστοιχα
+
+
+
+
+
+
