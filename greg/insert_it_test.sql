@@ -16,6 +16,7 @@ INSERT INTO it_admin (it_at,it_password,it_start_date)VALUES
 
 --test
 2020-01-01 09:00:00
+SELECT * FROM trip WHERE '2022-01-05 00:00:00'<=tr_departure AND '2022-08-15 23:59:59'>=tr_departure AND tr_br_code=3;
 
 drop user deli@localhost;
 SELECT * FROM mysql.user;
@@ -27,9 +28,9 @@ SELECT wrk_AT,wrk_name,wrk_lname,wrk_salary,wrk_br_code,
                                             INNER JOIN it_admin ON it_at = wrk_AT  
                                             INNER JOIN mysql.db ON wrk_lname = User;
 
-drop database travel_agency;
+DROP DATABASE IF EXISTS travel_agency;
 CREATE DATABASE travel_agency;
-use travel_agency;
+USE travel_agency;
 
 
 select count(*),wrk_br_code from worker where wrk_br_code = 5;
@@ -63,6 +64,7 @@ inner join travel_to on to_tr_id = tr_id
 inner join destination on to_dst_id = dst_id 
 inner join branch on tr_br_code = br_code
 inner join driver on drv_AT= tr_drv_AT
+where tr_id>=20
 order by tr_id; 
 
 --gia ta events 
@@ -93,3 +95,18 @@ inner join event on ev_tr_id = tr_id
 inner join branch on tr_br_code = br_code
 where tr_id = 26
 order by tr_id; 
+
+2022-03-17 18:30:00
+2022-10-08 16:30:00
+
+SELECT tr_br_code,distinct(COUNT(res_tr_id)) as 'Number of Reservations'  FROM reservation 
+INNER JOIN trip ON res_tr_id=tr_id;
+
+SELECT br_code,COUNT(*) AS total_of_reservations FROM reservation INNER JOIN trip ON res_tr_id=tr_id INNER JOIN branch ON tr_br_code=br_code GROUP BY br_code;
+
+ insert_driver('AT87653490', 'Mike', 'Ravazoulas', 1000, 'D', 'LOCAL', 5);
+ SELECT wrk_AT , wrk_name,wrk_lname,wrk_salary,wrk_br_code,drv_license, drv_route ,drv_experience 
+ FROM worker 
+ INNER JOIN driver ON drv_AT = wrk_AT;
+
+ delete_worker(IN name varchar(20),IN lname varchar(20))
